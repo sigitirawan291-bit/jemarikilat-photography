@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Phone, Mail, MapPin, Clock, MessageSquare, ShieldCheck, CheckCircle, ExternalLink } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Clock, MessageSquare, ShieldCheck, CheckCircle, ExternalLink, Sparkles } from 'lucide-react';
 import { INITIAL_CHAT_MESSAGES } from '../data/portfolioData';
 import { generateConsultationWaUrl, openWaDirect, ADMIN_WA_DISPLAY, ADMIN_WA_NUMBER } from '../utils/whatsapp';
 
@@ -33,9 +33,6 @@ export default function ContactView({ onOpenBooking }) {
     setInputMsg('');
     setIsTyping(true);
 
-    // Remove automatic openWaDirect(waUrl) on submit
-    // User will only be redirected if they explicitly click the WA button
-
     setTimeout(() => {
       let reply = `Terima kasih! Pesan Anda telah dicatat oleh konsol Studio JEMARI KILAT. Sigit Irawan (Art Director) akan merespon & menghubungi Anda via WhatsApp (${userWa}).\n\nKlik tombol di bawah ini jika ingin meminta konfirmasi atau chat langsung dengan Admin:`;
       
@@ -57,19 +54,19 @@ export default function ContactView({ onOpenBooking }) {
   };
 
   return (
-    <div className="w-full pt-28 pb-24 px-6 lg:px-20 bg-background min-h-screen">
-      <div className="max-w-[1440px] mx-auto">
+    <div className="w-full pt-28 pb-24 px-6 lg:px-16 bg-[#0d0d0e] text-[#f5f5f7] min-h-screen">
+      <div className="max-w-[1440px] mx-auto space-y-16">
         
         {/* Header */}
-        <div className="mb-16 text-center max-w-2xl mx-auto">
-          <span className="font-sans text-[10px] tracking-[0.4em] text-outline uppercase block mb-2 font-semibold">
-            GET IN TOUCH
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
+            GET IN TOUCH & INQUIRE
           </span>
-          <h1 className="font-serif text-4xl lg:text-6xl text-primary font-normal mb-4">
-            Contact & Live Chat
+          <h1 className="font-serif text-4xl lg:text-6xl text-white font-normal">
+            Contact & Consultation
           </h1>
-          <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
-            Connect directly with our creative directors for studio availability, bespoke wedding commissions, or graduation inquiries.
+          <p className="font-sans text-xs text-neutral-400 leading-relaxed font-light">
+            Hubungi tim direktur kreatif kami untuk konsultasi tanggal acara, komisi fotografi pernikahan khusus, atau sesi wisuda.
           </p>
         </div>
 
@@ -77,43 +74,43 @@ export default function ContactView({ onOpenBooking }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column: Direct Info */}
-          <div className="lg:col-span-5 space-y-8 bg-surface p-8 lg:p-10 border border-outline-variant/40">
+          <div className="lg:col-span-5 space-y-8 bg-[#16161a] p-8 lg:p-10 border border-neutral-800 rounded-sm">
             <div>
-              <span className="font-sans text-[10px] tracking-[0.3em] text-outline uppercase block mb-1">STUDIO HEADQUARTERS</span>
-              <h2 className="font-serif text-2xl text-primary font-normal mb-4">JEMARI KILAT Medan</h2>
-              <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
-                Kota Medan, Indonesia
+              <span className="font-sans text-[10px] tracking-[0.3em] text-amber-400 uppercase block mb-1 font-semibold">STUDIO HEADQUARTERS</span>
+              <h2 className="font-serif text-2xl text-white font-normal mb-3">JEMARI KILAT Medan</h2>
+              <p className="font-sans text-xs text-neutral-400 leading-relaxed font-light">
+                Kota Medan, Sumatra Utara, Indonesia
               </p>
             </div>
 
-            <div className="space-y-4 pt-6 border-t border-outline-variant/30 font-sans text-xs">
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-outline" />
+            <div className="space-y-4 pt-6 border-t border-neutral-800 font-sans text-xs">
+              <div className="flex items-center gap-3 text-neutral-300">
+                <Mail className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>jemarikilat@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-green-600" />
+                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
                 <a 
                   href={`https://wa.me/${ADMIN_WA_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline text-primary font-semibold flex items-center gap-1.5"
+                  className="hover:underline text-amber-300 font-semibold flex items-center gap-1.5"
                 >
                   <span>{ADMIN_WA_DISPLAY} (WhatsApp Direct Admin)</span>
-                  <ExternalLink className="w-3 h-3 text-green-600" />
+                  <ExternalLink className="w-3 h-3 text-emerald-400" />
                 </a>
               </div>
-              <div className="flex items-center gap-3">
-                <Clock className="w-4 h-4 text-outline" />
+              <div className="flex items-center gap-3 text-neutral-300">
+                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>Mon – Sat: 09:00 AM – 18:00 PM WIB</span>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-outline-variant/30">
-              <span className="font-sans text-[10px] tracking-[0.25em] text-outline uppercase block mb-3">INSTANT RESERVATION</span>
+            <div className="pt-6 border-t border-neutral-800 space-y-3">
+              <span className="font-sans text-[10px] tracking-[0.25em] text-amber-400 uppercase block font-semibold">INSTANT RESERVATION</span>
               <button
                 onClick={onOpenBooking}
-                className="w-full bg-primary text-on-primary font-sans text-xs tracking-[0.2em] py-3.5 text-center uppercase font-semibold hover:bg-on-surface-variant transition-colors"
+                className="w-full bg-gradient-to-r from-amber-500 to-amber-400 text-black font-sans text-xs tracking-[0.2em] py-3.5 text-center uppercase font-bold hover:from-amber-400 hover:to-amber-300 transition-all shadow-lg border border-amber-300"
               >
                 OPEN BOOKING FORM
               </button>
@@ -121,45 +118,47 @@ export default function ContactView({ onOpenBooking }) {
           </div>
 
           {/* Right Column: Full Interactive Chat Console */}
-          <div className="lg:col-span-7 bg-surface border border-outline-variant/40 overflow-hidden flex flex-col h-[600px] shadow-lg">
+          <div className="lg:col-span-7 bg-[#16161a] border border-neutral-800 rounded-sm overflow-hidden flex flex-col h-[600px] shadow-2xl">
             
             {/* Console Header */}
-            <div className="bg-primary text-on-primary p-4 lg:p-6 flex justify-between items-center">
+            <div className="bg-[#0a0a0c] text-white p-4 lg:p-6 flex justify-between items-center border-b border-neutral-800">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-surface text-primary flex items-center justify-center font-bold text-sm">
-                  JK
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-amber-300 p-[1px]">
+                  <div className="w-full h-full bg-[#0a0a0c] rounded-full flex items-center justify-center font-serif text-amber-400 font-bold text-sm">
+                    JK
+                  </div>
                 </div>
                 <div>
-                  <h3 className="font-serif text-lg font-normal">Sigit Irawan (Art Director)</h3>
-                  <span className="font-sans text-[10px] text-outline-variant tracking-wider uppercase block">
-                    Active Studio Consultation Console • WA: {ADMIN_WA_DISPLAY}
+                  <h3 className="font-serif text-lg font-normal text-white">Sigit Irawan (Art Director)</h3>
+                  <span className="font-sans text-[10px] text-amber-400/80 tracking-wider uppercase block font-mono">
+                    Studio Consultation Console • WA: {ADMIN_WA_DISPLAY}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 text-[10px] font-sans text-green-400">
+              <div className="flex items-center gap-1.5 text-[10px] font-sans text-emerald-400 font-bold">
                 <ShieldCheck className="w-4 h-4" /> SECURE CONSOLE
               </div>
             </div>
 
             {/* WhatsApp Contact Input Bar */}
-            <div className="p-4 bg-surface-container border-b border-outline-variant/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-sans">
+            <div className="p-4 bg-[#111114] border-b border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-sans">
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-green-600" />
-                <span className="font-semibold text-primary">No. WhatsApp Anda (Wajib):</span>
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span className="font-bold text-white">No. WhatsApp Anda (Wajib):</span>
               </div>
               <input
                 type="tel"
                 value={userWa}
                 onChange={(e) => setUserWa(e.target.value)}
                 placeholder="Masukkan Nomor WA (misal: 081360318361)..."
-                className="w-full sm:w-64 bg-surface px-3 py-1.5 border border-outline-variant/40 text-xs text-primary focus:outline-none focus:border-primary placeholder:text-outline"
+                className="w-full sm:w-64 bg-[#16161a] px-3 py-2 border border-neutral-700 text-xs text-white focus:outline-none focus:border-amber-400 placeholder:text-neutral-500 rounded-xs"
                 required
               />
             </div>
 
             {/* Message Area */}
-            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-surface-container-lowest font-sans text-xs">
+            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-[#0d0d0e] font-sans text-xs">
               {messages.map((m) => {
                 const isAdmin = m.sender === 'admin';
                 return (
@@ -168,10 +167,10 @@ export default function ContactView({ onOpenBooking }) {
                     className={`flex flex-col ${isAdmin ? 'items-start' : 'items-end'}`}
                   >
                     <div
-                      className={`max-w-[80%] p-4 leading-relaxed whitespace-pre-line ${
+                      className={`max-w-[80%] p-4 leading-relaxed whitespace-pre-line rounded-xs ${
                         isAdmin
-                          ? 'bg-surface-container text-on-surface border border-outline-variant/30'
-                          : 'bg-primary text-on-primary font-light'
+                          ? 'bg-[#16161a] text-white border border-neutral-800'
+                          : 'bg-amber-500 text-black font-semibold'
                       }`}
                     >
                       {m.text}
@@ -179,39 +178,39 @@ export default function ContactView({ onOpenBooking }) {
                         <button
                           type="button"
                           onClick={() => openWaDirect(m.waUrl)}
-                          className="mt-3 w-full sm:w-auto py-2 px-4 bg-green-700 hover:bg-green-800 text-white font-sans text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors shadow-sm"
+                          className="mt-3 w-full sm:w-auto py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-black font-sans text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors shadow-md rounded-xs"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>Hubungi Admin via WA ({ADMIN_WA_DISPLAY})</span>
                         </button>
                       )}
                     </div>
-                    <span className="text-[9px] text-outline mt-1 px-1">{m.time}</span>
+                    <span className="text-[9px] text-neutral-500 mt-1 px-1 font-mono">{m.time}</span>
                   </div>
                 );
               })}
 
               {isTyping && (
-                <div className="text-outline text-[10px] italic">
+                <div className="text-amber-400 text-[10px] italic">
                   Sigit (JEMARI KILAT) sedang menyiapkan jawaban...
                 </div>
               )}
             </div>
 
             {/* Input Form */}
-            <form onSubmit={handleSend} className="p-4 bg-surface border-t border-outline-variant/30 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <form onSubmit={handleSend} className="p-4 bg-[#16161a] border-t border-neutral-800 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <input
                 type="text"
                 value={inputMsg}
                 onChange={(e) => setInputMsg(e.target.value)}
                 placeholder="Tuliskan pertanyaan atau rencana tanggal acara Anda..."
-                className="flex-1 bg-transparent text-xs text-primary input-underline"
+                className="flex-1 bg-transparent text-xs text-white input-underline"
               />
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="submit"
                   title="Kirim pesan ke konsol chat"
-                  className="bg-primary text-on-primary font-sans text-xs tracking-[0.15em] px-5 py-3 uppercase font-semibold hover:bg-on-surface-variant transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="bg-amber-500 text-black font-sans text-xs tracking-[0.15em] px-5 py-3 uppercase font-bold hover:bg-amber-400 transition-colors flex items-center justify-center gap-2 whitespace-nowrap rounded-xs shadow-md"
                 >
                   <Send className="w-3.5 h-3.5" /> KIRIM PESAN
                 </button>
@@ -223,7 +222,7 @@ export default function ContactView({ onOpenBooking }) {
                     openWaDirect(waUrl);
                   }}
                   title="Chat langsung dengan Admin via WhatsApp"
-                  className="bg-green-700 text-white font-sans text-xs tracking-[0.1em] px-4 py-3 uppercase font-semibold hover:bg-green-800 transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap"
+                  className="bg-emerald-600 text-black font-sans text-xs tracking-[0.1em] px-4 py-3 uppercase font-bold hover:bg-emerald-500 transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xs shadow-md"
                 >
                   <ExternalLink className="w-3.5 h-3.5" /> CHAT WA ADMIN
                 </button>

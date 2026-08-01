@@ -26,42 +26,42 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
   const displayedPackages = getPackagesByCategory(activeTab);
 
   return (
-    <div className="w-full pt-28 pb-24 px-6 lg:px-20 bg-background min-h-screen">
-      <div className="max-w-[1440px] mx-auto">
+    <div className="w-full pt-28 pb-24 px-6 lg:px-16 bg-[#0d0d0e] text-[#f5f5f7] min-h-screen">
+      <div className="max-w-[1440px] mx-auto space-y-20">
         
-        {/* Studio Bio & Approach */}
-        <div className="max-w-4xl mx-auto mb-24 text-center">
-          <span className="font-sans text-[10px] tracking-[0.4em] text-outline uppercase block mb-3 font-semibold">
+        {/* Studio Philosophy Header */}
+        <div className="max-w-4xl mx-auto text-center space-y-4">
+          <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
             ABOUT & PHILOSOPHY
           </span>
-          <h1 className="font-serif text-4xl lg:text-6xl text-primary font-normal mb-8 leading-tight">
+          <h1 className="font-serif text-4xl lg:text-6xl text-white font-normal leading-tight">
             Crafting Timeless Visual Histories
           </h1>
           
-          <div className="text-left font-sans text-xs lg:text-sm text-on-surface-variant space-y-4 leading-relaxed bg-surface p-8 lg:p-12 border border-outline-variant/30">
-            <strong className="text-primary font-serif text-base block mb-2">JEMARI KILAT STUDIO</strong>
-            <p className="italic font-serif text-sm lg:text-base text-primary/90 leading-relaxed">
+          <div className="text-left font-sans text-xs lg:text-sm text-neutral-300 space-y-4 leading-relaxed bg-[#16161a] p-8 lg:p-12 border border-neutral-800 rounded-sm">
+            <strong className="text-amber-400 font-serif text-base block mb-1">JEMARI KILAT STUDIO</strong>
+            <p className="italic font-serif text-base lg:text-lg text-white/90 leading-relaxed font-normal">
               "To the world, time moves forward without ceasing. But for Jemari Kilat, time can be stopped. We are here to freeze life's finest moments into an everlasting masterpiece, through swift instincts and the gentle art of photography."
             </p>
           </div>
         </div>
 
         {/* Pricing & Packages Section */}
-        <div className="mb-24">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="font-sans text-[10px] tracking-[0.4em] text-outline uppercase block mb-2 font-semibold">
+        <div>
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
               INVESTMENT & COLLECTIONS
             </span>
-            <h2 className="font-serif text-3xl lg:text-5xl text-primary font-normal">
+            <h2 className="font-serif text-3xl lg:text-5xl text-white font-normal">
               Pricing Packages
             </h2>
-            <p className="font-sans text-xs text-on-surface-variant mt-2">
-              All collections include high-resolution color corrected files, private digital gallery access, and master retouched prints.
+            <p className="font-sans text-xs text-neutral-400 font-light">
+              Seluruh paket investasi mencakup file digital resolusi tinggi dengan retouch profesional dan galeri digital privat.
             </p>
           </div>
 
-          {/* Pricing Category Switcher Tabs & Download Action */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-16 pb-6 border-b border-outline-variant/30">
+          {/* Pricing Tabs & Download Action */}
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12 pb-6 border-b border-neutral-800">
             
             <div className="flex flex-wrap items-center gap-2 lg:gap-3">
               {categoriesList.map((cat) => {
@@ -71,10 +71,10 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
                   <button
                     key={cat.id}
                     onClick={() => setActiveTab(cat.id)}
-                    className={`font-sans text-[11px] tracking-[0.15em] px-4 lg:px-5 py-3 uppercase font-semibold transition-all duration-300 flex items-center gap-2 border ${
+                    className={`font-sans text-[11px] tracking-[0.15em] px-4 lg:px-5 py-3 uppercase font-semibold transition-all duration-300 flex items-center gap-2 border rounded-xs ${
                       isActive
-                        ? 'bg-primary text-on-primary border-primary shadow-lg'
-                        : 'bg-surface text-on-surface-variant border-outline-variant/40 hover:border-primary'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black border-amber-300 shadow-md font-bold'
+                        : 'bg-[#16161a] text-neutral-400 border-neutral-800 hover:border-neutral-700 hover:text-white'
                     }`}
                   >
                     <IconComp className="w-3.5 h-3.5" />
@@ -84,10 +84,10 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
               })}
             </div>
 
-            {/* Download Pricelist Button for Selected Category */}
+            {/* Download Pricelist Button */}
             <button
               onClick={() => downloadPricelist(activeTab)}
-              className="w-full lg:w-auto shrink-0 font-sans text-xs tracking-[0.15em] px-6 py-3.5 bg-transparent border border-primary text-primary hover:bg-primary hover:text-on-primary transition-colors uppercase font-semibold flex items-center justify-center gap-2"
+              className="w-full lg:w-auto shrink-0 font-sans text-xs tracking-[0.18em] px-6 py-3 bg-transparent border border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-black transition-colors uppercase font-bold flex items-center justify-center gap-2 rounded-xs"
             >
               <Download className="w-4 h-4" />
               DOWNLOAD {activeTab.toUpperCase()} PRICELIST
@@ -95,46 +95,46 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
 
           </div>
 
-          {/* Package Cards (3 Cards matching original format) */}
+          {/* Package Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             {displayedPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`bg-surface border p-8 flex flex-col justify-between transition-all duration-300 ${
+                className={`bg-[#16161a] border p-8 flex flex-col justify-between transition-all duration-300 rounded-sm ${
                   pkg.recommended 
-                    ? 'border-primary shadow-2xl relative ring-1 ring-primary' 
-                    : 'border-outline-variant/40 hover:border-outline'
+                    ? 'border-amber-500/80 shadow-[0_0_30px_rgba(212,175,55,0.2)] relative ring-1 ring-amber-400' 
+                    : 'border-neutral-800 hover:border-neutral-700'
                 }`}
               >
                 {pkg.recommended && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-on-primary font-sans text-[9px] tracking-[0.25em] px-4 py-1 uppercase font-semibold">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-sans text-[9px] tracking-[0.25em] px-4 py-1 uppercase font-bold shadow-md">
                     MOST REQUESTED
                   </span>
                 )}
 
                 <div>
-                  <h3 className="font-serif text-2xl text-primary font-normal mb-2">
+                  <h3 className="font-serif text-2xl text-white font-normal mb-2">
                     {pkg.name}
                   </h3>
                   
-                  <p className="font-sans text-xs text-on-surface-variant min-h-[40px] leading-relaxed mb-6">
+                  <p className="font-sans text-xs text-neutral-400 min-h-[40px] leading-relaxed mb-6 font-light">
                     {pkg.subtitle}
                   </p>
 
-                  <div className="py-6 border-t border-b border-outline-variant/40 mb-6">
-                    <span className="font-serif text-3xl text-primary font-normal block">
+                  <div className="py-6 border-t border-b border-neutral-800 mb-6">
+                    <span className="font-serif text-3xl text-amber-300 font-normal block">
                       {pkg.priceIdr}
                     </span>
-                    <span className="font-sans text-[10px] text-outline tracking-wider uppercase mt-1 block">
+                    <span className="font-mono text-[10px] text-neutral-400 tracking-wider uppercase mt-1 block">
                       ESTIMATED INVEST: {pkg.priceUsd} / PROJECT
                     </span>
                   </div>
 
                   {/* Feature Items List */}
-                  <ul className="space-y-3 font-sans text-xs text-on-surface-variant mb-8">
+                  <ul className="space-y-3 font-sans text-xs text-neutral-300 mb-8 font-light">
                     {pkg.features.map((feat, idx) => (
                       <li key={idx} className="flex items-start gap-2.5">
-                        <span className="text-primary font-bold mt-0.5">—</span>
+                        <span className="text-amber-400 font-bold mt-0.5">—</span>
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -143,10 +143,10 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
 
                 <button
                   onClick={() => onSelectPackage(pkg.id)}
-                  className={`w-full font-sans text-xs tracking-[0.2em] py-3.5 text-center uppercase font-semibold transition-colors flex items-center justify-center gap-2 ${
+                  className={`w-full font-sans text-xs tracking-[0.2em] py-3.5 text-center uppercase font-bold transition-all flex items-center justify-center gap-2 border ${
                     pkg.recommended
-                      ? 'bg-primary text-on-primary hover:bg-on-surface-variant'
-                      : 'bg-transparent border border-primary text-primary hover:bg-primary hover:text-on-primary'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black border-amber-300 hover:from-amber-400 hover:to-amber-300 shadow-lg'
+                      : 'bg-transparent border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-black'
                   }`}
                 >
                   <Send className="w-3.5 h-3.5" /> SELECT {pkg.name.split(' ')[0]}
@@ -158,12 +158,12 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
         </div>
 
         {/* FAQ Accordion Section */}
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="font-sans text-[10px] tracking-[0.4em] text-outline uppercase block mb-2 font-semibold">
+        <div className="max-w-3xl mx-auto pt-8">
+          <div className="text-center mb-10 space-y-2">
+            <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
               QUESTIONS & ANSWERS
             </span>
-            <h2 className="font-serif text-3xl text-primary font-normal">
+            <h2 className="font-serif text-3xl text-white font-normal">
               Frequently Asked Questions
             </h2>
           </div>
@@ -174,18 +174,18 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
               return (
                 <div
                   key={index}
-                  className="bg-surface border border-outline-variant/40 overflow-hidden"
+                  className="bg-[#16161a] border border-neutral-800 rounded-sm overflow-hidden"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
-                    className="w-full p-6 text-left flex justify-between items-center gap-4 font-serif text-lg text-primary focus:outline-none"
+                    className="w-full p-6 text-left flex justify-between items-center gap-4 font-serif text-lg text-white hover:text-amber-300 focus:outline-none transition-colors"
                   >
                     <span>{faq.question}</span>
-                    <ChevronDown className={`w-5 h-5 text-outline transition-transform duration-300 ${isOpen ? 'rotate-180 text-primary' : ''}`} />
+                    <ChevronDown className={`w-5 h-5 text-amber-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-amber-300' : ''}`} />
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 font-sans text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20">
+                    <div className="px-6 pb-6 pt-0 font-sans text-xs text-neutral-300 leading-relaxed border-t border-neutral-800/80 font-light">
                       <p className="mt-3">{faq.answer}</p>
                     </div>
                   )}
@@ -197,7 +197,7 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
           <div className="mt-12 text-center">
             <button
               onClick={onOpenBooking}
-              className="bg-primary text-on-primary font-sans text-xs tracking-[0.2em] px-8 py-3.5 uppercase font-semibold hover:bg-outline transition-colors"
+              className="bg-amber-500 text-black font-sans text-xs tracking-[0.2em] px-8 py-3.5 uppercase font-bold hover:bg-amber-400 transition-colors shadow-lg border border-amber-300"
             >
               HAVE CUSTOM REQUIREMENTS? CONTACT US
             </button>

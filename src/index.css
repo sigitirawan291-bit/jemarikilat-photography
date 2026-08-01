@@ -5,41 +5,50 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
   
   body {
-    background-color: #f9f9f9;
-    color: #1a1c1c;
+    background-color: #0d0d0e;
+    color: #f5f5f7;
     overflow-x: hidden;
   }
 }
 
 /* Glassmorphism utility */
 .glass-effect {
-  background: rgba(249, 249, 249, 0.85);
+  background: rgba(13, 13, 14, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
 .glass-dark {
-  background: rgba(28, 27, 27, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(18, 18, 22, 0.90);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.glass-gold {
+  background: rgba(212, 175, 55, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 /* Boutique underline form inputs */
 .input-underline {
   border: none;
-  border-bottom: 1px solid #c4c7c7;
+  border-bottom: 1px solid #3a3a44;
   background: transparent;
   padding: 12px 0;
+  color: #f5f5f7;
   border-radius: 0;
   transition: border-color 0.3s ease;
 }
 
 .input-underline:focus {
   outline: none;
-  border-bottom: 1.5px solid #000000;
+  border-bottom: 1.5px solid #d4af37;
   box-shadow: none;
 }
 
@@ -50,15 +59,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f9f9f9;
+  background: #0d0d0e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dadada;
+  background: #282832;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #747878;
+  background: #d4af37;
 }
 
 /* Keyframe animations */
@@ -80,3 +90,11 @@
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
+
+/* Gold Gradient Text helper */
+.text-gold-gradient {
+  background: linear-[135deg,#f5e0a3_0%,#d4af37_50%,#aa820a_100%];
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
