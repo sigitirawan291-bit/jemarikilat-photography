@@ -1,4 +1,5 @@
 import React from 'react';
+import { Camera } from 'lucide-react';
 import { ADMIN_WA_NUMBER, ADMIN_WA_DISPLAY } from '../utils/whatsapp';
 import { useData } from '../context/DataContext';
 
@@ -67,6 +68,13 @@ export default function Footer({ activePage, setActivePage, onOpenBooking }) {
           >
             <span className="text-green-400">—</span> Admin CMS Portal
           </button>
+          <button 
+            onClick={() => { setActivePage('fg-dashboard'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="text-left text-amber-300 hover:text-amber-200 font-semibold transition-colors flex items-center gap-2"
+          >
+            <Camera className="w-3.5 h-3.5 text-amber-400" />
+            <span>Portal Login FG (Photographer)</span>
+          </button>
         </div>
 
         {/* Contact & Inquiries */}
@@ -112,10 +120,21 @@ export default function Footer({ activePage, setActivePage, onOpenBooking }) {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto border-t border-on-primary/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] font-sans text-outline tracking-widest uppercase">
+      <div className="max-w-[1440px] mx-auto border-t border-on-primary/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] font-sans text-outline tracking-widest uppercase gap-4">
         <p>© 2024 JEMARI KILAT STUDIO. ALL RIGHTS RESERVED.</p>
-        <p>OBSIDIAN & IVORY DESIGN SYSTEM</p>
+        <div className="flex items-center gap-4">
+          <p className="hidden sm:block">OBSIDIAN & IVORY DESIGN SYSTEM</p>
+          <button
+            onClick={() => { setActivePage('fg-dashboard'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="flex items-center gap-2 px-3.5 py-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full hover:bg-amber-500/30 hover:border-amber-400 transition-all text-[11px] font-semibold tracking-wider normal-case shadow-sm"
+            title="Portal Login Tim FG / Photographer"
+          >
+            <Camera className="w-3.5 h-3.5 text-amber-400" />
+            <span>Login Team FG</span>
+          </button>
+        </div>
       </div>
     </footer>
   );
 }
+
