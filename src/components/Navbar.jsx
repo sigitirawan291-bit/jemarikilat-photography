@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, User, ShieldCheck } from 'lucide-react';
+import { Menu, X, User, ShieldCheck, Camera } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
 export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
@@ -14,6 +14,7 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
     { id: 'pricing', label: 'PRICING & ABOUT' },
     { id: 'contact', label: 'CONTACT & CHAT' },
     { id: 'admin', label: 'ADMIN' },
+    { id: 'fg-dashboard', label: 'FG PORTAL' },
   ];
 
   const navLinks = eventSettings?.isEventPageHidden
@@ -55,10 +56,11 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
           </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 ml-10">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 ml-6 xl:ml-10">
             {navLinks.map((link) => {
               const isActive = activePage === link.id;
               const isAdmin = link.id === 'admin';
+              const isFg = link.id === 'fg-dashboard';
               const isEvent = link.id === 'event';
               return (
                 <button
@@ -75,6 +77,8 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
                         ? 'text-primary font-semibold' 
                         : isAdmin
                         ? 'text-green-600 hover:text-green-700 font-semibold'
+                        : isFg
+                        ? 'text-amber-600 hover:text-amber-700 font-semibold'
                         : 'text-on-surface-variant hover:text-primary font-normal'
                   }`}
                 >
@@ -101,6 +105,14 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
             }`}
           >
             BOOK SESSION
+          </button>
+
+          <button 
+            onClick={() => handleNavClick('fg-dashboard')}
+            title="Portal Tim FG (Photographer Login)" 
+            className="w-9 h-9 rounded-full bg-amber-600 flex items-center justify-center text-white hover:bg-amber-700 transition-colors shadow-sm"
+          >
+            <Camera className="w-4 h-4" />
           </button>
 
           <button 
@@ -168,3 +180,4 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
     </header>
   );
 }
+
