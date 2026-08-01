@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Production & archives
+dist/
+dist.zip
+*.zip
+
+# Environment & logs
+.env
+.env.local
+.DS_Store
+Thumbs.db
+*.log

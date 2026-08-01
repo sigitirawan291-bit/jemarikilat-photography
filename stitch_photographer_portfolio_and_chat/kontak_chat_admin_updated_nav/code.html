@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact | ELYSIA PHOTOGRAPHY</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e4e2e2",
+                    "outline": "#747878",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary-container": "#1b1c1c",
+                    "on-background": "#1a1c1c",
+                    "surface": "#f9f9f9",
+                    "inverse-primary": "#c8c6c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9f9",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "on-primary-container": "#858383",
+                    "on-tertiary-container": "#848484",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dadada",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface": "#1a1c1c",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#454747",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "tertiary": "#000000",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#000000",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f1",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-bright": "#f9f9f9",
+                    "on-secondary-container": "#616363",
+                    "secondary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "surface-tint": "#5f5e5e",
+                    "primary-fixed": "#e5e2e1",
+                    "on-surface-variant": "#444748",
+                    "surface-container-low": "#f3f3f4",
+                    "secondary-container": "#dfe0e0",
+                    "secondary": "#5d5f5f",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2f3131"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "page-margin-desktop": "80px",
+                    "section-gap": "160px",
+                    "element-gap": "32px",
+                    "page-margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-sm": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .input-underline {
+            border: none;
+            border-bottom: 1px solid #E5E5E5;
+            background: transparent;
+            padding: 12px 0;
+            transition: border-color 0.3s ease;
+        }
+        .input-underline:focus {
+            outline: none;
+            border-bottom: 1px solid #121212;
+            box-shadow: none;
+        }
+        .chat-bubble-user {
+            background: #1c1b1b;
+            color: white;
+            border-radius: 12px 12px 0 12px;
+        }
+        .chat-bubble-admin {
+            background: #eeeeee;
+            color: #1a1c1c;
+            border-radius: 12px 12px 12px 0;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-page-margin-desktop py-6 max-w-[1440px] mx-auto">
+<a class="font-headline-sm text-headline-sm tracking-tighter text-primary dark:text-on-primary-fixed" href="#">ELYSIA PHOTOGRAPHY</a>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors duration-300" href="#">Home</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors duration-300" href="#">About</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors duration-300" href="#">Gallery</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors duration-300" href="#">Video</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors duration-300" href="#">Pricing</a>
+<a class="font-label-caps text-label-caps tracking-widest text-primary dark:text-on-primary-fixed border-b border-primary dark:border-on-primary-fixed pb-1" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-70 transition-opacity duration-300">
+            Book Session
+        </button>
+</div>
+</nav>
+<main class="pt-32 pb-section-gap px-page-margin-mobile md:px-page-margin-desktop max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<header class="mb-20">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Hubungi Kami</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">Abadikan momen berharga Anda melalui lensa artistik kami. Kami siap mendengarkan visi Anda dan mewujudkannya dalam mahakarya visual yang abadi.</p>
+</header>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+<!-- Left Side: Contact Info & Form -->
+<div class="space-y-16">
+<!-- Contact Form -->
+<section>
+<h2 class="font-label-caps text-label-caps tracking-widest mb-10 text-primary uppercase">Kirim Pesan</h2>
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps mb-2 text-on-surface-variant">Nama Lengkap</label>
+<input class="input-underline font-body-md" placeholder="Masukkan nama Anda" type="text"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps mb-2 text-on-surface-variant">Alamat Email</label>
+<input class="input-underline font-body-md" placeholder="email@contoh.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps mb-2 text-on-surface-variant">Tipe Sesi</label>
+<select class="input-underline font-body-md appearance-none">
+<option>Wedding Photography</option>
+<option>Editorial / Fashion</option>
+<option>Fine Art Portrait</option>
+<option>Commercial / Interior</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps mb-2 text-on-surface-variant">Pesan</label>
+<textarea class="input-underline font-body-md resize-none" placeholder="Ceritakan tentang proyek atau visi Anda..." rows="4"></textarea>
+</div>
+<button class="bg-primary text-on-primary w-full md:w-auto px-12 py-4 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all duration-300" type="submit">
+                        KIRIM PESAN
+                    </button>
+</form>
+</section>
+<!-- Office & Socials -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-outline-variant/30">
+<div>
+<h3 class="font-label-caps text-label-caps tracking-widest mb-4 text-primary uppercase">Studio Kami</h3>
+<address class="not-italic font-body-md text-secondary leading-relaxed">
+                        Jl. Senopati No. 8B, Selong<br/>
+                        Kebayoran Baru, Jakarta Selatan<br/>
+                        DKI Jakarta 12110<br/>
+                        Indonesia
+                    </address>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps tracking-widest mb-4 text-primary uppercase">Ikuti Kami</h3>
+<ul class="space-y-2">
+<li><a class="font-body-md text-secondary hover:text-primary transition-colors" href="#">— Instagram</a></li>
+<li><a class="font-body-md text-secondary hover:text-primary transition-colors" href="#">— Vogue Portfolio</a></li>
+<li><a class="font-body-md text-secondary hover:text-primary transition-colors" href="#">— Behance</a></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Right Side: Integrated Chat Interface -->
+<div class="lg:sticky lg:top-40">
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col h-[600px]">
+<!-- Chat Header -->
+<div class="px-8 py-6 bg-surface-container border-b border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+<div>
+<h3 class="font-label-caps text-label-caps tracking-widest text-primary uppercase">Chat dengan Admin</h3>
+<p class="text-[10px] text-on-surface-variant mt-1">Kami biasanya membalas dalam hitungan menit</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</div>
+<!-- Chat Body -->
+<div class="flex-1 p-8 overflow-y-auto space-y-6 flex flex-col" id="chat-messages">
+<!-- Admin Message -->
+<div class="flex items-start gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+</div>
+<div class="chat-bubble-admin px-5 py-4 text-body-md leading-relaxed">
+                            Halo! Saya Sarah dari tim Elysia. Ada yang bisa kami bantu mengenai reservasi atau paket fotografi kami?
+                        </div>
+</div>
+<!-- User Message (Mock) -->
+<div class="flex items-start gap-4 max-w-[85%] self-end flex-row-reverse">
+<div class="chat-bubble-user px-5 py-4 text-body-md leading-relaxed">
+                            Halo Sarah, saya tertarik untuk sesi editorial di bulan depan. Apakah masih tersedia slot?
+                        </div>
+</div>
+<!-- Admin Message -->
+<div class="flex items-start gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+</div>
+<div class="chat-bubble-admin px-5 py-4 text-body-md leading-relaxed">
+                            Tentu, untuk bulan depan kami masih memiliki beberapa slot di minggu ke-2 dan ke-3. Apakah ada tanggal spesifik yang Anda inginkan?
+                        </div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-6 border-t border-outline-variant/30 bg-surface">
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low border-none rounded-full py-4 pl-6 pr-14 focus:ring-1 focus:ring-primary font-body-md" id="chat-input" placeholder="Tulis pesan Anda di sini..." type="text"/>
+<button class="absolute right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+<div class="flex gap-4 mt-4 px-2">
+<button class="text-[11px] font-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">attach_file</span> Lampirkan
+                        </button>
+<button class="text-[11px] font-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span> Jadwalkan Sesi
+                        </button>
+</div>
+</div>
+</div>
+<!-- Trust Element -->
+<div class="mt-8 flex items-center gap-6 p-6 rounded-lg bg-surface-container-low border border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional female studio administrator portrait with soft gallery lighting, clean minimalist aesthetics, blurred background showing a modern photography studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClbA8wyIwY6_6Nek14jN1LF4jDQvHxxYZ96WdQ4PGy1dhLvDF32Te--cxcGMj7ncbMg6ZITPTOzdO4aeo4v0I5MEZUcDZTwWo-PTM9oBZbgmSh2LSp9uliuS5doGnTxKrrBVB2xEOXNu4u-VQ7WXqzZirTPsMU13CHQ04u2i9N8IRqCwcMJeZFf_3ye1V5NALGRTd7UWkhCP_EHQWaMAWKs57q00mnVvfUXeS1QObZVwdQ0wSuVtWgFg"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A smiling creative professional male photographer in a minimalist black turtleneck, soft cinematic key lighting, high-end artistic photography brand style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_r4w0V9efd23fTcOmhmZ40_OILWG_PvS_UN9u4aaMFVgYjMPE2ffnwSgY93y-2INSTxruTgReB-U8nT8QNk5sqtpV87UmkFgqxpIU1wznSwlcYOTZ3WrYCKspS_6WTxItcvz_P8lAtVnqyh-K1OQRwLNZUdufHXJ3gvRTP8gUsrUp5oawQYwDbthGJIcbp4v1dWzF6o2C2yUx24vNibb6UbGG2a4Xy8H9m3D5yonkux6gX0jDFbPC8A"/>
+</div>
+</div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">
+                    Tim kami tersedia setiap hari <br/> pukul 09:00 — 21:00 WIB
+                </p>
+</div>
+</div>
+</div>
+<!-- Location Map Placeholder -->
+<section class="mt-section-gap">
+<h2 class="font-label-caps text-label-caps tracking-widest mb-10 text-primary uppercase text-center">Temukan Kami</h2>
+<div class="w-full h-[500px] grayscale contrast-125 opacity-90 border border-outline-variant/30 overflow-hidden relative group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist architectural map of Jakarta's Senopati district, styled like an art gallery floor plan, clean lines, monochromatic grey and white color palette, elegant and sophisticated urban layout." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDH8cHb4bR32QBfapf5cWWE0cpWEsqOi0_PrWQuKipDnbmeYCIfFXx92LzH1dwem3EcEESoxK88AEyq_jZ2Ds9MLptn-M_SQ1skp2nLmckPbDugQRijPGHfAppiBdabbo4_hsZ5Gy4VHMid6-rIaRx0Me2FAPLs09F55BbRTqqMvEeIhJ3zkgsQAL7fIIrOQ1uW7s64aAV5v65kjK9rH0ccxll_lUXVwPGyXEoL081kPfLJmiFYMRkrAw')"></div>
+<div class="absolute inset-0 bg-primary/5 flex items-center justify-center">
+<div class="bg-surface px-8 py-6 border border-primary flex items-center gap-4 animate-bounce">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-caps text-label-caps tracking-widest text-primary">ELYSIA STUDIO</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-on-background border-t border-outline-variant/20 w-full py-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center px-page-margin-desktop max-w-[1440px] mx-auto gap-8">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-on-primary-fixed">ELYSIA PHOTOGRAPHY</span>
+<div class="flex gap-10">
+<a class="font-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-300" href="#">Instagram</a>
+<a class="font-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-300" href="#">Vogue Portfolio</a>
+<a class="font-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-300" href="#">Terms of Service</a>
+</div>
+<p class="font-body-md text-secondary dark:text-secondary-fixed-dim uppercase tracking-widest text-[10px]">
+            © 2024 ELYSIA PHOTOGRAPHY. ALL RIGHTS RESERVED.
+        </p>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    // Simple chat simulation
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    if (chatInput && chatMessages) {
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim() !== '') {
+                const text = this.value;
+                this.value = '';
+
+                // User message
+                const userDiv = document.createElement('div');
+                userDiv.className = 'flex items-start gap-4 max-w-[85%] self-end flex-row-reverse opacity-0 translate-y-4 transition-all duration-300';
+                userDiv.innerHTML = `
+                    <div class="chat-bubble-user px-5 py-4 text-body-md leading-relaxed">
+                        ${text}
+                    </div>
+                `;
+                chatMessages.appendChild(userDiv);
+                
+                // Trigger animation
+                setTimeout(() => {
+                    userDiv.classList.remove('opacity-0', 'translate-y-4');
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 10);
+
+                // Simple auto-reply after delay
+                setTimeout(() => {
+                    const adminDiv = document.createElement('div');
+                    adminDiv.className = 'flex items-start gap-4 max-w-[85%] opacity-0 translate-y-4 transition-all duration-300';
+                    adminDiv.innerHTML = `
+                        <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">support_agent</span>
+                        </div>
+                        <div class="chat-bubble-admin px-5 py-4 text-body-md leading-relaxed">
+                            Terima kasih pesan Anda. Salah satu kurator kami akan segera menanggapi detail ini dalam beberapa saat.
+                        </div>
+                    `;
+                    chatMessages.appendChild(adminDiv);
+                    
+                    setTimeout(() => {
+                        adminDiv.classList.remove('opacity-0', 'translate-y-4');
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 10);
+                }, 1500);
+            }
+        });
+    }
+
+    // Form submission animation mock
+    const contactForm = document.querySelector('form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            if (btn) {
+                const originalText = btn.innerText;
+                btn.innerText = 'MENGIRIM...';
+                btn.style.opacity = '0.5';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerText = 'PESAN TERKIRIM';
+                    btn.classList.replace('bg-primary', 'bg-green-600');
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.replace('bg-green-600', 'bg-primary');
+                        btn.style.opacity = '1';
+                        btn.disabled = false;
+                        e.target.reset();
+                    }, 3000);
+                }, 1000);
+            }
+        });
+    }
+</script>
+</body></html>

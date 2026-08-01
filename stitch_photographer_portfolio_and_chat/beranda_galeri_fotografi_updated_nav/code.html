@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ELYSIA PHOTOGRAPHY | Portfolio</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e4e2e2",
+                    "outline": "#747878",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary-container": "#1b1c1c",
+                    "on-background": "#1a1c1c",
+                    "surface": "#f9f9f9",
+                    "inverse-primary": "#c8c6c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9f9",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "on-primary-container": "#858383",
+                    "on-tertiary-container": "#848484",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dadada",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface": "#1a1c1c",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#454747",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "tertiary": "#000000",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#000000",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f1",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-bright": "#f9f9f9",
+                    "on-secondary-container": "#616363",
+                    "secondary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "surface-tint": "#5f5e5e",
+                    "primary-fixed": "#e5e2e1",
+                    "on-surface-variant": "#444748",
+                    "surface-container-low": "#f3f3f4",
+                    "secondary-container": "#dfe0e0",
+                    "secondary": "#5d5f5f",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2f3131"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "page-margin-desktop": "80px",
+                    "section-gap": "160px",
+                    "element-gap": "32px",
+                    "page-margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-sm": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            overflow-x: hidden;
+        }
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-auto-rows: 10px;
+            gap: 24px;
+        }
+        .masonry-item {
+            grid-row-end: span 30; /* Default */
+        }
+        .masonry-item.portrait { grid-row-end: span 50; }
+        .masonry-item.landscape { grid-row-end: span 35; }
+        .masonry-item.square { grid-row-end: span 40; }
+
+        .glass-nav {
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        
+        .image-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        .image-reveal img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .image-reveal:hover img {
+            transform: scale(1.05);
+        }
+        .image-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .image-reveal:hover .image-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl border-b border-outline-variant/30 transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-page-margin-mobile md:px-page-margin-desktop py-6 max-w-[1440px] mx-auto">
+<div class="font-headline-sm text-headline-sm tracking-tighter text-primary dark:text-on-primary-fixed">
+                ELYSIA PHOTOGRAPHY
+            </div>
+<!-- Desktop Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Home</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">About</a>
+<a class="font-label-caps text-label-caps tracking-widest text-primary dark:text-on-primary-fixed border-b border-primary dark:border-on-primary-fixed pb-1" href="#gallery">Gallery</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Video</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Pricing</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-70 transition-opacity duration-300">
+                    Book Session
+                </button>
+<button class="md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-screen overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, wide-angle high-fashion photograph of a model in a flowing white silk dress standing on a dramatic volcanic landscape in Bali. The lighting is the golden hour, casting long soft shadows and a warm glow over the black sand. The composition is minimalist and grand, emphasizing the scale of nature. The image is crisp, professional, and evokes a luxury editorial mood consistent with a high-end photography portfolio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBGJrMqxnWYtFy0yY3sWlGokadkyl6mV75F3dxQ02A4teEg9XVrmvPI4amQZmwXlhf1MHUaetTkC4QIvZAJXhOifD3W3lSwv0Jtufj6bz4EVfWXO70ueN60CQc4U9GS_QejmZBP2qUzgpHxUtCrIURwZeASp7QITnqFAtBXHNmrJo6BO_XszM-UAfpJezrRM5iQHwR0VfvPbGjr7WhVg-JU4TnT47K4fCSCIOOiqBhsBxd7_150QJ6Nw"/>
+</div>
+<div class="absolute inset-0 bg-black/20 z-10"></div>
+<div class="relative z-20 h-full flex flex-col justify-end px-page-margin-mobile md:px-page-margin-desktop pb-24 max-w-[1440px] mx-auto text-on-primary">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-none animate-fade-in-up">
+                    Menangkap <br/>Keabadian.
+                </h1>
+<p class="font-body-lg text-body-lg mb-8 opacity-90 max-w-lg">
+                    Fotografi kelas dunia yang menggabungkan visi artistik dengan presisi teknis untuk momen berharga Anda di seluruh Indonesia.
+                </p>
+<a class="inline-flex items-center gap-4 group" href="#gallery">
+<span class="w-12 h-[1px] bg-white group-hover:w-20 transition-all duration-300"></span>
+<span class="font-label-caps text-label-caps tracking-[0.2em] uppercase">Lihat Galeri</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Content Wrapper -->
+<main class="relative z-30 bg-surface">
+<!-- Intro Section -->
+<section class="py-section-gap px-page-margin-mobile md:px-page-margin-desktop max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-5">
+<h2 class="font-headline-md text-headline-md mb-8">Karya yang Berbicara Lebih dari Sekadar Gambar.</h2>
+</div>
+<div class="md:col-span-6 md:col-start-7">
+<p class="text-secondary mb-6 leading-relaxed">
+                        Di Elysia Photography, kami percaya bahwa setiap frame adalah cerita. Fokus kami adalah pada pencahayaan alami, emosi mentah, dan komposisi minimalis yang menonjolkan esensi subjek. Baik itu potret intim, kemegahan lanskap, atau dinamika acara, kami membawa standar galeri seni ke dalam setiap pesanan.
+                    </p>
+<div class="flex gap-12 mt-12 border-t border-outline-variant/30 pt-8">
+<div>
+<span class="block font-headline-sm text-headline-sm">12+</span>
+<span class="font-label-caps text-label-caps text-secondary">TAHUN PENGALAMAN</span>
+</div>
+<div>
+<span class="block font-headline-sm text-headline-sm">450+</span>
+<span class="font-label-caps text-label-caps text-secondary">PROYEK SELESAI</span>
+</div>
+<div>
+<span class="block font-headline-sm text-headline-sm">15</span>
+<span class="font-label-caps text-label-caps text-secondary">PENGHARGAAN INTERNASIONAL</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Masonry Gallery -->
+<section class="pb-section-gap px-page-margin-mobile md:px-page-margin-desktop max-w-[1440px] mx-auto" id="gallery">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-4 block">Portofolio Pilihan</span>
+<h3 class="font-headline-md text-headline-md">Eksplorasi Visual</h3>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-primary font-label-caps text-label-caps bg-primary text-white">Semua</button>
+<button class="px-6 py-2 border border-outline font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all">Potret</button>
+<button class="px-6 py-2 border border-outline font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all">Alam</button>
+<button class="px-6 py-2 border border-outline font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all">Event</button>
+</div>
+</div>
+<div class="masonry-grid">
+<!-- Item 1: Portrait -->
+<div class="masonry-item portrait image-reveal">
+<img class="w-full h-full object-cover" data-alt="A soulful close-up portrait of an elderly Balinese craftsman in his workshop. The lighting is dramatic chiaroscuro, highlighting the deep wrinkles on his face and the fine details of his wood carving. The background is softly blurred in earthy tones. High-end professional photography style, sharp focus on eyes, rich textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn3Z14wESUpjhb4ZUmSI5HuuUyGGmqRJEFpvKjtb9Kj21FEiWclqNtOYkpNmniySxasZ3qwYFpemFgjC-xteAVi-6efoc90WrGSfdM0DCOltJ6d87aoHE6ZmGQn0e0bzfNixdhbPePHRTXS2NAn51qmumtyXmEAkho_CvTdgo3glgkSc5nIOs1VOQI0_FvV7_H1fPpSrs0EAWunCa-DiVqc9Br0Zvcou1wCTQauCpXkKroFbCkYhSPDQ"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2023 | Ubud</span>
+<h4 class="font-headline-sm text-lg">The Master Craftsman</h4>
+</div>
+</div>
+<!-- Item 2: Landscape -->
+<div class="masonry-item landscape image-reveal">
+<img class="w-full h-full object-cover" data-alt="A breathtaking landscape of Bromo volcano at sunrise. The foreground shows the sea of sand with mist rolling in, while the morning sun paints the sky in soft lavender and orange. The crater is sharp and clear against the pastel sky. Minimalist composition, wide shot, ethereal atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhBJNc58plY__YG1abaK2mqtXKRVtOWDPXE6YwsIPfWpdkyCWpdRZfYBfM1akHgU5sRI-0REzyDWhjbGUqlPuvC_JIVzmC3KMEdPZPTVIKhhiFx2Y2ID7xlOrcQpawxJd7vqwozhsWmmPDtWC2JBFccJeyKDMMzleet-TFovkVPVjqcqDJAPBjNu9q0aIJutAGmCTksOVJD7eTDW5WqXVqBlWDwGB9QlpBP0Y00G2Il1aQg69G3lMKXw"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2024 | Jawa Timur</span>
+<h4 class="font-headline-sm text-lg">Silent Morning at Bromo</h4>
+</div>
+</div>
+<!-- Item 3: Event/Fashion -->
+<div class="masonry-item square image-reveal">
+<img class="w-full h-full object-cover" data-alt="A high-fashion editorial shot of a woman walking through a minimalist modern concrete building. She wears a sharp black suit. The architecture creates strong geometric lines and shadows across the scene. The lighting is harsh midday sun creating high contrast black and white aesthetics. Professional fashion photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABsd7Xz1saIsFpsnKDrDSW3oJ5fxiZ3pgzOoDxDfeWCAE19DptAq7GT6l3ScBmTIXdsSf_nsDdplnO1STzIFGlz9TOT7hGNhmwWr0ls3rjRYhbhndVGddjLvF5y9pZfnPl8wctY1SAKWPfbuXAd9xAGwb2fQb92jEifOK9qi6IuxNiCdodfTtCMFOIFKuscwpIDOMFpfMiCWrj1r7hqeTK4XtyvlA6i0KkIURyoaR8BxAurfS4nnDoQw"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2023 | Jakarta</span>
+<h4 class="font-headline-sm text-lg">Urban Monolith</h4>
+</div>
+</div>
+<!-- Item 4: Portrait -->
+<div class="masonry-item portrait image-reveal">
+<img class="w-full h-full object-cover" data-alt="A high-key fashion portrait of a young woman with natural makeup, her hair blowing softly. The background is a clean, bright studio white. Soft, diffused lighting creates a gentle, glowing skin tone. Minimalist and elegant, focusing on the serenity of the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALneLL7vI1FnIM5QQrdEPXzlq0gAN9GJFgPwEm4Ajkc34a20Syh_X_d3qOr6BlkiSpuZRmFRIRwKaHUVALoE2i5MWFawhs8GyzNnILlgkMSuL9Yxxw0MiFIkD-J4c4pOurSP4HLzPmuta20b7djL_JI-tU_9ThoFeOWCTRbFFLKq6WMxLjIWibUHKZ51DNrjibEfyousm3fFiGP7QLr8xql1Lyn8kdbxODeICsnQFfmtHjdlVJ0ehT2w"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2024 | Studio</span>
+<h4 class="font-headline-sm text-lg">Purity in Focus</h4>
+</div>
+</div>
+<!-- Item 5: Landscape/Travel -->
+<div class="masonry-item landscape image-reveal">
+<img class="w-full h-full object-cover" data-alt="A cinematic long-exposure shot of a waterfall deep in the Sumatran jungle. The water appears like silk flowing over dark mossy rocks. The surrounding foliage is lush and deep green, with small rays of light piercing through the canopy. Moody, atmospheric, and technically perfect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDouvRF7Q8VhQCLoQ4n5ny7LsEkhwSiDNRXwHQsGL20Li1LsLUKN_FeFrShlPF2KK8d900hA2iqw5pphmoxqv2tXMPxCeslzre4A-twB2O6E-Um157KxuCxDGlOmWYFno83JX38wOVFlrV2IaaUBy800j5-Vu6ApsAVtR3Pz6-LzN7U3MrbRXFPSbEPRShxJq0x6uv-AZxpD1dDakJWK3eVs4-fjwWcPfnL2UP1FXDPXaS9Pmlsw_nSZQ"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2022 | Sumatra</span>
+<h4 class="font-headline-sm text-lg">The Hidden Veil</h4>
+</div>
+</div>
+<!-- Item 6: Event -->
+<div class="masonry-item square image-reveal">
+<img class="w-full h-full object-cover" data-alt="A candid, warm-toned photograph of a traditional Indonesian wedding ceremony. The couple is laughing during a ritual, surrounded by family. The lighting is soft and golden from strings of fairy lights. The focus is on the authentic emotion and the intricate details of their traditional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDsfavhIQlgRGl9QwHn_IMnpCUWfvK4bzFp1qTSH1Kvhg6ajfwI2M9L3QbD2ltYcNLEL6YuGBZxAJsv7SM00I4rEoriIuuVzXDFLL8eK0c3JUAInCCvmiH3h-G2N3W4p2pKjCX6XEqf5cJhj1s1dIJ4Ooxn_2-lQNa_-BvGS_Gy-FISf5UDvpZgMt3Mx3bTGuAS1OJf_JCMiG6dFA6VMn7Nh0MPQylLtRu3nEyzbVMUwovafR3fPl4HA"/>
+<div class="image-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
+<span class="font-label-caps text-[10px] tracking-widest uppercase mb-1">2023 | Yogyakarta</span>
+<h4 class="font-headline-sm text-lg">Sacred Union</h4>
+</div>
+</div>
+</div>
+<div class="mt-24 flex justify-center">
+<button class="px-12 py-4 border border-primary text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all duration-500 uppercase tracking-widest">
+                    Lihat Semua Karya
+                </button>
+</div>
+</section>
+<!-- Featured Section / CTA -->
+<section class="py-section-gap bg-secondary-container">
+<div class="px-page-margin-mobile md:px-page-margin-desktop max-w-[1440px] mx-auto text-center">
+<h2 class="font-headline-md text-headline-md mb-12 max-w-3xl mx-auto leading-tight">Siap Untuk Mengabadikan Visi Anda Ke Dalam Seni Abadi?</h2>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+<button class="bg-primary text-on-primary px-10 py-5 font-label-caps text-label-caps tracking-widest uppercase hover:scale-105 transition-transform duration-300">
+                        Konsultasi Sekarang
+                    </button>
+<button class="border border-primary text-primary px-10 py-5 font-label-caps text-label-caps tracking-widest uppercase hover:bg-white transition-colors duration-300">
+                        Unduh Price List
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface dark:bg-on-background border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-page-margin-mobile md:px-page-margin-desktop max-w-[1440px] mx-auto gap-8">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-on-primary-fixed">
+                ELYSIA PHOTOGRAPHY
+            </div>
+<div class="flex flex-wrap justify-center gap-8 font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">
+<a class="hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Instagram</a>
+<a class="hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Vogue Portfolio</a>
+<a class="hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Terms of Service</a>
+</div>
+<div class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim opacity-60">
+                © 2024 ELYSIA PHOTOGRAPHY. ALL RIGHTS RESERVED.
+            </div>
+</div>
+<div class="mt-16 text-center px-page-margin-mobile">
+<ul class="flex justify-center gap-8 text-[12px] font-label-caps text-secondary opacity-40 uppercase tracking-[0.3em]">
+<li>— Studio Jakarta</li>
+<li>— Studio Bali</li>
+<li>— Global Travel</li>
+</ul>
+</div>
+</footer>
+<!-- Glass Chat Widget -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-16 h-16 rounded-full bg-surface/80 backdrop-blur-md border border-outline-variant/30 flex items-center justify-center text-primary shadow-xl hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+</button>
+</div>
+<script>
+        // Simple parallax on scroll for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('header img');
+            if(heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.4}px)`;
+            }
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-6');
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.add('py-6');
+                nav.classList.remove('py-4');
+                nav.classList.remove('shadow-sm');
+            }
+        });
+    </script>
+</body></html>

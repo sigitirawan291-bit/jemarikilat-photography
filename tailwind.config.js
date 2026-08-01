@@ -1,0 +1,63 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "surface": "#f9f9f9",
+        "surface-dim": "#dadada",
+        "surface-bright": "#f9f9f9",
+        "surface-container-lowest": "#ffffff",
+        "surface-container-low": "#f3f3f4",
+        "surface-container": "#eeeeee",
+        "surface-container-high": "#e8e8e8",
+        "surface-container-highest": "#e2e2e2",
+        "on-surface": "#1a1c1c",
+        "on-surface-variant": "#444748",
+        "inverse-surface": "#2f3131",
+        "inverse-on-surface": "#f0f1f1",
+        "outline": "#747878",
+        "outline-variant": "#c4c7c7",
+        "surface-tint": "#5f5e5e",
+        "primary": "#000000",
+        "on-primary": "#ffffff",
+        "primary-container": "#1c1b1b",
+        "on-primary-container": "#858383",
+        "secondary": "#5d5f5f",
+        "on-secondary": "#ffffff",
+        "secondary-container": "#dfe0e0",
+        "on-secondary-container": "#616363",
+        "background": "#f9f9f9",
+        "on-background": "#1a1c1c",
+      },
+      fontFamily: {
+        serif: ["Playfair Display", "serif"],
+        sans: ["Inter", "sans-serif"],
+        display: ["Playfair Display", "serif"],
+        label: ["Inter", "sans-serif"],
+      },
+      spacing: {
+        "gutter": "24px",
+        "page-margin-desktop": "80px",
+        "page-margin-mobile": "24px",
+        "section-gap": "160px",
+        "element-gap": "32px",
+      },
+      borderRadius: {
+        DEFAULT: "0px",
+        none: "0px",
+        sm: "0px",
+        md: "0px",
+        lg: "0px",
+        xl: "0px",
+        "2xl": "0px",
+        "3xl": "0px",
+        full: "9999px",
+      }
+    },
+  },
+  plugins: [],
+}

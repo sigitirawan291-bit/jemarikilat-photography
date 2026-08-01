@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Elysia Photography | Tentang &amp; Harga</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e4e2e2",
+                    "outline": "#747878",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary-fixed": "#1c1b1b",
+                    "tertiary-container": "#1b1c1c",
+                    "on-background": "#1a1c1c",
+                    "surface": "#f9f9f9",
+                    "inverse-primary": "#c8c6c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9f9",
+                    "surface-container-high": "#e8e8e8",
+                    "surface-container": "#eeeeee",
+                    "on-primary-container": "#858383",
+                    "on-tertiary-container": "#848484",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dadada",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface": "#1a1c1c",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#454747",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "tertiary": "#000000",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#000000",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f1",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-bright": "#f9f9f9",
+                    "on-secondary-container": "#616363",
+                    "secondary-fixed": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "surface-tint": "#5f5e5e",
+                    "primary-fixed": "#e5e2e1",
+                    "on-surface-variant": "#444748",
+                    "surface-container-low": "#f3f3f4",
+                    "secondary-container": "#dfe0e0",
+                    "secondary": "#5d5f5f",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2f3131"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "page-margin-desktop": "80px",
+                    "section-gap": "160px",
+                    "element-gap": "32px",
+                    "page-margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-sm": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f9f9f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl border-b border-outline-variant/30 transition-all duration-300 ease-in-out">
+<nav class="flex justify-between items-center px-page-margin-desktop py-6 max-w-[1440px] mx-auto">
+<a class="font-headline-sm text-headline-sm tracking-tighter text-primary dark:text-on-primary-fixed" href="#">ELYSIA PHOTOGRAPHY</a>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Home</a>
+<a class="font-label-caps text-label-caps tracking-widest text-primary dark:text-on-primary-fixed border-b border-primary dark:border-on-primary-fixed pb-1" href="#">About</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Gallery</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Video</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Pricing</a>
+<a class="font-label-caps text-label-caps tracking-widest text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-70 transition-opacity duration-300">
+                Book Session
+            </button>
+</nav>
+</header>
+<main class="pt-32">
+<!-- Hero Section / About Intro -->
+<section class="px-page-margin-desktop max-w-[1440px] mx-auto mb-section-gap">
+<div class="flex flex-col md:flex-row gap-gutter items-center">
+<div class="w-full md:w-1/2 reveal-on-scroll">
+<span class="font-label-caps text-label-caps text-secondary tracking-widest mb-4 block uppercase">The Artist</span>
+<h1 class="font-display-lg text-display-lg mb-8 leading-tight">Menangkap Esensi dalam Kesunyian.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Elysia Photography lahir dari keinginan untuk mendokumentasikan keindahan yang sering terabaikan. Melalui lensa kami, setiap momen bukan sekadar gambar, melainkan sebuah narasi visual yang abadi dan penuh emosi.
+                    </p>
+</div>
+<div class="w-full md:w-1/2 reveal-on-scroll">
+<div class="aspect-[4/5] bg-surface-container overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sophisticated editorial portrait of a professional photographer standing in a minimalist white-walled studio. The lighting is soft and directional, casting subtle shadows that emphasize form and texture. The photographer is dressed in high-end monochrome attire, holding a vintage camera with a focused, artistic expression. The background is pristine and uncluttered, adhering to a high-key light mode aesthetic with deep black accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLsM5a9gsJfFt8pUC-ItP2woBj35ij8r5TGZ-gedgFcWWqbpYUFnE_bKxlHJbwNd08Qy4thpiQeA8G7wLRPaRc2Sn9tmN1HagnVSvBtEOwGV7MDTsZ32iaNz8JTVBxzPmCP_mKpqJh_GQrcxB8ZENj4y-1ylxsS4l2aecdK9RUt5y-BfedoZK-_Vh6iZD05fk0nz0DAs-EVWoPSauB2eZoMQ8YV-p_hPniQoG1btobx8YSs80K_7uGOA"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Biography Detail Section -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="px-page-margin-desktop max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<div class="md:col-span-4 reveal-on-scroll">
+<h2 class="font-headline-md text-headline-md mb-6 italic">Filosofi Kami</h2>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="font-body-md text-body-md text-primary">—</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Keaslian adalah segalanya. Kami menghindari pose yang dipaksakan.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="font-body-md text-body-md text-primary">—</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Cahaya alami adalah rekan kreatif utama kami dalam setiap sesi.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="font-body-md text-body-md text-primary">—</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Kesederhanaan dalam komposisi menciptakan kedalaman emosional.</span>
+</li>
+</ul>
+</div>
+<div class="md:col-span-8 reveal-on-scroll">
+<div class="space-y-6">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                                Dimulai sepuluh tahun lalu di jalanan Paris, perjalanan Elysia telah berkembang menjadi studio butik yang melayani klien dari seluruh penjuru dunia. Kami percaya bahwa setiap subjek memiliki aura unik yang hanya bisa ditangkap dengan kesabaran dan visi artistik yang tajam.
+                            </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                                Baik itu keintiman pernikahan, kekuatan potret profesional, atau estetika komersial, pendekatan kami tetap konsisten: kurasi yang cermat, eksekusi teknis yang sempurna, dan sentuhan manusiawi yang tulus.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section Header -->
+<section class="px-page-margin-desktop max-w-[1440px] mx-auto mt-section-gap mb-12">
+<div class="text-center reveal-on-scroll">
+<span class="font-label-caps text-label-caps text-secondary tracking-widest mb-4 block uppercase">Investment</span>
+<h2 class="font-display-lg text-display-lg">Paket Layanan Kami</h2>
+</div>
+</section>
+<!-- Pricing Cards Grid -->
+<section class="px-page-margin-desktop max-w-[1440px] mx-auto mb-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Package 1: Personal Portrait -->
+<div class="bg-surface-container p-12 flex flex-col justify-between border border-outline-variant/20 reveal-on-scroll transition-all duration-300 hover:bg-surface-container-high">
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Personal Portrait</h3>
+<p class="font-label-caps text-label-caps text-secondary tracking-widest mb-8">MULAI DARI IDR 3.500.000</p>
+<div class="w-full h-[1px] bg-outline-variant/30 mb-8"></div>
+<ul class="space-y-4 mb-12">
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Durasi Sesi</span>
+<span class="text-primary">90 Menit</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Lokasi</span>
+<span class="text-primary">Studio / Outdoor</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Hasil Foto</span>
+<span class="text-primary">15 Retouched High-Res</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Wardrobe</span>
+<span class="text-primary">Up to 2 Looks</span>
+</li>
+</ul>
+</div>
+<button class="w-full border border-primary text-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300">PILIH PAKET</button>
+</div>
+<!-- Package 2: Wedding Story -->
+<div class="bg-primary-container p-12 flex flex-col justify-between border border-primary-container reveal-on-scroll transition-all duration-300 shadow-xl scale-105 z-10">
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-2 text-on-primary">Wedding Story</h3>
+<p class="font-label-caps text-label-caps text-on-primary-container tracking-widest mb-8">MULAI DARI IDR 15.000.000</p>
+<div class="w-full h-[1px] bg-on-primary-container/30 mb-8"></div>
+<ul class="space-y-4 mb-12">
+<li class="font-body-md text-body-md text-on-primary-container flex justify-between">
+<span>Cakupan</span>
+<span class="text-on-primary">Full Day (10 Jam)</span>
+</li>
+<li class="font-body-md text-body-md text-on-primary-container flex justify-between">
+<span>Fotografer</span>
+<span class="text-on-primary">2 Lead Photographers</span>
+</li>
+<li class="font-body-md text-body-md text-on-primary-container flex justify-between">
+<span>Album</span>
+<span class="text-on-primary">Premium Linen Box</span>
+</li>
+<li class="font-body-md text-body-md text-on-primary-container flex justify-between">
+<span>Online Gallery</span>
+<span class="text-on-primary">6 Bulan Akses</span>
+</li>
+</ul>
+</div>
+<button class="w-full bg-on-primary text-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-transparent hover:text-on-primary hover:border hover:border-on-primary transition-all duration-300">KONSULTASI GRATIS</button>
+</div>
+<!-- Package 3: Commercial / Editorial -->
+<div class="bg-surface-container p-12 flex flex-col justify-between border border-outline-variant/20 reveal-on-scroll transition-all duration-300 hover:bg-surface-container-high">
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Editorial Work</h3>
+<p class="font-label-caps text-label-caps text-secondary tracking-widest mb-8">HUBUNGI UNTUK QUOTE</p>
+<div class="w-full h-[1px] bg-outline-variant/30 mb-8"></div>
+<ul class="space-y-4 mb-12">
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Lisensi</span>
+<span class="text-primary">Commercial Use</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Tim</span>
+<span class="text-primary">Full Crew Support</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Editing</span>
+<span class="text-primary">Advanced Retouching</span>
+</li>
+<li class="font-body-md text-body-md text-on-surface-variant flex justify-between">
+<span>Format</span>
+<span class="text-primary">RAW &amp; TIFF available</span>
+</li>
+</ul>
+</div>
+<button class="w-full border border-primary text-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300">HUBUNGI KAMI</button>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-surface py-section-gap">
+<div class="px-page-margin-desktop max-w-[1440px] mx-auto flex flex-col items-center text-center reveal-on-scroll">
+<h2 class="font-display-lg text-display-lg mb-8">Siap Bercerita Bersama?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+                    Jadwalkan sesi konsultasi singkat untuk mendiskusikan visi Anda. Kami dengan senang hati akan membantu mewujudkannya menjadi mahakarya visual.
+                </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<a class="bg-primary text-on-primary px-12 py-4 font-label-caps text-label-caps tracking-widest hover:opacity-80 transition-opacity" href="#">BOOK NOW</a>
+<a class="border border-primary text-primary px-12 py-4 font-label-caps text-label-caps tracking-widest hover:bg-primary hover:text-on-primary transition-all" href="#">VIEW GALLERY</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface dark:bg-on-background border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-page-margin-desktop max-w-[1440px] mx-auto gap-8">
+<div class="flex flex-col gap-4">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-on-primary-fixed">ELYSIA PHOTOGRAPHY</span>
+<p class="font-label-caps text-label-caps text-secondary tracking-wider">EST. 2014 — JAKARTA / BALI</p>
+</div>
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Instagram</a>
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Vogue Portfolio</a>
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300 cursor-pointer" href="#">Terms of Service</a>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">© 2024 ELYSIA PHOTOGRAPHY. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+<!-- Floating Chat Widget -->
+<div class="fixed bottom-8 right-8 z-[60]">
+<button class="w-16 h-16 rounded-full glass-nav flex items-center justify-center border border-outline-variant/30 text-primary shadow-lg hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">chat_bubble_outline</span>
+</button>
+</div>
+<!-- Scripts for Scroll Reveal -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Simple Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-4');
+                header.classList.remove('py-6');
+            } else {
+                header.classList.add('py-6');
+                header.classList.remove('py-4');
+            }
+        });
+    </script>
+</body></html>
