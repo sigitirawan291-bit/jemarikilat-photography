@@ -43,43 +43,35 @@ export default function HomeView({ setActivePage, onSelectPhoto, onSelectVideo, 
   // Featured grid set (borderless masonry)
   const homeFeatured = activePhotos.slice(0, 12);
 
-  // Categories
-  const weddingPhotos = activePhotos.filter((p) => p && p.category === 'Wedding');
-  const graduationPhotos = activePhotos.filter((p) => p && p.category === 'Graduation');
-  const preweddingPhotos = activePhotos.filter((p) => p && p.category === 'Prewedding');
-  const editorialPhotos = activePhotos.filter((p) => p && (p.category === 'Editorial' || p.category === 'High Fashion' || p.category === 'Portrait'));
-
   return (
     <div className="w-full bg-[#0d0d0e] text-white font-sans selection:bg-[#d4af37] selection:text-black">
       
       {/* ========================================================================= */}
-      {/* 1. MAIN HERO PHOTO CAROUSEL (MANAGED BY ADMIN PAGE)                      */}
+      {/* 1. MAIN HERO PHOTO CAROUSEL (CLEAN 100% BRIGHT, NO TEXT, NO DARK SHADER) */}
       {/* ========================================================================= */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0d0d0e]">
 
-        {/* Carousel Background Stack */}
+        {/* Carousel Background Stack (100% Full Original Photo Brightness, No Shading) */}
         {heroCarouselPhotos.map((photo, idx) => {
           const isActive = idx === currentSlide;
           return (
             <div
               key={photo.id || idx}
-              className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-1000 ease-in-out ${
-                isActive ? 'opacity-70 scale-100 z-10 pointer-events-auto' : 'opacity-0 scale-105 z-0 pointer-events-none'
+              onClick={() => onSelectPhoto && onSelectPhoto(photo)}
+              className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-1000 ease-in-out cursor-pointer ${
+                isActive ? 'opacity-100 scale-100 z-10 pointer-events-auto' : 'opacity-0 scale-105 z-0 pointer-events-none'
               }`}
               style={{ backgroundImage: `url('${photo.image}')` }}
             />
           );
         })}
 
-        {/* Dark Vignette Shader */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0e]/80 via-[#0d0d0e]/40 to-[#0d0d0e] z-10" />
-
         {/* Prev / Next Navigation Controls */}
         {heroCarouselPhotos.length > 1 && (
           <>
             <button
               onClick={handlePrevSlide}
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all z-30 shadow-2xl"
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all z-30 shadow-2xl backdrop-blur-xs"
               aria-label="Previous Slide"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -87,44 +79,13 @@ export default function HomeView({ setActivePage, onSelectPhoto, onSelectVideo, 
 
             <button
               onClick={handleNextSlide}
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all z-30 shadow-2xl"
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all z-30 shadow-2xl backdrop-blur-xs"
               aria-label="Next Slide"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
           </>
         )}
-
-        {/* Hero Slide Content Overlay */}
-        <div className="relative z-20 text-center px-6 max-w-5xl mx-auto space-y-6 pt-16">
-          <span className="inline-flex items-center gap-2.5 font-sans text-xs tracking-[0.35em] uppercase text-[#d4af37] bg-black/80 backdrop-blur-md px-5 py-2 rounded-full shadow-2xl font-bold">
-            <Sparkles className="w-3.5 h-3.5 text-[#d4af37] animate-pulse" /> ADMIN FEATURED HERO CAROUSEL
-          </span>
-          
-          <h1 className="font-sans text-4xl sm:text-6xl lg:text-8xl text-white tracking-tight font-extrabold leading-none drop-shadow-2xl">
-            {activePhoto?.title || 'JEMARI KILAT'}
-          </h1>
-          
-          <p className="font-sans text-xs sm:text-sm text-neutral-300 tracking-[0.25em] uppercase max-w-2xl mx-auto font-medium leading-relaxed">
-            {activePhoto ? `📍 ${activePhoto.location || 'Indonesia'} • ${activePhoto.category} Archive` : 'Luxury Fine Art Photography'}
-          </p>
-
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
-            <button
-              onClick={() => activePhoto && onSelectPhoto(activePhoto)}
-              className="w-full sm:w-auto bg-[#d4af37] text-black font-sans text-xs tracking-[0.25em] px-9 py-4 uppercase font-bold hover:bg-[#f3e5ab] transition-all duration-300 shadow-2xl rounded-xs"
-            >
-              INSPECT PHOTO
-            </button>
-            <button
-              onClick={onOpenBooking}
-              className="w-full sm:w-auto bg-transparent border border-white/40 text-white font-sans text-xs tracking-[0.25em] px-9 py-4 uppercase font-bold hover:bg-white/10 transition-all duration-300 backdrop-blur-xs rounded-xs"
-            >
-              RESERVE SESSION
-            </button>
-          </div>
-        </div>
 
         {/* Slide Indicators */}
         <div className="absolute bottom-16 right-8 lg:right-16 flex items-center gap-2 z-20">
@@ -133,7 +94,7 @@ export default function HomeView({ setActivePage, onSelectPhoto, onSelectVideo, 
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={`h-1.5 transition-all duration-500 rounded-full ${
-                idx === currentSlide ? 'w-8 bg-[#d4af37]' : 'w-2 bg-neutral-600 hover:bg-neutral-400'
+                idx === currentSlide ? 'w-8 bg-[#d4af37]' : 'w-2 bg-white/50 hover:bg-white'
               }`}
               aria-label={`Slide ${idx + 1}`}
             />
@@ -147,7 +108,7 @@ export default function HomeView({ setActivePage, onSelectPhoto, onSelectVideo, 
               key={photo.id || idx}
               onClick={() => setCurrentSlide(idx)}
               className={`w-20 aspect-[16/9] overflow-hidden transition-all duration-300 shrink-0 ${
-                currentSlide === idx ? 'scale-110 opacity-100 ring-2 ring-[#d4af37]' : 'opacity-40 hover:opacity-100'
+                currentSlide === idx ? 'scale-110 opacity-100 ring-2 ring-[#d4af37]' : 'opacity-50 hover:opacity-100'
               }`}
             >
               <img src={photo.image} alt={photo.title} className="w-full h-full object-cover" />
@@ -200,7 +161,7 @@ export default function HomeView({ setActivePage, onSelectPhoto, onSelectVideo, 
 
 
       {/* ========================================================================= */}
-      {/* 3. BORDERLESS CURATED PORTFOLIO MASONRY GRID (NO BORDERS)                */}
+      {/* 3. BORDERLESS CURATED PORTFOLIO MASONRY GRID                              */}
       {/* ========================================================================= */}
       <section className="w-full bg-[#0d0d0e] py-20 px-4 sm:px-8 lg:px-12">
         <div className="max-w-[1600px] mx-auto">
