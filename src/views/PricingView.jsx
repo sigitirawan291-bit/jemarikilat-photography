@@ -26,21 +26,21 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
   const displayedPackages = getPackagesByCategory(activeTab);
 
   return (
-    <div className="w-full pt-28 pb-24 px-6 lg:px-16 bg-[#0d0d0e] text-[#f5f5f7] min-h-screen">
+    <div className="w-full pt-28 pb-24 px-6 lg:px-16 bg-[#FAF8F5] text-[#1A1A1A] min-h-screen font-sans">
       <div className="max-w-[1440px] mx-auto space-y-20">
         
         {/* Studio Philosophy Header */}
         <div className="max-w-4xl mx-auto text-center space-y-4">
-          <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
+          <span className="font-sans text-[10px] tracking-[0.4em] text-[#C5A880] uppercase block font-bold">
             ABOUT & PHILOSOPHY
           </span>
-          <h1 className="font-serif text-4xl lg:text-6xl text-white font-normal leading-tight">
+          <h1 className="font-serif text-4xl lg:text-6xl text-[#1A1A1A] font-normal leading-tight">
             Crafting Timeless Visual Histories
           </h1>
           
-          <div className="text-left font-sans text-xs lg:text-sm text-neutral-300 space-y-4 leading-relaxed bg-[#16161a] p-8 lg:p-12 border border-neutral-800 rounded-sm">
-            <strong className="text-amber-400 font-serif text-base block mb-1">JEMARI KILAT STUDIO</strong>
-            <p className="italic font-serif text-base lg:text-lg text-white/90 leading-relaxed font-normal">
+          <div className="text-left font-sans text-xs lg:text-sm text-[#666158] space-y-4 leading-relaxed bg-white p-8 lg:p-12 border border-[#E5E0D8] rounded-xs shadow-xs">
+            <strong className="text-[#1A1A1A] font-serif text-base block mb-1">JEMARI KILAT STUDIO</strong>
+            <p className="italic font-serif text-base lg:text-lg text-[#1A1A1A]/90 leading-relaxed font-normal">
               "To the world, time moves forward without ceasing. But for Jemari Kilat, time can be stopped. We are here to freeze life's finest moments into an everlasting masterpiece, through swift instincts and the gentle art of photography."
             </p>
           </div>
@@ -49,19 +49,19 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
         {/* Pricing & Packages Section */}
         <div>
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
+            <span className="font-sans text-[10px] tracking-[0.4em] text-[#C5A880] uppercase block font-bold">
               INVESTMENT & COLLECTIONS
             </span>
-            <h2 className="font-serif text-3xl lg:text-5xl text-white font-normal">
+            <h2 className="font-serif text-3xl lg:text-5xl text-[#1A1A1A] font-normal">
               Pricing Packages
             </h2>
-            <p className="font-sans text-xs text-neutral-400 font-light">
+            <p className="font-sans text-xs text-[#666158] font-light">
               Seluruh paket investasi mencakup file digital resolusi tinggi dengan retouch profesional dan galeri digital privat.
             </p>
           </div>
 
-          {/* Pricing Tabs & Download Action */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12 pb-6 border-b border-neutral-800">
+          {/* AXIOO BOUNDED TAB BAR & DOWNLOAD ACTION */}
+          <div className="axioo-tab-border py-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12">
             
             <div className="flex flex-wrap items-center gap-2 lg:gap-3">
               {categoriesList.map((cat) => {
@@ -71,13 +71,13 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
                   <button
                     key={cat.id}
                     onClick={() => setActiveTab(cat.id)}
-                    className={`font-sans text-[11px] tracking-[0.15em] px-4 lg:px-5 py-3 uppercase font-semibold transition-all duration-300 flex items-center gap-2 border rounded-xs ${
+                    className={`font-sans text-[11px] tracking-[0.18em] px-4 lg:px-5 py-3 uppercase font-semibold transition-all duration-300 flex items-center gap-2 border rounded-xs ${
                       isActive
-                        ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black border-amber-300 shadow-md font-bold'
-                        : 'bg-[#16161a] text-neutral-400 border-neutral-800 hover:border-neutral-700 hover:text-white'
+                        ? 'bg-[#1A1A1A] text-white border-[#1A1A1A] shadow-xs font-bold'
+                        : 'bg-white text-[#666158] border-[#E5E0D8] hover:border-[#C5A880] hover:text-[#1A1A1A]'
                     }`}
                   >
-                    <IconComp className="w-3.5 h-3.5" />
+                    <IconComp className="w-3.5 h-3.5 text-[#C5A880]" />
                     {cat.label}
                   </button>
                 );
@@ -87,7 +87,7 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
             {/* Download Pricelist Button */}
             <button
               onClick={() => downloadPricelist(activeTab)}
-              className="w-full lg:w-auto shrink-0 font-sans text-xs tracking-[0.18em] px-6 py-3 bg-transparent border border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-black transition-colors uppercase font-bold flex items-center justify-center gap-2 rounded-xs"
+              className="w-full lg:w-auto shrink-0 font-sans text-xs tracking-[0.18em] px-6 py-3 bg-white border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-colors uppercase font-bold flex items-center justify-center gap-2 rounded-xs shadow-xs"
             >
               <Download className="w-4 h-4" />
               DOWNLOAD {activeTab.toUpperCase()} PRICELIST
@@ -100,41 +100,41 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
             {displayedPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`bg-[#16161a] border p-8 flex flex-col justify-between transition-all duration-300 rounded-sm ${
+                className={`bg-white border p-8 flex flex-col justify-between transition-all duration-300 rounded-xs ${
                   pkg.recommended 
-                    ? 'border-amber-500/80 shadow-[0_0_30px_rgba(212,175,55,0.2)] relative ring-1 ring-amber-400' 
-                    : 'border-neutral-800 hover:border-neutral-700'
+                    ? 'border-[#C5A880] shadow-md relative ring-1 ring-[#C5A880]' 
+                    : 'border-[#E5E0D8] hover:border-[#C5A880]'
                 }`}
               >
                 {pkg.recommended && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-sans text-[9px] tracking-[0.25em] px-4 py-1 uppercase font-bold shadow-md">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1A1A1A] text-white font-sans text-[9px] tracking-[0.25em] px-4 py-1 uppercase font-bold shadow-xs">
                     MOST REQUESTED
                   </span>
                 )}
 
                 <div>
-                  <h3 className="font-serif text-2xl text-white font-normal mb-2">
+                  <h3 className="font-serif text-2xl text-[#1A1A1A] font-normal mb-2">
                     {pkg.name}
                   </h3>
                   
-                  <p className="font-sans text-xs text-neutral-400 min-h-[40px] leading-relaxed mb-6 font-light">
+                  <p className="font-sans text-xs text-[#666158] min-h-[40px] leading-relaxed mb-6 font-light">
                     {pkg.subtitle}
                   </p>
 
-                  <div className="py-6 border-t border-b border-neutral-800 mb-6">
-                    <span className="font-serif text-3xl text-amber-300 font-normal block">
+                  <div className="py-6 border-t border-b border-[#E5E0D8] mb-6">
+                    <span className="font-serif text-3xl text-[#1A1A1A] font-normal block">
                       {pkg.priceIdr}
                     </span>
-                    <span className="font-mono text-[10px] text-neutral-400 tracking-wider uppercase mt-1 block">
+                    <span className="font-mono text-[10px] text-[#7A756C] tracking-wider uppercase mt-1 block font-medium">
                       ESTIMATED INVEST: {pkg.priceUsd} / PROJECT
                     </span>
                   </div>
 
                   {/* Feature Items List */}
-                  <ul className="space-y-3 font-sans text-xs text-neutral-300 mb-8 font-light">
+                  <ul className="space-y-3 font-sans text-xs text-[#1A1A1A] mb-8 font-light">
                     {pkg.features.map((feat, idx) => (
                       <li key={idx} className="flex items-start gap-2.5">
-                        <span className="text-amber-400 font-bold mt-0.5">—</span>
+                        <span className="text-[#C5A880] font-bold mt-0.5">—</span>
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -145,8 +145,8 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
                   onClick={() => onSelectPackage(pkg.id)}
                   className={`w-full font-sans text-xs tracking-[0.2em] py-3.5 text-center uppercase font-bold transition-all flex items-center justify-center gap-2 border ${
                     pkg.recommended
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-black border-amber-300 hover:from-amber-400 hover:to-amber-300 shadow-lg'
-                      : 'bg-transparent border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-black'
+                      ? 'bg-[#1A1A1A] text-white border-[#1A1A1A] hover:bg-[#C5A880] hover:text-black shadow-xs'
+                      : 'bg-white border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white'
                   }`}
                 >
                   <Send className="w-3.5 h-3.5" /> SELECT {pkg.name.split(' ')[0]}
@@ -160,10 +160,10 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
         {/* FAQ Accordion Section */}
         <div className="max-w-3xl mx-auto pt-8">
           <div className="text-center mb-10 space-y-2">
-            <span className="font-sans text-[10px] tracking-[0.4em] text-amber-400 uppercase block font-semibold">
+            <span className="font-sans text-[10px] tracking-[0.4em] text-[#C5A880] uppercase block font-bold">
               QUESTIONS & ANSWERS
             </span>
-            <h2 className="font-serif text-3xl text-white font-normal">
+            <h2 className="font-serif text-3xl text-[#1A1A1A] font-normal">
               Frequently Asked Questions
             </h2>
           </div>
@@ -174,18 +174,18 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
               return (
                 <div
                   key={index}
-                  className="bg-[#16161a] border border-neutral-800 rounded-sm overflow-hidden"
+                  className="bg-white border border-[#E5E0D8] rounded-xs overflow-hidden shadow-xs"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
-                    className="w-full p-6 text-left flex justify-between items-center gap-4 font-serif text-lg text-white hover:text-amber-300 focus:outline-none transition-colors"
+                    className="w-full p-6 text-left flex justify-between items-center gap-4 font-serif text-lg text-[#1A1A1A] hover:text-[#C5A880] focus:outline-none transition-colors"
                   >
                     <span>{faq.question}</span>
-                    <ChevronDown className={`w-5 h-5 text-amber-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-amber-300' : ''}`} />
+                    <ChevronDown className={`w-5 h-5 text-[#C5A880] transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C5A880]' : ''}`} />
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 font-sans text-xs text-neutral-300 leading-relaxed border-t border-neutral-800/80 font-light">
+                    <div className="px-6 pb-6 pt-0 font-sans text-xs text-[#666158] leading-relaxed border-t border-[#E5E0D8] font-light">
                       <p className="mt-3">{faq.answer}</p>
                     </div>
                   )}
@@ -197,7 +197,7 @@ export default function PricingView({ onSelectPackage, onOpenBooking }) {
           <div className="mt-12 text-center">
             <button
               onClick={onOpenBooking}
-              className="bg-amber-500 text-black font-sans text-xs tracking-[0.2em] px-8 py-3.5 uppercase font-bold hover:bg-amber-400 transition-colors shadow-lg border border-amber-300"
+              className="bg-[#1A1A1A] text-white font-sans text-xs tracking-[0.2em] px-8 py-3.5 uppercase font-bold hover:bg-[#C5A880] hover:text-black transition-colors shadow-sm border border-[#1A1A1A]"
             >
               HAVE CUSTOM REQUIREMENTS? CONTACT US
             </button>

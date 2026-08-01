@@ -5,50 +5,68 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
   }
   
   body {
-    background-color: #0d0d0e;
-    color: #f5f5f7;
+    background-color: #FAF8F5;
+    color: #1A1A1A;
     overflow-x: hidden;
   }
 }
 
-/* Glassmorphism utility */
+/* Axioo Glassmorphism utilities */
 .glass-effect {
-  background: rgba(13, 13, 14, 0.85);
+  background: rgba(250, 248, 245, 0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
-.glass-dark {
-  background: rgba(18, 18, 22, 0.90);
+.glass-white {
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
 
-.glass-gold {
-  background: rgba(212, 175, 55, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+.glass-dark {
+  background: rgba(18, 18, 20, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Axioo Framed Card Container */
+.axioo-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e0d8;
+  padding: 12px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.axioo-card:hover {
+  border-color: #c5a880;
+  box-shadow: 0 15px 35px -10px rgba(197, 168, 128, 0.2);
+}
+
+/* Axioo Tab Menu Line */
+.axioo-tab-border {
+  border-top: 1px solid #e5e0d8;
+  border-bottom: 1px solid #e5e0d8;
 }
 
 /* Boutique underline form inputs */
 .input-underline {
   border: none;
-  border-bottom: 1px solid #3a3a44;
+  border-bottom: 1px solid #e5e0d8;
   background: transparent;
   padding: 12px 0;
-  color: #f5f5f7;
+  color: #1a1a1a;
   border-radius: 0;
   transition: border-color 0.3s ease;
 }
 
 .input-underline:focus {
   outline: none;
-  border-bottom: 1.5px solid #d4af37;
+  border-bottom: 1.5px solid #c5a880;
   box-shadow: none;
 }
 
@@ -59,16 +77,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d0e;
+  background: #faf8f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #282832;
+  background: #dcd5c9;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #c5a880;
 }
 
 /* Keyframe animations */
@@ -90,11 +108,3 @@
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
-
-/* Gold Gradient Text helper */
-.text-gold-gradient {
-  background: linear-[135deg,#f5e0a3_0%,#d4af37_50%,#aa820a_100%];
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-

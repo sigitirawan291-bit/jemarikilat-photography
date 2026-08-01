@@ -77,31 +77,29 @@ export default function LiveChatWidget({ onOpenBooking }) {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            className="group relative w-14 h-14 bg-[#0d0d0e]/90 backdrop-blur-xl border border-amber-500/40 rounded-full flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-black transition-all duration-300 shadow-2xl"
+            className="group relative w-14 h-14 bg-[#1A1A1A] backdrop-blur-xl border border-[#C5A880] rounded-full flex items-center justify-center text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-300 shadow-2xl"
             aria-label="Open live chat"
           >
             <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
-            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-[#0d0d0e] animate-pulse" />
+            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-[#1A1A1A] animate-pulse" />
           </button>
         )}
       </div>
 
       {/* Expanded Chat Overlay Drawer */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-full max-w-sm h-[570px] bg-[#16161a] border border-amber-500/40 shadow-2xl flex flex-col overflow-hidden animate-fade-in rounded-sm text-white">
+        <div className="fixed bottom-6 right-6 z-50 w-full max-w-sm h-[570px] bg-white border border-[#E5E0D8] shadow-2xl flex flex-col overflow-hidden animate-fade-in rounded-xs text-[#1A1A1A] font-sans">
           
           {/* Header */}
-          <div className="bg-[#0a0a0c] text-white p-4 flex justify-between items-center border-b border-neutral-800">
+          <div className="bg-[#1A1A1A] text-white p-4 flex justify-between items-center border-b border-[#1A1A1A]">
             <div className="flex items-center gap-3">
-              <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-amber-600 to-amber-300 p-[1px]">
-                <div className="w-full h-full bg-[#0a0a0c] rounded-full flex items-center justify-center font-serif text-amber-400 font-bold text-xs">
-                  JK
-                </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#0a0a0c]" />
+              <div className="relative w-8 h-8 rounded-full bg-[#FAF8F5] text-[#C5A880] border border-[#C5A880] flex items-center justify-center font-serif font-bold text-xs">
+                JK
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#1A1A1A]" />
               </div>
               <div>
                 <h4 className="font-serif text-sm tracking-wider font-normal">JEMARI KILAT Studio</h4>
-                <span className="font-sans text-[9px] text-amber-400/80 tracking-widest uppercase block font-mono">
+                <span className="font-sans text-[9px] text-[#C5A880] tracking-widest uppercase block font-mono">
                   Konsultasi WA • Respon Cepat (&lt; 15 Min)
                 </span>
               </div>
@@ -116,9 +114,9 @@ export default function LiveChatWidget({ onOpenBooking }) {
           </div>
 
           {/* WhatsApp Required Input Banner */}
-          <div className="bg-[#111114] p-3 border-b border-neutral-800 font-sans text-xs">
-            <div className="flex items-center gap-2 mb-1 text-amber-400 font-bold text-[11px]">
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="bg-[#FAF8F5] p-3 border-b border-[#E5E0D8] font-sans text-xs">
+            <div className="flex items-center gap-2 mb-1 text-[#1A1A1A] font-bold text-[11px]">
+              <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
               <span>Nomor WhatsApp Anda:</span>
             </div>
             <input
@@ -126,17 +124,17 @@ export default function LiveChatWidget({ onOpenBooking }) {
               value={userWa}
               onChange={(e) => setUserWa(e.target.value)}
               placeholder="Masukkan No WA Anda (misal: 081360318361)"
-              className="w-full bg-[#16161a] px-3 py-1.5 border border-neutral-700 text-xs text-white focus:outline-none focus:border-amber-400 placeholder:text-neutral-500 rounded-xs"
+              className="w-full bg-white px-3 py-1.5 border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C5A880] placeholder:text-[#7A756C] rounded-xs"
             />
             {userWa.trim() && (
-              <span className="text-[9px] text-emerald-400 mt-1 flex items-center gap-1 font-mono">
+              <span className="text-[9px] text-emerald-600 mt-1 flex items-center gap-1 font-mono">
                 <CheckCircle className="w-3 h-3" /> Nomor WA tersimpan. Admin akan menghubungi Anda di nomor ini.
               </span>
             )}
           </div>
 
           {/* Messages Feed */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#0d0d0e] font-sans text-xs">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#FAF8F5] font-sans text-xs">
             {messages.map((msg) => {
               const isAdmin = msg.sender === 'admin';
               return (
@@ -147,8 +145,8 @@ export default function LiveChatWidget({ onOpenBooking }) {
                   <div
                     className={`max-w-[85%] p-3 leading-relaxed whitespace-pre-line rounded-xs ${
                       isAdmin
-                        ? 'bg-[#16161a] text-white border border-neutral-800'
-                        : 'bg-amber-500 text-black font-semibold'
+                        ? 'bg-white text-[#1A1A1A] border border-[#E5E0D8] shadow-xs'
+                        : 'bg-[#1A1A1A] text-white font-medium'
                     }`}
                   >
                     {msg.text}
@@ -156,14 +154,14 @@ export default function LiveChatWidget({ onOpenBooking }) {
                       <button
                         type="button"
                         onClick={() => openWaDirect(msg.waUrl)}
-                        className="mt-2.5 w-full py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-black font-sans text-[10px] font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 transition-colors shadow-sm rounded-xs"
+                        className="mt-2.5 w-full py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white font-sans text-[10px] font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 transition-colors shadow-xs rounded-xs"
                       >
                         <ExternalLink className="w-3 h-3" />
                         <span>Chat WA Admin Direct</span>
                       </button>
                     )}
                   </div>
-                  <span className="text-[9px] text-neutral-500 mt-1 px-1 font-mono">
+                  <span className="text-[9px] text-[#7A756C] mt-1 px-1 font-mono">
                     {msg.time}
                   </span>
                 </div>
@@ -171,8 +169,8 @@ export default function LiveChatWidget({ onOpenBooking }) {
             })}
 
             {isTyping && (
-              <div className="flex items-center gap-2 text-amber-400 text-[10px] italic">
-                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce" />
+              <div className="flex items-center gap-2 text-[#C5A880] text-[10px] italic">
+                <span className="w-1.5 h-1.5 bg-[#C5A880] rounded-full animate-bounce" />
                 <span>Sigit (JEMARI KILAT) sedang mengetik balasan...</span>
               </div>
             )}
@@ -180,16 +178,16 @@ export default function LiveChatWidget({ onOpenBooking }) {
           </div>
 
           {/* Quick Action Chips */}
-          <div className="px-3 py-2 bg-[#16161a] border-t border-neutral-800 flex gap-2 overflow-x-auto text-[10px] font-sans">
+          <div className="px-3 py-2 bg-white border-t border-[#E5E0D8] flex gap-2 overflow-x-auto text-[10px] font-sans">
             <button
               onClick={() => handleSendMessage("Halo, saya ingin menanyakan jadwal ketersediaan pemotretan.")}
-              className="whitespace-nowrap px-2.5 py-1 bg-[#0d0d0e] hover:bg-amber-500 hover:text-black transition-colors border border-neutral-800 text-neutral-300 rounded-xs"
+              className="whitespace-nowrap px-2.5 py-1 bg-[#FAF8F5] hover:bg-[#1A1A1A] hover:text-white transition-colors border border-[#E5E0D8] text-[#1A1A1A] rounded-xs font-medium"
             >
               Cek Tanggal
             </button>
             <button
               onClick={() => handleSendMessage("Berapa estimasi harga paket pernikahan / wisuda?")}
-              className="whitespace-nowrap px-2.5 py-1 bg-[#0d0d0e] hover:bg-amber-500 hover:text-black transition-colors border border-neutral-800 text-neutral-300 rounded-xs"
+              className="whitespace-nowrap px-2.5 py-1 bg-[#FAF8F5] hover:bg-[#1A1A1A] hover:text-white transition-colors border border-[#E5E0D8] text-[#1A1A1A] rounded-xs font-medium"
             >
               Cek Pricelist
             </button>
@@ -198,7 +196,7 @@ export default function LiveChatWidget({ onOpenBooking }) {
                 setIsOpen(false);
                 onOpenBooking();
               }}
-              className="whitespace-nowrap px-2.5 py-1 bg-amber-500 text-black uppercase tracking-wider font-bold rounded-xs"
+              className="whitespace-nowrap px-2.5 py-1 bg-[#1A1A1A] text-white uppercase tracking-wider font-bold rounded-xs"
             >
               Book Direct
             </button>
@@ -210,19 +208,19 @@ export default function LiveChatWidget({ onOpenBooking }) {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="p-3 bg-[#16161a] border-t border-neutral-800 flex items-center gap-2"
+            className="p-3 bg-white border-t border-[#E5E0D8] flex items-center gap-2"
           >
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Tulis pesan Anda..."
-              className="flex-1 bg-transparent text-xs text-white focus:outline-none placeholder:text-neutral-500"
+              className="flex-1 bg-transparent text-xs text-[#1A1A1A] focus:outline-none placeholder:text-[#7A756C]"
             />
             <button
               type="submit"
               title="Kirim Pesan & Buka WA Admin"
-              className="px-3 py-2 bg-amber-500 text-black hover:bg-amber-400 transition-colors text-xs font-bold flex items-center gap-1.5 rounded-xs shadow-md"
+              className="px-3 py-2 bg-[#1A1A1A] text-white hover:bg-[#C5A880] hover:text-black transition-colors text-xs font-bold flex items-center gap-1.5 rounded-xs shadow-xs"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Kirim</span>
@@ -230,17 +228,17 @@ export default function LiveChatWidget({ onOpenBooking }) {
           </form>
 
           {/* Direct WA Admin Action Link */}
-          <div className="bg-[#0a0a0c] py-1.5 px-3 border-t border-neutral-800 flex justify-between items-center text-[10px] font-sans">
-            <span className="text-neutral-400 font-mono">Admin Studio: {ADMIN_WA_DISPLAY}</span>
+          <div className="bg-[#FAF8F5] py-1.5 px-3 border-t border-[#E5E0D8] flex justify-between items-center text-[10px] font-sans">
+            <span className="text-[#7A756C] font-mono">Admin Studio: {ADMIN_WA_DISPLAY}</span>
             <button
               type="button"
               onClick={() => {
                 const url = generateConsultationWaUrl(inputText || "Halo Admin, saya ingin berkonsultasi mengenai JEMARI KILAT Studio.", userWa);
                 openWaDirect(url);
               }}
-              className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 hover:underline"
+              className="text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1 hover:underline"
             >
-              <ExternalLink className="w-3 h-3 text-emerald-400" />
+              <ExternalLink className="w-3 h-3 text-emerald-600" />
               <span>Chat WA Admin Direct</span>
             </button>
           </div>

@@ -7,35 +7,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        "background": "#0d0d0e",
-        "on-background": "#f5f5f7",
-        "surface": "#16161a",
-        "surface-dim": "#111114",
-        "surface-bright": "#1f1f26",
-        "surface-container-lowest": "#0a0a0c",
-        "surface-container-low": "#141418",
-        "surface-container": "#1a1a20",
-        "surface-container-high": "#22222a",
-        "surface-container-highest": "#2b2b35",
-        "on-surface": "#f5f5f7",
-        "on-surface-variant": "#a1a1aa",
-        "inverse-surface": "#f5f5f7",
-        "inverse-on-surface": "#0d0d0e",
-        "outline": "#3a3a44",
-        "outline-variant": "#282832",
-        "primary": "#f5f5f7",
-        "on-primary": "#0d0d0e",
-        "primary-container": "#202026",
-        "on-primary-container": "#d4af37",
-        "secondary": "#a1a1aa",
-        "on-secondary": "#0d0d0e",
-        "gold": {
-          DEFAULT: "#d4af37",
-          light: "#e5c384",
-          dark: "#997a22",
-          muted: "#8c7329"
+        "background": "#FAF8F5",
+        "on-background": "#1A1A1A",
+        "surface": "#FFFFFF",
+        "surface-dim": "#F4F1EA",
+        "surface-bright": "#FFFFFF",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-container-low": "#FAF8F5",
+        "surface-container": "#F5F2EB",
+        "surface-container-high": "#EDE9E1",
+        "surface-container-highest": "#E4DFD5",
+        "on-surface": "#1A1A1A",
+        "on-surface-variant": "#666158",
+        "inverse-surface": "#1A1A1A",
+        "inverse-on-surface": "#FAF8F5",
+        "outline": "#DCD5C9",
+        "outline-variant": "#E5E0D8",
+        "sand": {
+          DEFAULT: "#E5E0D8",
+          light: "#F5F2EB",
+          dark: "#CFC8BC"
         },
-        "champagne": "#c5a880"
+        "primary": "#1A1A1A",
+        "on-primary": "#FFFFFF",
+        "primary-container": "#FAF8F5",
+        "on-primary-container": "#C5A880",
+        "secondary": "#666158",
+        "on-secondary": "#FFFFFF",
+        "gold": {
+          DEFAULT: "#C5A880",
+          light: "#D8C09D",
+          dark: "#9E825B",
+          muted: "#A88F6C"
+        },
+        "champagne": "#C5A880"
       },
       fontFamily: {
         serif: ["Cormorant Garamond", "Playfair Display", "serif"],
