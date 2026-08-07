@@ -60,22 +60,22 @@ export default function TeamMemberModal({ isOpen, onClose, member = null }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-surface-container-high border border-outline-variant/30 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl text-on-surface p-6 sm:p-8 space-y-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn">
+      <div className="bg-white border border-slate-200/90 rounded-3xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-3d-floating text-slate-900 p-6 sm:p-8 space-y-6">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
           <div>
-            <span className="text-xs uppercase tracking-widest font-mono text-primary font-bold">
+            <span className="text-xs uppercase tracking-widest font-mono text-blue-600 font-bold">
               Manajemen Tim Photography & Crew
             </span>
-            <h2 className="text-2xl font-serif font-bold text-on-surface">
+            <h2 className="text-2xl font-serif font-extrabold text-slate-900">
               {member ? `Edit Profile: ${member.name}` : 'Tambah Anggota Tim Baru'}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-surface-container rounded-full text-on-surface-variant hover:text-on-surface transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
@@ -85,108 +85,108 @@ export default function TeamMemberModal({ isOpen, onClose, member = null }) {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">Nama Lengkap *</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">Nama Lengkap *</label>
               <input
                 type="text"
                 required
                 placeholder="Contoh: Rian Pratama"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
               />
             </div>
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">Username Login</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">Username Login</label>
               <input
                 type="text"
                 placeholder="rian"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary font-mono"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600 font-mono"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">Telepon / WhatsApp *</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">Telepon / WhatsApp *</label>
               <input
                 type="text"
                 required
                 placeholder="0812xxxxxxxx"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
               />
             </div>
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">Email</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">Email</label>
               <input
                 type="email"
                 placeholder="crew@jemarikilat.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs text-on-surface-variant font-medium mb-1">Spesialisasi & Role Job</label>
+            <label className="block text-xs text-slate-600 font-medium mb-1">Spesialisasi & Role Job</label>
             <input
               type="text"
               placeholder="Contoh: Senior Videographer • Drone Pilot & Editor"
               value={formData.specialty}
               onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-              className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-on-surface-variant font-medium mb-1">Daftar Peralatan / Gear Utama</label>
+            <label className="block text-xs text-slate-600 font-medium mb-1">Daftar Peralatan / Gear Utama</label>
             <input
               type="text"
               placeholder="Sony A7 IV, Lens 24-70mm f2.8, Lighting Godox AD300"
               value={formData.gear}
               onChange={(e) => setFormData({ ...formData, gear: e.target.value })}
-              className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">PIN Login Crew (4 Digit)</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">PIN Login Crew (4 Digit)</label>
               <input
                 type="text"
                 maxLength={4}
                 value={formData.pin}
                 onChange={(e) => setFormData({ ...formData, pin: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-sm focus:outline-none focus:border-primary font-mono"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600 font-mono"
               />
             </div>
             <div>
-              <label className="block text-xs text-on-surface-variant font-medium mb-1">URL Avatar / Foto Profil</label>
+              <label className="block text-xs text-slate-600 font-medium mb-1">URL Avatar / Foto Profil</label>
               <input
                 type="url"
                 value={formData.avatar}
                 onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-                className="w-full px-3 py-2 bg-surface border border-outline-variant/40 rounded-lg text-xs font-mono focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-blue-600"
               />
             </div>
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-outline-variant/20">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:text-on-surface rounded-lg text-xs font-bold uppercase tracking-wider transition-colors"
+              className="px-5 py-2.5 bg-slate-100 text-slate-600 hover:text-slate-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-primary text-on-primary hover:bg-outline rounded-lg text-xs font-bold uppercase tracking-wider shadow-lg transition-colors flex items-center gap-2"
+              className="px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-blue-500/20 transition-colors flex items-center gap-2"
             >
               <CheckCircle2 size={16} />
               {member ? 'Simpan Profil' : 'Tambah Tim Crew'}
