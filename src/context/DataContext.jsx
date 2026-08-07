@@ -101,6 +101,200 @@ const INITIAL_PARTNERSHIPS = [
   }
 ];
 
+const INITIAL_PROJECTS = [
+  {
+    id: 'proj-101',
+    projectCode: 'JMR-2026-081',
+    clientName: 'Ananda & Rizky',
+    clientPhone: '081298765432',
+    clientEmail: 'ananda.rizky@gmail.com',
+    eventType: 'Wedding Photography & Cinematic Film',
+    packageId: 'pkg-wedding-royal',
+    packageName: 'Royal Platinum Wedding Package',
+    eventDate: '2026-08-25',
+    eventTime: '08:00 WIB',
+    location: 'Grand Aston Cityhall Ballroom Medan',
+    status: 'Shooting Scheduled', // Prospect, Confirmed, Pre-Shoot, Shooting Scheduled, Editing, Revision, Final Delivered, Completed
+    totalAmount: 12500000,
+    paidAmount: 5000000,
+    paymentStatus: 'DP Paid', // Unpaid, DP Paid, Paid Full
+    assignedCrew: [
+      { id: 'fg-1', name: 'Sigit Irawan', role: 'Lead Photographer', fee: 2500000, payoutStatus: 'Unpaid' },
+      { id: 'fg-2', name: 'Rian Pratama', role: 'Videographer & Drone', fee: 2000000, payoutStatus: 'Unpaid' }
+    ],
+    rawDriveUrl: 'https://drive.google.com/drive/folders/jemari-raw-ananda-rizky',
+    finalDriveUrl: 'https://drive.google.com/drive/folders/jemari-final-ananda-rizky',
+    notes: 'Prioritaskan dokumentasi momen sungkeman dan lighting pesta malam warna warm gold.',
+    createdAt: '2026-08-01T10:15:00Z'
+  },
+  {
+    id: 'proj-102',
+    projectCode: 'JMR-2026-082',
+    clientName: 'Siti Sarah & Group USU 2026',
+    clientPhone: '082145678901',
+    clientEmail: 'siti.sarah@usu.ac.id',
+    eventType: 'Wisuda Group Studio & Outdoor',
+    packageId: 'pkg-grad-group',
+    packageName: 'Graduation VIP Group Package',
+    eventDate: '2026-08-18',
+    eventTime: '13:00 WIB',
+    location: 'Studio Titik Tuju & Taman Kampus USU',
+    status: 'Editing',
+    totalAmount: 3500000,
+    paidAmount: 3500000,
+    paymentStatus: 'Paid Full',
+    assignedCrew: [
+      { id: 'fg-2', name: 'Rian Pratama', role: 'Senior Photographer', fee: 1000000, payoutStatus: 'Paid' }
+    ],
+    rawDriveUrl: 'https://drive.google.com/drive/folders/jemari-raw-sitisarah-grad',
+    finalDriveUrl: '',
+    notes: 'Foto grup 8 orang, butuh color grading cerah & tone pastel estetik.',
+    createdAt: '2026-08-03T14:30:00Z'
+  },
+  {
+    id: 'proj-103',
+    projectCode: 'JMR-2026-083',
+    clientName: 'Bagas & Clarissa',
+    clientPhone: '081399887766',
+    clientEmail: 'bagas.clarissa@hotmail.com',
+    eventType: 'Prewedding Cinematic Outdoor',
+    packageId: 'pkg-prewed-luxe',
+    packageName: 'Luxe Cinematic Prewedding',
+    eventDate: '2026-09-02',
+    eventTime: '06:00 WIB',
+    location: 'Danau Toba & Bukit Holbung',
+    status: 'Confirmed',
+    totalAmount: 8500000,
+    paidAmount: 3000000,
+    paymentStatus: 'DP Paid',
+    assignedCrew: [
+      { id: 'fg-1', name: 'Sigit Irawan', role: 'Lead Director & Photographer', fee: 2000000, payoutStatus: 'Unpaid' }
+    ],
+    rawDriveUrl: '',
+    finalDriveUrl: '',
+    notes: 'Konsep romantic sunrise moody cinematic tone. Izin drone lokasi dan transportasi crew disiapkan.',
+    createdAt: '2026-08-05T09:00:00Z'
+  },
+  {
+    id: 'proj-104',
+    projectCode: 'JMR-2026-084',
+    clientName: 'Festival Musik Soundwave Medan',
+    clientPhone: '085211223344',
+    clientEmail: 'event@soundwavemedan.com',
+    eventType: 'Event Stage & Concert Photo',
+    packageId: 'pkg-event-stage',
+    packageName: 'High-Voltage Stage & Summit Pass',
+    eventDate: '2026-08-12',
+    eventTime: '16:00 WIB',
+    location: 'Lapangan Pancing Medan',
+    status: 'Final Delivered',
+    totalAmount: 15000000,
+    paidAmount: 15000000,
+    paymentStatus: 'Paid Full',
+    assignedCrew: [
+      { id: 'fg-1', name: 'Sigit Irawan', role: 'Stage Lead Photographer', fee: 3500000, payoutStatus: 'Paid' },
+      { id: 'fg-2', name: 'Rian Pratama', role: 'Crowd & Stage Videographer', fee: 3000000, payoutStatus: 'Paid' }
+    ],
+    rawDriveUrl: 'https://drive.google.com/drive/folders/soundwave-raw',
+    finalDriveUrl: 'https://drive.google.com/drive/folders/soundwave-final-delivered',
+    notes: 'Delivery foto press 24 jam selesai tepat waktu!',
+    createdAt: '2026-07-28T11:00:00Z'
+  }
+];
+
+const INITIAL_SOCIAL_POSTS = [
+  {
+    id: 'post-201',
+    title: 'Behind The Lens: Cinematic Wedding Highlight Ananda & Rizky',
+    platform: 'Instagram', // Instagram, TikTok, YouTube Shorts, Facebook
+    postType: 'Reel / Short Video', // Reel / Short Video, Carousel Photo, Single Feed, Story
+    status: 'Scheduled', // Idea, Drafting, Assets Ready, Scheduled, Published
+    scheduledDate: '2026-08-10',
+    scheduledTime: '19:00',
+    caption: `Momen haru & kehangatan pernikahan Ananda & Rizky di Grand Aston Medan. 💍✨\n\nSetiap senyuman dan tatapan penuh makna diabadikan dengan color grading obsidian warm signature Jemari Kilat.\n\nLooking for timeless wedding documentation? DM us or click link in bio for 2026 pricelist!`,
+    hashtagGroupId: 'hash-1',
+    hashtags: '#WeddingMedan #FotograferMedan #CinematicWedding #JemariKilat #BridalMedan #WeddingDokumentasi',
+    mediaUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200',
+    assignedCreator: 'Sigit Irawan',
+    metrics: { views: 4200, likes: 380, comments: 45, shares: 28 }
+  },
+  {
+    id: 'post-202',
+    title: 'Spill Studio Wisuda Estetik Medan: Titik Tuju x Jemari Kilat',
+    platform: 'TikTok',
+    postType: 'Reel / Short Video',
+    status: 'Published',
+    scheduledDate: '2026-08-06',
+    scheduledTime: '18:30',
+    caption: `Tips foto wisuda bareng geng kuliah biar nggak kaku! 🎓🔥 Pakai lighting natural & angle estetik di Studio Titik Tuju Medan.\n\nTag geng kelulusan kamu sekarang!`,
+    hashtagGroupId: 'hash-2',
+    hashtags: '#WisudaMedan #FotoWisudaMedan #GraduationPhotoshoot #JemariKilat #USU #Unimed #PancaBudi',
+    mediaUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200',
+    assignedCreator: 'Rian Pratama',
+    metrics: { views: 18500, likes: 1420, comments: 89, shares: 230 }
+  },
+  {
+    id: 'post-203',
+    title: 'Carousel 5 Pose Prewedding Indoor Elegant Minimalis',
+    platform: 'Instagram',
+    postType: 'Carousel Photo',
+    status: 'Drafting',
+    scheduledDate: '2026-08-14',
+    scheduledTime: '20:00',
+    caption: `Bingung pilih pose prewedding biar keliatan natural dan tidak berlebihan? Swipe left buat inspirasi 5 pose favorit tim Jemari Kilat! 🖤📸`,
+    hashtagGroupId: 'hash-1',
+    hashtags: '#PreweddingMedan #PoseInspirasi #PreweddingMinimalis #JemariKilatPhotography',
+    mediaUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1200',
+    assignedCreator: 'Sigit Irawan',
+    metrics: { views: 0, likes: 0, comments: 0, shares: 0 }
+  }
+];
+
+const INITIAL_MARKETING_CAMPAIGNS = [
+  {
+    id: 'camp-301',
+    name: 'Promo Wisuda Spesial Semester Akhir 2026',
+    code: 'GRADJEMARI2026',
+    discount: 'Diskon 15% + Gratis 1 Cetak Frame 12R',
+    startDate: '2026-08-01',
+    endDate: '2026-09-30',
+    targetAudience: 'Mahasiswa Akhir USU, UNIMED, UMSU, Panca Budi',
+    status: 'Active',
+    leadsConverted: 18,
+    totalRevenue: 28500000
+  },
+  {
+    id: 'camp-302',
+    name: 'Early Bird Wedding Package Booking 2027',
+    code: 'EARLYWED2027',
+    discount: 'Bonus Prewedding Video Teaser 1 Menit',
+    startDate: '2026-08-15',
+    endDate: '2026-10-31',
+    targetAudience: 'Pasangan Tunangan & Calon Pengantin Medan',
+    status: 'Upcoming',
+    leadsConverted: 0,
+    totalRevenue: 0
+  }
+];
+
+const INITIAL_HASHTAG_GROUPS = [
+  {
+    id: 'hash-1',
+    title: 'Wedding & Prewedding Medan',
+    hashtags: '#WeddingMedan #FotograferMedan #CinematicWedding #JemariKilat #BridalMedan #WeddingDokumentasi #PreweddingMedan'
+  },
+  {
+    id: 'hash-2',
+    title: 'Wisuda & Studio Photoshoot',
+    hashtags: '#WisudaMedan #FotoWisudaMedan #GraduationPhotoshoot #JemariKilat #USU #Unimed #StudioFotoMedan'
+  },
+  {
+    id: 'hash-3',
+    title: 'Event Concert & Stage Festival',
+    hashtags: '#StagePhotography #ConcertMedan #EventDokumentasi #JemariKilat #StageID #MusicPhotographer'
+  }
+];
+
 const DataContext = createContext(null);
 
 const STORAGE_KEYS = {
@@ -111,7 +305,11 @@ const STORAGE_KEYS = {
   ADMIN_PIN: 'jemari_admin_pin_v1',
   PHOTOGRAPHERS: 'jemari_photographers_v1',
   PARTNERSHIPS: 'jemari_partnerships_v1',
-  EVENT_SETTINGS: 'jemari_event_settings_v1'
+  EVENT_SETTINGS: 'jemari_event_settings_v1',
+  PROJECTS: 'jemari_studio_projects_v1',
+  SOCIAL_POSTS: 'jemari_social_posts_v1',
+  MARKETING_CAMPAIGNS: 'jemari_marketing_campaigns_v1',
+  HASHTAG_GROUPS: 'jemari_hashtag_groups_v1'
 };
 
 const INITIAL_EVENT_SETTINGS = {
@@ -157,6 +355,10 @@ export function DataProvider({ children }) {
   const [photographers, setPhotographers] = useState(() => loadInitial(STORAGE_KEYS.PHOTOGRAPHERS, INITIAL_PHOTOGRAPHERS));
   const [partnerships, setPartnerships] = useState(() => loadInitial(STORAGE_KEYS.PARTNERSHIPS, INITIAL_PARTNERSHIPS));
   const [eventSettings, setEventSettings] = useState(() => loadInitial(STORAGE_KEYS.EVENT_SETTINGS, INITIAL_EVENT_SETTINGS));
+  const [projects, setProjects] = useState(() => loadInitial(STORAGE_KEYS.PROJECTS, INITIAL_PROJECTS));
+  const [socialPosts, setSocialPosts] = useState(() => loadInitial(STORAGE_KEYS.SOCIAL_POSTS, INITIAL_SOCIAL_POSTS));
+  const [marketingCampaigns, setMarketingCampaigns] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_CAMPAIGNS, INITIAL_MARKETING_CAMPAIGNS));
+  const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -199,6 +401,22 @@ export function DataProvider({ children }) {
   useEffect(() => {
     safeSaveLocalStorage(STORAGE_KEYS.ADMIN_PIN, adminPin);
   }, [adminPin]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.PROJECTS, projects);
+  }, [projects]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.SOCIAL_POSTS, socialPosts);
+  }, [socialPosts]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.MARKETING_CAMPAIGNS, marketingCampaigns);
+  }, [marketingCampaigns]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.HASHTAG_GROUPS, hashtagGroups);
+  }, [hashtagGroups]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -481,6 +699,120 @@ export function DataProvider({ children }) {
     setEventSettings((prev) => ({ ...prev, isEventPageHidden: !prev.isEventPageHidden }));
   };
 
+  // --- PROJECTS CRUD ---
+  const addProject = (projectData) => {
+    const codeNum = Math.floor(100 + Math.random() * 900);
+    const newProj = {
+      id: `proj-${Date.now()}`,
+      projectCode: `JMR-${new Date().getFullYear()}-${codeNum}`,
+      status: 'Booking / Prospect',
+      paymentStatus: 'Unpaid',
+      assignedCrew: [],
+      rawDriveUrl: '',
+      finalDriveUrl: '',
+      notes: '',
+      createdAt: new Date().toISOString(),
+      ...projectData
+    };
+    setProjects((prev) => [newProj, ...prev]);
+    return newProj;
+  };
+
+  const updateProject = (id, updatedData) => {
+    setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, ...updatedData } : p)));
+  };
+
+  const updateProjectStatus = (id, newStatus) => {
+    setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p)));
+  };
+
+  const deleteProject = (id) => {
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const updateProjectCrewPayout = (projectId, crewId, newPayoutStatus) => {
+    setProjects((prev) =>
+      prev.map((p) => {
+        if (p.id !== projectId) return p;
+        const updatedCrew = (p.assignedCrew || []).map((c) =>
+          c.id === crewId ? { ...c, payoutStatus: newPayoutStatus } : c
+        );
+        return { ...p, assignedCrew: updatedCrew };
+      })
+    );
+  };
+
+  // --- SOCIAL POSTS CRUD ---
+  const addSocialPost = (postData) => {
+    const newPost = {
+      id: `post-${Date.now()}`,
+      status: 'Idea',
+      platform: 'Instagram',
+      postType: 'Reel / Short Video',
+      scheduledDate: new Date().toISOString().split('T')[0],
+      scheduledTime: '18:00',
+      hashtags: '',
+      mediaUrl: '',
+      metrics: { views: 0, likes: 0, comments: 0, shares: 0 },
+      ...postData
+    };
+    setSocialPosts((prev) => [newPost, ...prev]);
+    return newPost;
+  };
+
+  const updateSocialPost = (id, updatedData) => {
+    setSocialPosts((prev) => prev.map((post) => (post.id === id ? { ...post, ...updatedData } : post)));
+  };
+
+  const updatePostStatus = (id, newStatus) => {
+    setSocialPosts((prev) => prev.map((post) => (post.id === id ? { ...post, status: newStatus } : post)));
+  };
+
+  const deleteSocialPost = (id) => {
+    setSocialPosts((prev) => prev.filter((post) => post.id !== id));
+  };
+
+  // --- MARKETING CAMPAIGNS CRUD ---
+  const addMarketingCampaign = (campData) => {
+    const newCamp = {
+      id: `camp-${Date.now()}`,
+      status: 'Active',
+      leadsConverted: 0,
+      totalRevenue: 0,
+      ...campData
+    };
+    setMarketingCampaigns((prev) => [newCamp, ...prev]);
+    return newCamp;
+  };
+
+  const updateMarketingCampaign = (id, updatedData) => {
+    setMarketingCampaigns((prev) => prev.map((c) => (c.id === id ? { ...c, ...updatedData } : c)));
+  };
+
+  const deleteMarketingCampaign = (id) => {
+    setMarketingCampaigns((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  // --- HASHTAG GROUPS CRUD ---
+  const addHashtagGroup = (groupData) => {
+    const newGroup = {
+      id: `hash-${Date.now()}`,
+      title: 'Group Hashtag Baru',
+      hashtags: '#JemariKilat #FotograferMedan',
+      ...groupData
+    };
+    setHashtagGroups((prev) => [newGroup, ...prev]);
+    return newGroup;
+  };
+
+  const updateHashtagGroup = (id, updatedData) => {
+    setHashtagGroups((prev) => prev.map((h) => (h.id === id ? { ...h, ...updatedData } : h)));
+  };
+
+  const deleteHashtagGroup = (id) => {
+    setHashtagGroups((prev) => prev.filter((h) => h.id !== id));
+  };
+
   // Reset factory data
   const resetAllData = () => {
     try {
@@ -492,6 +824,10 @@ export function DataProvider({ children }) {
       localStorage.removeItem(STORAGE_KEYS.PHOTOGRAPHERS);
       localStorage.removeItem(STORAGE_KEYS.PARTNERSHIPS);
       localStorage.removeItem(STORAGE_KEYS.EVENT_SETTINGS);
+      localStorage.removeItem(STORAGE_KEYS.PROJECTS);
+      localStorage.removeItem(STORAGE_KEYS.SOCIAL_POSTS);
+      localStorage.removeItem(STORAGE_KEYS.MARKETING_CAMPAIGNS);
+      localStorage.removeItem(STORAGE_KEYS.HASHTAG_GROUPS);
 
       setPhotos(INITIAL_PHOTOS);
       setVideos(INITIAL_VIDEOS);
@@ -501,6 +837,10 @@ export function DataProvider({ children }) {
       setPhotographers(INITIAL_PHOTOGRAPHERS);
       setPartnerships(INITIAL_PARTNERSHIPS);
       setEventSettings(INITIAL_EVENT_SETTINGS);
+      setProjects(INITIAL_PROJECTS);
+      setSocialPosts(INITIAL_SOCIAL_POSTS);
+      setMarketingCampaigns(INITIAL_MARKETING_CAMPAIGNS);
+      setHashtagGroups(INITIAL_HASHTAG_GROUPS);
     } catch (e) {
       console.error('Error resetting data:', e);
     }
@@ -556,6 +896,25 @@ export function DataProvider({ children }) {
         updateBooking,
         updateBookingStatus,
         deleteBooking,
+        projects,
+        addProject,
+        updateProject,
+        updateProjectStatus,
+        deleteProject,
+        updateProjectCrewPayout,
+        socialPosts,
+        addSocialPost,
+        updateSocialPost,
+        updatePostStatus,
+        deleteSocialPost,
+        marketingCampaigns,
+        addMarketingCampaign,
+        updateMarketingCampaign,
+        deleteMarketingCampaign,
+        hashtagGroups,
+        addHashtagGroup,
+        updateHashtagGroup,
+        deleteHashtagGroup,
         resetAllData
       }}
     >

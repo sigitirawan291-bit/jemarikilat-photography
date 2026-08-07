@@ -14,6 +14,7 @@ import PricingView from './views/PricingView';
 import ContactView from './views/ContactView';
 import AdminView from './views/AdminView';
 import FgDashboardView from './views/FgDashboardView';
+import StudioToolsView from './views/StudioToolsView';
 
 function AppContent() {
   const [activePage, setActivePage] = useState('home');
@@ -127,6 +128,10 @@ function AppContent() {
 
         {activePage === 'fg-dashboard' && (
           <FgDashboardView setActivePage={setActivePage} />
+        )}
+
+        {activePage === 'studio-tools' && (
+          <StudioToolsView setActivePage={setActivePage} />
         )}
 
         {activePage === 'admin' && (

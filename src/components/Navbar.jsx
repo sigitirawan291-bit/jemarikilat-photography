@@ -38,6 +38,7 @@ export default function Navbar({ activePage, setActivePage, onOpenBooking }) {
 
   const allNavLinks = [
     { id: 'home', label: 'HOME' },
+    { id: 'studio-tools', label: 'STUDIO TOOLS ⚡' },
     { id: 'gallery', label: 'GALLERY' },
     { id: 'video', label: 'CINEMA' },
     { id: 'event', label: 'EVENT PORTAL' },
