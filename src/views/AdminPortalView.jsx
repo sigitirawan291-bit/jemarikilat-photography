@@ -23,6 +23,7 @@ export default function AdminPortalView() {
     toggleFgAvailability,
     updatePhotographerRating,
     financeTeam = [],
+    deleteFinanceMember,
     socialPosts = [], 
     updatePostStatus, 
     deleteSocialPost,
@@ -432,6 +433,19 @@ export default function AdminPortalView() {
                       >
                         <Edit3 size={15} />
                       </button>
+
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Hapus akun fotografer "${fg.name}"? Tim ini tidak akan bisa login lagi.`)) {
+                            deletePhotographer(fg.id);
+                          }
+                        }}
+                        className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
+                        title="Hapus Akun Fotografer"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+
                       <button
                         onClick={() => toggleFgAvailability(fg.id)}
                         className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
@@ -481,17 +495,31 @@ export default function AdminPortalView() {
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => {
-                        setSelectedMember(fin);
-                        setDefaultTeamType('finance');
-                        setIsMemberModalOpen(true);
-                      }}
-                      className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
-                      title="Edit Profil"
-                    >
-                      <Edit3 size={15} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedMember(fin);
+                          setDefaultTeamType('finance');
+                          setIsMemberModalOpen(true);
+                        }}
+                        className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+                        title="Edit Profil"
+                      >
+                        <Edit3 size={15} />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Hapus akun tim keuangan "${fin.name}"? Akun ini tidak akan bisa login lagi.`)) {
+                            deleteFinanceMember(fin.id);
+                          }
+                        }}
+                        className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
+                        title="Hapus Akun Keuangan"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="text-xs text-slate-600 space-y-1 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100">

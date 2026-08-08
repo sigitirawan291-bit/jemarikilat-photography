@@ -694,6 +694,10 @@ export function DataProvider({ children }) {
 
   const deletePhotographer = (fgId) => {
     setPhotographers((prev) => prev.filter((fg) => fg.id !== fgId));
+    if (currentPhotographer && currentPhotographer.id === fgId) {
+      setCurrentPhotographer(null);
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_PHOTOGRAPHER);
+    }
   };
 
   const toggleFgAvailability = (fgId, dateStr) => {
@@ -959,6 +963,10 @@ export function DataProvider({ children }) {
 
   const deleteFinanceMember = (id) => {
     setFinanceTeam(prev => prev.filter(m => m.id !== id));
+    if (currentFinanceMember && currentFinanceMember.id === id) {
+      setCurrentFinanceMember(null);
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_FINANCE_MEMBER);
+    }
   };
 
   const updatePhotographerProfile = (id, data) => {
