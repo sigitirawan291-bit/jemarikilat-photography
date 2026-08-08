@@ -396,6 +396,7 @@ export function DataProvider({ children }) {
   const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
   const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, false));
+  const [isFinanceLoggedIn, setIsFinanceLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, false));
   const [financeTeam, setFinanceTeam] = useState(() => loadInitial(STORAGE_KEYS.FINANCE_TEAM, INITIAL_FINANCE_TEAM));
   const [currentFinanceMember, setCurrentFinanceMember] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_FINANCE_MEMBER, INITIAL_FINANCE_TEAM[0]));
   const [marketingTeam, setMarketingTeam] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_TEAM, INITIAL_MARKETING_TEAM));
