@@ -371,15 +371,26 @@ export function DataProvider({ children }) {
   const loadInitial = (key, fallback) => {
     try {
       const saved = localStorage.getItem(key);
-      if (!saved) return fallback;
+      if (!saved || saved === 'undefined' || saved === 'null') return fallback;
       const parsed = JSON.parse(saved);
       if (Array.isArray(fallback) && !Array.isArray(parsed)) return fallback;
       if (typeof fallback === 'object' && fallback !== null && (typeof parsed !== 'object' || parsed === null)) return fallback;
       return parsed;
     } catch (e) {
-      console.error(`Error loading ${key} from localStorage`, e);
+      console.warn(`[Auto-Clean Cache] Purging corrupt key "${key}":`, e);
+      try { localStorage.removeItem(key); } catch (_) {}
       return fallback;
     }
+  };
+
+  const clearAllCache = () => {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+    } catch (e) {
+      console.error('[Cache Clear Error]:', e);
+    }
+    window.location.reload();
   };
 
   const [photos, setPhotos] = useState(() => loadInitial(STORAGE_KEYS.PHOTOS, INITIAL_PHOTOS));
@@ -1278,7 +1289,8 @@ export function DataProvider({ children }) {
         setPhotographerDateAvailability,
         addPhotographerBankAccount,
         deletePhotographerBankAccount,
-        setPrimaryPhotographerBankAccount
+        setPrimaryPhotographerBankAccount,
+        clearAllCache
       }}
     >
       {children}
