@@ -39,6 +39,7 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
         role: member.role || 'Finance Staff',
         gear: member.gear || '',
         bio: member.bio || '',
+        rating: member.rating || 4.9,
         pin: member.pin || '1234',
         avatar: member.avatar || PRESET_AVATARS[0].url
       });
@@ -53,6 +54,7 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
         role: defaultType === 'finance' ? 'Head of Finance & Accounting' : 'Senior Photographer',
         gear: 'Sony A7 IV, FE 24-70mm f/2.8 GM II',
         bio: 'Pengelola arus kas studio, payroll honorarium crew, dan pencatatan laba bersih.',
+        rating: 4.9,
         pin: '1234',
         avatar: defaultType === 'finance' ? PRESET_AVATARS[3].url : PRESET_AVATARS[1].url
       });
@@ -206,6 +208,24 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
                   onChange={(e) => setFormData({ ...formData, gear: e.target.value })}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-600"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs text-slate-600 font-medium mb-1">Rating Perfomance Fotografer (1.0 - 5.0 ⭐)</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="1.0"
+                    max="5.0"
+                    value={formData.rating}
+                    onChange={(e) => setFormData({ ...formData, rating: parseFloat(e.target.value) || 5.0 })}
+                    className="w-28 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono font-bold text-amber-600 focus:outline-none focus:border-blue-600"
+                  />
+                  <div className="flex items-center gap-1 text-amber-400 font-mono font-bold text-xs">
+                    ★ {formData.rating} Stars Rating
+                  </div>
+                </div>
               </div>
             </>
           ) : (

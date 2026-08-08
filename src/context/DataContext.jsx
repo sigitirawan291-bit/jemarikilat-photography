@@ -968,6 +968,14 @@ export function DataProvider({ children }) {
     }
   };
 
+  const updatePhotographerRating = (photographerId, rating) => {
+    const numRating = Math.min(5, Math.max(1, Number(rating) || 5));
+    setPhotographers(prev => prev.map(p => p.id === photographerId ? { ...p, rating: numRating } : p));
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer(prev => ({ ...prev, rating: numRating }));
+    }
+  };
+
   const setPhotographerDateAvailability = (photographerId, dateStr, status, remark) => {
     setPhotographers(prev => prev.map(p => {
       if (p.id === photographerId) {
@@ -1156,6 +1164,7 @@ export function DataProvider({ children }) {
         currentFinanceMember,
         setCurrentFinanceMember,
         updatePhotographerProfile,
+        updatePhotographerRating,
         setPhotographerDateAvailability,
         addPhotographerBankAccount,
         deletePhotographerBankAccount,

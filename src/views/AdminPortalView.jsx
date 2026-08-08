@@ -21,6 +21,7 @@ export default function AdminPortalView() {
     photographers = [], 
     deletePhotographer, 
     toggleFgAvailability,
+    updatePhotographerRating,
     financeTeam = [],
     socialPosts = [], 
     updatePostStatus, 
@@ -445,6 +446,24 @@ export default function AdminPortalView() {
                   <div className="text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-2xl">
                     <div className="font-semibold text-slate-800">Gear Spec: {fg.gear}</div>
                     <div className="text-slate-500">Contact: {fg.phone} | {fg.email} | PIN: <span className="font-mono font-bold">{fg.pin || '1234'}</span></div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+                    <span className="text-slate-500 font-medium">Rating Fotografer (Ditentukan Admin):</span>
+                    <div className="flex items-center gap-1.5">
+                      <select
+                        value={fg.rating || 5.0}
+                        onChange={(e) => updatePhotographerRating(fg.id, e.target.value)}
+                        className="bg-amber-50 text-amber-700 font-bold border border-amber-200 rounded-xl px-2.5 py-1 text-xs font-mono focus:outline-none cursor-pointer hover:bg-amber-100 transition-colors"
+                      >
+                        <option value="5.0">★ 5.0 (Perfect Star)</option>
+                        <option value="4.9">★ 4.9 (Exceptional)</option>
+                        <option value="4.8">★ 4.8 (Excellence)</option>
+                        <option value="4.7">★ 4.7 (Very Good)</option>
+                        <option value="4.5">★ 4.5 (Good)</option>
+                        <option value="4.0">★ 4.0 (Above Average)</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               ))}
