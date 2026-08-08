@@ -29,6 +29,29 @@ const INITIAL_PACKAGES_MAP = {
   special: INITIAL_SPEC_PACKAGES
 };
 
+const STORAGE_KEYS = {
+  PHOTOS: 'jemari_photos_v1',
+  VIDEOS: 'jemari_videos_v1',
+  PACKAGES: 'jemari_all_pkgs_v2',
+  BOOKINGS: 'jemari_bookings_v1',
+  ADMIN_PIN: 'jemari_admin_pin_v1',
+  PHOTOGRAPHERS: 'jemari_photographers_v1',
+  PARTNERSHIPS: 'jemari_partnerships_v1',
+  EVENT_SETTINGS: 'jemari_event_settings_v1',
+  PROJECTS: 'jemari_studio_projects_v1',
+  SOCIAL_POSTS: 'jemari_social_posts_v1',
+  MARKETING_CAMPAIGNS: 'jemari_marketing_campaigns_v1',
+  HASHTAG_GROUPS: 'jemari_hashtag_groups_v1',
+  CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1',
+  IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1',
+  IS_FINANCE_LOGGED_IN: 'jemari_is_finance_logged_in_v1',
+  FINANCE_TEAM: 'jemari_finance_team_v1',
+  CURRENT_FINANCE_MEMBER: 'jemari_current_finance_member_v1',
+  MARKETING_TEAM: 'jemari_marketing_team_v1',
+  CURRENT_MARKETING_MEMBER: 'jemari_current_marketing_member_v1',
+  IS_MARKETING_LOGGED_IN: 'jemari_is_marketing_logged_in_v1'
+};
+
 export function DataProvider({ children }) {
   // Helper to load from localStorage with fallback & type validation
   const loadInitial = (key, fallback) => {
