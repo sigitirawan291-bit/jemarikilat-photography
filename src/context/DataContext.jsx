@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   PHOTOS as INITIAL_PHOTOS, 
-  VIDEOS as INITIAL_VIDEOS, 
   PRICING_PACKAGES as INITIAL_WEDDING_PACKAGES, 
   GRADUATION_PRICING_PACKAGES as INITIAL_GRAD_PACKAGES,
   ENGAGEMENT_PRICING_PACKAGES as INITIAL_ENG_PACKAGES,
   PREWEDDING_PRICING_PACKAGES as INITIAL_PREWED_PACKAGES,
   GROUP_PRICING_PACKAGES as INITIAL_GROUP_PACKAGES,
-  SPECIAL_PRICING_PACKAGES as INITIAL_SPEC_PACKAGES,
-  EVENT_PRICING_PACKAGES as INITIAL_EVENT_PACKAGES
+  SPECIAL_PRICING_PACKAGES as INITIAL_SPEC_PACKAGES
 } from '../data/portfolioData';
 
 // Initial sample bookings data for demo & testing
@@ -312,23 +310,13 @@ const STORAGE_KEYS = {
   HASHTAG_GROUPS: 'jemari_hashtag_groups_v1'
 };
 
-const INITIAL_EVENT_SETTINGS = {
-  isEventPageHidden: false,
-  badgeText: 'HIGH-VOLTAGE STAGE & SUMMIT DOCUMENTARY',
-  headline: 'High-Energy Concerts & Executive Summits.',
-  description: 'Penuturan dokumenter visual Imersif untuk festival musik live, konser tur panggung utama, seminar simposium internasional, hingga gala celebration dengan grading warna obsidian berseni tinggi.',
-  stagesCaptured: '150+ STAGES',
-  deliverySpeed: '24-HOUR PRESS'
-};
-
 const INITIAL_PACKAGES_MAP = {
   wedding: INITIAL_WEDDING_PACKAGES,
   graduation: INITIAL_GRAD_PACKAGES,
   engagement: INITIAL_ENG_PACKAGES,
   prewedding: INITIAL_PREWED_PACKAGES,
   group: INITIAL_GROUP_PACKAGES,
-  special: INITIAL_SPEC_PACKAGES,
-  event: INITIAL_EVENT_PACKAGES
+  special: INITIAL_SPEC_PACKAGES
 };
 
 export function DataProvider({ children }) {
@@ -348,13 +336,13 @@ export function DataProvider({ children }) {
   };
 
   const [photos, setPhotos] = useState(() => loadInitial(STORAGE_KEYS.PHOTOS, INITIAL_PHOTOS));
-  const [videos, setVideos] = useState(() => loadInitial(STORAGE_KEYS.VIDEOS, INITIAL_VIDEOS));
+  const [videos, setVideos] = useState([]);
   const [packagesMap, setPackagesMap] = useState(() => loadInitial(STORAGE_KEYS.PACKAGES, INITIAL_PACKAGES_MAP));
   const [bookings, setBookings] = useState(() => loadInitial(STORAGE_KEYS.BOOKINGS, INITIAL_BOOKINGS_DATA));
   const [adminPin, setAdminPin] = useState(() => loadInitial(STORAGE_KEYS.ADMIN_PIN, '1234'));
   const [photographers, setPhotographers] = useState(() => loadInitial(STORAGE_KEYS.PHOTOGRAPHERS, INITIAL_PHOTOGRAPHERS));
   const [partnerships, setPartnerships] = useState(() => loadInitial(STORAGE_KEYS.PARTNERSHIPS, INITIAL_PARTNERSHIPS));
-  const [eventSettings, setEventSettings] = useState(() => loadInitial(STORAGE_KEYS.EVENT_SETTINGS, INITIAL_EVENT_SETTINGS));
+  const [eventSettings, setEventSettings] = useState({});
   const [projects, setProjects] = useState(() => loadInitial(STORAGE_KEYS.PROJECTS, INITIAL_PROJECTS));
   const [socialPosts, setSocialPosts] = useState(() => loadInitial(STORAGE_KEYS.SOCIAL_POSTS, INITIAL_SOCIAL_POSTS));
   const [marketingCampaigns, setMarketingCampaigns] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_CAMPAIGNS, INITIAL_MARKETING_CAMPAIGNS));
@@ -853,7 +841,7 @@ export function DataProvider({ children }) {
         videos,
         weddingPackages,
         graduationPackages,
-        eventPackages,
+        eventPackages: [],
         getPackagesByCategory,
         packagesMap,
         bookings,
@@ -870,9 +858,9 @@ export function DataProvider({ children }) {
         addPartnership,
         updatePartnership,
         deletePartnership,
-        eventSettings,
-        updateEventSettings,
-        toggleHideEventPage,
+        eventSettings: {},
+        updateEventSettings: () => {},
+        toggleHideEventPage: () => {},
         addPhoto,
         updatePhoto,
         deletePhoto,
@@ -882,13 +870,13 @@ export function DataProvider({ children }) {
         toggleShowInGallery,
         movePhotoUp,
         movePhotoDown,
-        addVideo,
-        updateVideo,
-        deleteVideo,
-        toggleHideVideo,
-        toggleHomeFeaturedVideo,
-        moveVideoUp,
-        moveVideoDown,
+        addVideo: () => {},
+        updateVideo: () => {},
+        deleteVideo: () => {},
+        toggleHideVideo: () => {},
+        toggleHomeFeaturedVideo: () => {},
+        moveVideoUp: () => {},
+        moveVideoDown: () => {},
         addPackage,
         updatePackage,
         deletePackage,
