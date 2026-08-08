@@ -19,13 +19,11 @@ export default function MainDashboardView() {
     return p.eventDate?.startsWith(selectedMonthFilter);
   });
 
-  // Monthly Financial & Project Metrics
-  const monthlyRevenue = monthlyProjects.reduce((acc, p) => acc + (Number(p.totalAmount) || 0), 0);
-  const monthlyPaid = monthlyProjects.reduce((acc, p) => acc + (Number(p.paidAmount) || 0), 0);
-  const monthlyPending = monthlyRevenue - monthlyPaid;
-  
+  // Monthly Non-Monetary Project Metrics
   const monthlyActiveCount = monthlyProjects.filter((p) => p.status !== 'Completed').length;
   const monthlyCompletedCount = monthlyProjects.filter((p) => p.status === 'Completed' || p.status === 'Final Delivered').length;
+  const monthlyScheduledCount = monthlyProjects.filter((p) => p.status === 'Shooting Scheduled' || p.status === 'Confirmed').length;
+  const activeCrewCount = photographers.filter((p) => p.availability?.length > 0).length;
 
   // Filtered projects for Status Tracker section
   const filteredStatusProjects = projects.filter((p) => {
@@ -59,7 +57,7 @@ export default function MainDashboardView() {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-blue-100/80 text-blue-700 border border-blue-200/80 text-[10px] font-mono font-bold uppercase tracking-widest rounded-full flex items-center gap-1.5 shadow-sm">
-                <Sparkles size={12} /> Public Studio Dashboard
+                <Sparkles size={12} /> Studio Activity Overview
               </span>
               <span className="text-xs text-slate-500 font-mono font-medium">Medan, Indonesia</span>
             </div>
@@ -69,7 +67,7 @@ export default function MainDashboardView() {
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Ringkasan laporan project bulanan, performa omzet studio, serta status live tracking pengerjaan project photography & film.
+              Ringkasan aktivitas project bulanan, statistik pengerjaan tim studio, serta status live tracking pengerjaan project photography & film.
             </p>
           </div>
 
@@ -91,23 +89,8 @@ export default function MainDashboardView() {
           </div>
         </div>
 
-        {/* 3D Elevated Stats Grid */}
+        {/* 3D Elevated Non-Financial Stats Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-200/60">
-          <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-3d-sm">
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
-              <span>Monthly Revenue</span>
-              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <DollarSign size={16} />
-              </div>
-            </div>
-            <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 mt-2">
-              Rp {(monthlyRevenue / 1000000).toFixed(1)}M
-            </div>
-            <div className="text-[10px] text-slate-500 font-medium mt-1">
-              Terbayar: Rp {(monthlyPaid / 1000000).toFixed(1)}M
-            </div>
-          </div>
-
           <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-3d-sm">
             <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
               <span>Active Projects</span>
@@ -116,66 +99,75 @@ export default function MainDashboardView() {
               </div>
             </div>
             <div className="text-2xl font-bold font-mono text-slate-900 mt-2">{monthlyActiveCount} Project</div>
-            <div className="text-[10px] text-slate-500 font-medium mt-1">Dalam pengerjaan</div>
+            <div className="text-[10px] text-slate-500 font-medium mt-1">Dalam proses pengerjaan</div>
           </div>
 
           <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-3d-sm">
             <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
               <span>Project Selesai</span>
-              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <CheckCircle2 size={16} />
               </div>
             </div>
-            <div className="text-2xl font-bold font-mono text-slate-900 mt-2">{monthlyCompletedCount} Delivered</div>
-            <div className="text-[10px] text-slate-500 font-medium mt-1">Final terkirim</div>
+            <div className="text-2xl font-bold font-mono text-emerald-600 mt-2">{monthlyCompletedCount} Delivered</div>
+            <div className="text-[10px] text-slate-500 font-medium mt-1">Final foto & video terkirim</div>
           </div>
 
           <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-3d-sm">
             <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
-              <span>Pelunasan Pending</span>
-              <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+              <span>Shooting Scheduled</span>
+              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
                 <Clock size={16} />
               </div>
             </div>
-            <div className="text-xl sm:text-2xl font-bold font-mono text-amber-600 mt-2">
-              Rp {(monthlyPending / 1000000).toFixed(1)}M
+            <div className="text-2xl font-bold font-mono text-indigo-600 mt-2">{monthlyScheduledCount} Agenda</div>
+            <div className="text-[10px] text-slate-500 font-medium mt-1">Jadwal shooting aktif</div>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-3d-sm">
+            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
+              <span>Tim Crew On Duty</span>
+              <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                <Users size={16} />
+              </div>
             </div>
-            <div className="text-[10px] text-slate-500 font-medium mt-1">Sisa pembayaran client</div>
+            <div className="text-2xl font-bold font-mono text-purple-600 mt-2">{activeCrewCount} Member</div>
+            <div className="text-[10px] text-slate-500 font-medium mt-1">Fotografer & videografer</div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 1: LAPORAN PROJECT BULANAN */}
+      {/* SECTION 1: LAPORAN AKTIVITAS PROJECT BULANAN */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold font-serif text-slate-900 flex items-center gap-2">
               <BarChart3 size={20} className="text-blue-600" />
-              Laporan Project Bulanan Studio
+              Laporan Aktivitas Project Bulanan
             </h2>
             <p className="text-xs text-slate-500">
-              Analisis performa omzet dan daftar project periode {selectedMonthFilter}
+              Distribusi kategori pengerjaan project studio periode {selectedMonthFilter}
             </p>
           </div>
 
           <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-mono font-bold rounded-xl border border-blue-200">
-            {monthlyProjects.length} Project Terdaftar
+            {monthlyProjects.length} Total Project
           </span>
         </div>
 
-        {/* Category Breakdown Cards */}
+        {/* Category Breakdown Cards (Non-Monetary) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Wedding Series */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold font-mono text-blue-600 uppercase tracking-wider">Wedding & Prewed</span>
-              <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs font-mono">
-                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wedding') || p.eventType?.toLowerCase().includes('prewedding')).length}
-              </div>
+              <span className="px-2.5 py-0.5 bg-blue-100 text-blue-800 text-xs font-bold font-mono rounded-full">
+                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wedding') || p.eventType?.toLowerCase().includes('prewedding')).length} Project
+              </span>
             </div>
 
             <div className="text-2xl font-serif font-extrabold text-slate-900">
-              Rp {(monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wedding') || p.eventType?.toLowerCase().includes('prewedding')).reduce((a, b) => a + Number(b.totalAmount || 0), 0) / 1000000).toFixed(1)}M
+              {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wedding') || p.eventType?.toLowerCase().includes('prewedding')).length} Agendas
             </div>
 
             <p className="text-xs text-slate-500">
@@ -184,16 +176,16 @@ export default function MainDashboardView() {
           </div>
 
           {/* Wisuda & Group */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold font-mono text-indigo-600 uppercase tracking-wider">Wisuda & Group</span>
-              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs font-mono">
-                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wisuda') || p.eventType?.toLowerCase().includes('group')).length}
-              </div>
+              <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold font-mono rounded-full">
+                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wisuda') || p.eventType?.toLowerCase().includes('group')).length} Project
+              </span>
             </div>
 
             <div className="text-2xl font-serif font-extrabold text-slate-900">
-              Rp {(monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wisuda') || p.eventType?.toLowerCase().includes('group')).reduce((a, b) => a + Number(b.totalAmount || 0), 0) / 1000000).toFixed(1)}M
+              {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('wisuda') || p.eventType?.toLowerCase().includes('group')).length} Agendas
             </div>
 
             <p className="text-xs text-slate-500">
@@ -202,16 +194,16 @@ export default function MainDashboardView() {
           </div>
 
           {/* Event & Special */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold font-mono text-purple-600 uppercase tracking-wider">Concert & Stage</span>
-              <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs font-mono">
-                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('event') || p.eventType?.toLowerCase().includes('stage')).length}
-              </div>
+              <span className="px-2.5 py-0.5 bg-purple-100 text-purple-800 text-xs font-bold font-mono rounded-full">
+                {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('event') || p.eventType?.toLowerCase().includes('stage')).length} Project
+              </span>
             </div>
 
             <div className="text-2xl font-serif font-extrabold text-slate-900">
-              Rp {(monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('event') || p.eventType?.toLowerCase().includes('stage')).reduce((a, b) => a + Number(b.totalAmount || 0), 0) / 1000000).toFixed(1)}M
+              {monthlyProjects.filter(p => p.eventType?.toLowerCase().includes('event') || p.eventType?.toLowerCase().includes('stage')).length} Agendas
             </div>
 
             <p className="text-xs text-slate-500">

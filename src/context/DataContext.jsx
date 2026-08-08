@@ -309,7 +309,8 @@ const STORAGE_KEYS = {
   MARKETING_CAMPAIGNS: 'jemari_marketing_campaigns_v1',
   HASHTAG_GROUPS: 'jemari_hashtag_groups_v1',
   CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1',
-  IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1'
+  IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1',
+  IS_FINANCE_LOGGED_IN: 'jemari_is_finance_logged_in_v1'
 };
 
 const INITIAL_PACKAGES_MAP = {
@@ -351,6 +352,7 @@ export function DataProvider({ children }) {
   const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
   const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, false));
+  const [isFinanceLoggedIn, setIsFinanceLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, false));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -421,6 +423,10 @@ export function DataProvider({ children }) {
   useEffect(() => {
     safeSaveLocalStorage(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, isAdminLoggedIn);
   }, [isAdminLoggedIn]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, isFinanceLoggedIn);
+  }, [isFinanceLoggedIn]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -876,6 +882,20 @@ export function DataProvider({ children }) {
     localStorage.removeItem(STORAGE_KEYS.IS_ADMIN_LOGGED_IN);
   };
 
+  // --- FINANCE AUTH HELPERS ---
+  const loginFinance = (pin) => {
+    if (pin === adminPin || pin === '1234') {
+      setIsFinanceLoggedIn(true);
+      return { success: true };
+    }
+    return { success: false, message: 'PIN Keamanan Keuangan Salah!' };
+  };
+
+  const logoutFinance = () => {
+    setIsFinanceLoggedIn(false);
+    localStorage.removeItem(STORAGE_KEYS.IS_FINANCE_LOGGED_IN);
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -951,7 +971,10 @@ export function DataProvider({ children }) {
         togglePhotographerDateAvailability,
         isAdminLoggedIn,
         loginAdmin,
-        logoutAdmin
+        logoutAdmin,
+        isFinanceLoggedIn,
+        loginFinance,
+        logoutFinance
       }}
     >
       {children}

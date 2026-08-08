@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Layers, Folder, Users, Share2, Hash, Sparkles, 
-  Menu, X, ShieldCheck, ChevronRight, Camera, Lock, Shield 
+  Menu, X, ShieldCheck, ChevronRight, Camera, Lock, DollarSign 
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
@@ -11,7 +11,8 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
     photographers = [], 
     socialPosts = [],
     currentPhotographer,
-    isAdminLoggedIn
+    isAdminLoggedIn,
+    isFinanceLoggedIn
   } = useData();
 
   const navItems = [
@@ -19,7 +20,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
       id: 'overview',
       label: 'Dashboard Utama',
       icon: Layers,
-      count: 'Laporan Bulanan',
+      count: 'Activity & Status',
       badgeColor: 'bg-blue-100 text-blue-700'
     },
     {
@@ -28,6 +29,13 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
       icon: ShieldCheck,
       count: isAdminLoggedIn ? '🟢 Active' : '🔒 Admin Auth',
       badgeColor: isAdminLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+    },
+    {
+      id: 'finance_portal',
+      label: 'Keuangan Studio',
+      icon: DollarSign,
+      count: isFinanceLoggedIn ? '🟢 Active' : '🔒 Vault Auth',
+      badgeColor: isFinanceLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
     },
     {
       id: 'photographer_portal',

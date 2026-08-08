@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import { DataProvider } from './context/DataContext';
 import MainDashboardView from './views/MainDashboardView';
 import AdminPortalView from './views/AdminPortalView';
+import FinancePortalView from './views/FinancePortalView';
 import PhotographerPortalView from './views/PhotographerPortalView';
 
 function AppContent() {
@@ -26,6 +27,8 @@ function AppContent() {
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {activeTab === 'admin_portal' ? (
             <AdminPortalView />
+          ) : activeTab === 'finance_portal' ? (
+            <FinancePortalView />
           ) : activeTab === 'photographer_portal' ? (
             <PhotographerPortalView />
           ) : (
