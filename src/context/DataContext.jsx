@@ -801,39 +801,6 @@ export function DataProvider({ children }) {
     setHashtagGroups((prev) => prev.filter((h) => h.id !== id));
   };
 
-  // Reset factory data
-  const resetAllData = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEYS.PHOTOS);
-      localStorage.removeItem(STORAGE_KEYS.VIDEOS);
-      localStorage.removeItem(STORAGE_KEYS.PACKAGES);
-      localStorage.removeItem(STORAGE_KEYS.BOOKINGS);
-      localStorage.removeItem(STORAGE_KEYS.ADMIN_PIN);
-      localStorage.removeItem(STORAGE_KEYS.PHOTOGRAPHERS);
-      localStorage.removeItem(STORAGE_KEYS.PARTNERSHIPS);
-      localStorage.removeItem(STORAGE_KEYS.EVENT_SETTINGS);
-      localStorage.removeItem(STORAGE_KEYS.PROJECTS);
-      localStorage.removeItem(STORAGE_KEYS.SOCIAL_POSTS);
-      localStorage.removeItem(STORAGE_KEYS.MARKETING_CAMPAIGNS);
-      localStorage.removeItem(STORAGE_KEYS.HASHTAG_GROUPS);
-
-      setPhotos(INITIAL_PHOTOS);
-      setVideos(INITIAL_VIDEOS);
-      setPackagesMap(INITIAL_PACKAGES_MAP);
-      setBookings(INITIAL_BOOKINGS_DATA);
-      setAdminPin('1234');
-      setPhotographers(INITIAL_PHOTOGRAPHERS);
-      setPartnerships(INITIAL_PARTNERSHIPS);
-      setEventSettings(INITIAL_EVENT_SETTINGS);
-      setProjects(INITIAL_PROJECTS);
-      setSocialPosts(INITIAL_SOCIAL_POSTS);
-      setMarketingCampaigns(INITIAL_MARKETING_CAMPAIGNS);
-      setHashtagGroups(INITIAL_HASHTAG_GROUPS);
-    } catch (e) {
-      console.error('Error resetting data:', e);
-    }
-  };
-
   return (
     <DataContext.Provider
       value={{
@@ -902,8 +869,7 @@ export function DataProvider({ children }) {
         hashtagGroups,
         addHashtagGroup,
         updateHashtagGroup,
-        deleteHashtagGroup,
-        resetAllData
+        deleteHashtagGroup
       }}
     >
       {children}

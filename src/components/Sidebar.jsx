@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Layers, Folder, Users, Share2, Hash, RefreshCw, Sparkles, 
+  Layers, Folder, Users, Share2, Hash, Sparkles, 
   Menu, X, ShieldCheck, ChevronRight 
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
@@ -9,16 +9,8 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
   const { 
     projects = [], 
     photographers = [], 
-    socialPosts = [], 
-    resetAllData 
+    socialPosts = []
   } = useData();
-
-  const handleReset = () => {
-    if (window.confirm('Reset seluruh data demo ke kondisi awal factory reset?')) {
-      resetAllData();
-      window.location.reload();
-    }
-  };
 
   const navItems = [
     {
@@ -174,16 +166,8 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
           </div>
         </div>
 
-        {/* Bottom Actions & User Profile */}
-        <div className="p-4 border-t border-slate-200/80 bg-slate-50/50 space-y-3">
-          <button
-            onClick={handleReset}
-            title="Reset Data Studio ke Pengaturan Awal"
-            className="w-full px-3.5 py-2.5 bg-white hover:bg-slate-100 text-slate-600 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all border border-slate-200 shadow-3d-sm active:scale-98"
-          >
-            <RefreshCw size={14} className="text-slate-500" /> Reset Demo Data
-          </button>
-
+        {/* Bottom User Profile */}
+        <div className="p-4 border-t border-slate-200/80 bg-slate-50/50">
           <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-3d-sm">
             <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-bold font-mono shadow-sm">
               SI

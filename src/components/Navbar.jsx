@@ -1,17 +1,7 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, User, Camera, Folder, Users, Share2, Layers, RefreshCw } from 'lucide-react';
-import { useData } from '../context/DataContext';
+import { Sparkles, ShieldCheck, User, Camera, Folder, Users, Share2, Layers } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab }) {
-  const { resetAllData } = useData();
-
-  const handleReset = () => {
-    if (window.confirm('Reset seluruh data demo ke kondisi awal factory reset?')) {
-      resetAllData();
-      window.location.reload();
-    }
-  };
-
   return (
     <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/80 shadow-3d-sm">
       <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -38,15 +28,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-3">
-          <button
-            onClick={handleReset}
-            title="Reset Data Studio"
-            className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-200"
-          >
-            <RefreshCw size={13} /> Reset Demo
-          </button>
-
-          <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-slate-200">
+          <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
             <div className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 text-xs font-bold font-mono">
               SI
             </div>
