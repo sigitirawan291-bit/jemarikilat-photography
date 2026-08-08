@@ -24,6 +24,8 @@ export default function AdminPortalView() {
     updatePhotographerRating,
     financeTeam = [],
     deleteFinanceMember,
+    marketingTeam = [],
+    deleteMarketingMember,
     socialPosts = [], 
     updatePostStatus, 
     deleteSocialPost,
@@ -381,11 +383,22 @@ export default function AdminPortalView() {
               >
                 <Plus size={15} /> + Akun Keuangan
               </button>
+
+              <button
+                onClick={() => {
+                  setSelectedMember(null);
+                  setDefaultTeamType('marketing');
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:from-purple-700 hover:to-indigo-700"
+              >
+                <Plus size={15} /> + Akun Marketing
+              </button>
             </div>
           </div>
 
           {/* Sub-tabs switch */}
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-2">
             <button
               onClick={() => setTeamSubTab('photographers')}
               className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
@@ -405,6 +418,16 @@ export default function AdminPortalView() {
               }`}
             >
               <DollarSign size={14} /> Tim Keuangan Studio ({financeTeam.length})
+            </button>
+            <button
+              onClick={() => setTeamSubTab('marketing')}
+              className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+                teamSubTab === 'marketing'
+                  ? 'bg-purple-100 text-purple-800 border border-purple-200'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              <Award size={14} /> Tim Digital Marketing ({marketingTeam.length})
             </button>
           </div>
 
@@ -482,7 +505,7 @@ export default function AdminPortalView() {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : teamSubTab === 'finance' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {financeTeam.map((fin) => (
                 <div key={fin.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
@@ -525,6 +548,53 @@ export default function AdminPortalView() {
                   <div className="text-xs text-slate-600 space-y-1 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100">
                     <div className="font-semibold text-emerald-950">Bio: {fin.bio}</div>
                     <div className="text-slate-500">Contact: {fin.phone} | {fin.email} | PIN: <span className="font-mono font-bold">{fin.pin || '1234'}</span></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {marketingTeam.map((mkt) => (
+                <div key={mkt.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <img src={mkt.avatar} alt={mkt.name} className="w-12 h-12 rounded-2xl object-cover border border-slate-200" />
+                      <div>
+                        <h4 className="font-bold text-base text-slate-900 font-serif">{mkt.name}</h4>
+                        <span className="text-xs text-purple-700 font-bold block">{mkt.role}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedMember(mkt);
+                          setDefaultTeamType('marketing');
+                          setIsMemberModalOpen(true);
+                        }}
+                        className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+                        title="Edit Profil"
+                      >
+                        <Edit3 size={15} />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Hapus akun tim digital marketing "${mkt.name}"? Akun ini tidak akan bisa login lagi.`)) {
+                            deleteMarketingMember(mkt.id);
+                          }
+                        }}
+                        className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
+                        title="Hapus Akun Marketing"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-slate-600 space-y-1 bg-purple-50/60 p-3 rounded-2xl border border-purple-100">
+                    <div className="font-semibold text-purple-950">Bio: {mkt.bio}</div>
+                    <div className="text-slate-500">Contact: {mkt.phone} | {mkt.email} | PIN: <span className="font-mono font-bold">{mkt.pin || '1234'}</span></div>
                   </div>
                 </div>
               ))}

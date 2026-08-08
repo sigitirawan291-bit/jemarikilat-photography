@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Layers, Folder, Users, Share2, Hash, Sparkles, 
-  Menu, X, ShieldCheck, ChevronRight, Camera, Lock, DollarSign 
+  Menu, X, ShieldCheck, ChevronRight, Camera, Lock, DollarSign, Megaphone 
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
@@ -12,7 +12,9 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
     socialPosts = [],
     currentPhotographer,
     isAdminLoggedIn,
-    isFinanceLoggedIn
+    isFinanceLoggedIn,
+    isMarketingLoggedIn,
+    currentMarketingMember
   } = useData();
 
   const navItems = [
@@ -36,6 +38,13 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
       icon: DollarSign,
       count: isFinanceLoggedIn ? '🟢 Active' : '🔒 Vault Auth',
       badgeColor: isFinanceLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
+    },
+    {
+      id: 'marketing_portal',
+      label: 'Digital Marketing',
+      icon: Megaphone,
+      count: isMarketingLoggedIn ? '🟢 Active' : '🔒 Mkt Auth',
+      badgeColor: isMarketingLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'
     },
     {
       id: 'photographer_portal',

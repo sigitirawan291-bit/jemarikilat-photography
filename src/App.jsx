@@ -5,6 +5,7 @@ import { DataProvider } from './context/DataContext';
 import MainDashboardView from './views/MainDashboardView';
 import AdminPortalView from './views/AdminPortalView';
 import FinancePortalView from './views/FinancePortalView';
+import MarketingPortalView from './views/MarketingPortalView';
 import PhotographerPortalView from './views/PhotographerPortalView';
 
 function AppContent() {
@@ -29,6 +30,8 @@ function AppContent() {
             <AdminPortalView />
           ) : activeTab === 'finance_portal' ? (
             <FinancePortalView />
+          ) : activeTab === 'marketing_portal' ? (
+            <MarketingPortalView />
           ) : activeTab === 'photographer_portal' ? (
             <PhotographerPortalView />
           ) : (

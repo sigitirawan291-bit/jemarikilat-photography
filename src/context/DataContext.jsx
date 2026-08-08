@@ -324,8 +324,25 @@ const STORAGE_KEYS = {
   IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1',
   IS_FINANCE_LOGGED_IN: 'jemari_is_finance_logged_in_v1',
   FINANCE_TEAM: 'jemari_finance_team_v1',
-  CURRENT_FINANCE_MEMBER: 'jemari_current_finance_member_v1'
+  CURRENT_FINANCE_MEMBER: 'jemari_current_finance_member_v1',
+  MARKETING_TEAM: 'jemari_marketing_team_v1',
+  CURRENT_MARKETING_MEMBER: 'jemari_current_marketing_member_v1',
+  IS_MARKETING_LOGGED_IN: 'jemari_is_marketing_logged_in_v1'
 };
+
+const INITIAL_MARKETING_TEAM = [
+  {
+    id: 'mkt-1',
+    username: 'maya',
+    name: 'Maya Safitri',
+    phone: '081398765432',
+    email: 'maya.marketing@jemarikilat.com',
+    role: 'Lead Social Media & Performance Marketer',
+    pin: '1234',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+    bio: 'Perencana konten kreatif, pengelola iklan Meta Ads & Google Ads studio Jemari Kilat.'
+  }
+];
 
 const INITIAL_FINANCE_TEAM = [
   {
@@ -379,9 +396,11 @@ export function DataProvider({ children }) {
   const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
   const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, false));
-  const [isFinanceLoggedIn, setIsFinanceLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, false));
   const [financeTeam, setFinanceTeam] = useState(() => loadInitial(STORAGE_KEYS.FINANCE_TEAM, INITIAL_FINANCE_TEAM));
   const [currentFinanceMember, setCurrentFinanceMember] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_FINANCE_MEMBER, INITIAL_FINANCE_TEAM[0]));
+  const [marketingTeam, setMarketingTeam] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_TEAM, INITIAL_MARKETING_TEAM));
+  const [currentMarketingMember, setCurrentMarketingMember] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_MARKETING_MEMBER, INITIAL_MARKETING_TEAM[0]));
+  const [isMarketingLoggedIn, setIsMarketingLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_MARKETING_LOGGED_IN, false));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -466,6 +485,22 @@ export function DataProvider({ children }) {
       safeSaveLocalStorage(STORAGE_KEYS.CURRENT_FINANCE_MEMBER, currentFinanceMember);
     }
   }, [currentFinanceMember]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.MARKETING_TEAM, marketingTeam);
+  }, [marketingTeam]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.IS_MARKETING_LOGGED_IN, isMarketingLoggedIn);
+  }, [isMarketingLoggedIn]);
+
+  useEffect(() => {
+    if (currentMarketingMember) {
+      safeSaveLocalStorage(STORAGE_KEYS.CURRENT_MARKETING_MEMBER, currentMarketingMember);
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_MARKETING_MEMBER);
+    }
+  }, [currentMarketingMember]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -969,6 +1004,63 @@ export function DataProvider({ children }) {
     }
   };
 
+  // --- MARKETING TEAM AUTH & METHODS ---
+  const loginMarketing = (usernameOrId, pin) => {
+    const member = marketingTeam.find(
+      (m) =>
+        (m.id === usernameOrId ||
+          m.username?.toLowerCase() === usernameOrId.toLowerCase() ||
+          m.email?.toLowerCase() === usernameOrId.toLowerCase() ||
+          m.name?.toLowerCase() === usernameOrId.toLowerCase()) &&
+        m.pin === pin
+    );
+    if (member) {
+      setCurrentMarketingMember(member);
+      setIsMarketingLoggedIn(true);
+      return { success: true, member };
+    }
+    return { success: false, message: 'Username/Akun atau PIN Tim Marketing salah!' };
+  };
+
+  const logoutMarketing = () => {
+    setCurrentMarketingMember(null);
+    setIsMarketingLoggedIn(false);
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_MARKETING_MEMBER);
+    localStorage.removeItem(STORAGE_KEYS.IS_MARKETING_LOGGED_IN);
+  };
+
+  const addMarketingMember = (data) => {
+    const newMember = {
+      id: 'mkt-' + Date.now(),
+      username: data.username || data.name.toLowerCase().replace(/\s+/g, ''),
+      name: data.name,
+      role: data.role || 'Social Media Specialist',
+      phone: data.phone || '',
+      email: data.email || '',
+      pin: data.pin || '1234',
+      avatar: data.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+      bio: data.bio || ''
+    };
+    setMarketingTeam(prev => [newMember, ...prev]);
+  };
+
+  const updateMarketingMember = (id, data) => {
+    setMarketingTeam(prev => prev.map(m => m.id === id ? { ...m, ...data } : m));
+    if (currentMarketingMember && currentMarketingMember.id === id) {
+      setCurrentMarketingMember(prev => ({ ...prev, ...data }));
+    }
+  };
+
+  const deleteMarketingMember = (id) => {
+    setMarketingTeam(prev => prev.filter(m => m.id !== id));
+    if (currentMarketingMember && currentMarketingMember.id === id) {
+      setCurrentMarketingMember(null);
+      setIsMarketingLoggedIn(false);
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_MARKETING_MEMBER);
+      localStorage.removeItem(STORAGE_KEYS.IS_MARKETING_LOGGED_IN);
+    }
+  };
+
   const updatePhotographerProfile = (id, data) => {
     setPhotographers(prev => prev.map(p => p.id === id ? { ...p, ...data } : p));
     if (currentPhotographer && currentPhotographer.id === id) {
@@ -1171,6 +1263,15 @@ export function DataProvider({ children }) {
         deleteFinanceMember,
         currentFinanceMember,
         setCurrentFinanceMember,
+        marketingTeam,
+        currentMarketingMember,
+        setCurrentMarketingMember,
+        isMarketingLoggedIn,
+        loginMarketing,
+        logoutMarketing,
+        addMarketingMember,
+        updateMarketingMember,
+        deleteMarketingMember,
         updatePhotographerProfile,
         updatePhotographerRating,
         setPhotographerDateAvailability,

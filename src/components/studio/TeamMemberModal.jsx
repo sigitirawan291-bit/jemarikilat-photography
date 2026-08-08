@@ -11,9 +11,16 @@ const PRESET_AVATARS = [
 ];
 
 export default function TeamMemberModal({ isOpen, onClose, member = null, defaultType = 'photographer' }) {
-  const { addPhotographer, updateFgProfile, addFinanceMember, updateFinanceMember } = useData();
+  const { 
+    addPhotographer, 
+    updateFgProfile, 
+    addFinanceMember, 
+    updateFinanceMember,
+    addMarketingMember,
+    updateMarketingMember
+  } = useData();
 
-  const [memberType, setMemberType] = useState(defaultType); // photographer or finance
+  const [memberType, setMemberType] = useState(defaultType); // photographer, finance, marketing
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -29,14 +36,17 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
 
   useEffect(() => {
     if (member) {
-      setMemberType(member.role ? 'finance' : 'photographer');
+      const type = member.role && member.role.toLowerCase().includes('marketing') 
+        ? 'marketing' 
+        : member.role ? 'finance' : 'photographer';
+      setMemberType(type);
       setFormData({
         name: member.name || '',
         username: member.username || '',
         phone: member.phone || '',
         email: member.email || '',
         specialty: member.specialty || 'Senior Photographer',
-        role: member.role || 'Finance Staff',
+        role: member.role || (type === 'marketing' ? 'Social Media Specialist' : 'Finance Staff'),
         gear: member.gear || '',
         bio: member.bio || '',
         rating: member.rating || 4.9,
@@ -50,13 +60,13 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
         username: '',
         phone: '',
         email: '',
-        specialty: defaultType === 'finance' ? 'Finance Officer' : 'Senior Photographer • Wedding & Wisuda',
-        role: defaultType === 'finance' ? 'Head of Finance & Accounting' : 'Senior Photographer',
+        specialty: defaultType === 'finance' ? 'Finance Officer' : defaultType === 'marketing' ? 'Social Media & Ad Strategist' : 'Senior Photographer • Wedding & Wisuda',
+        role: defaultType === 'finance' ? 'Head of Finance & Accounting' : defaultType === 'marketing' ? 'Lead Social Media & Performance Marketer' : 'Senior Photographer',
         gear: 'Sony A7 IV, FE 24-70mm f/2.8 GM II',
-        bio: 'Pengelola arus kas studio, payroll honorarium crew, dan pencatatan laba bersih.',
+        bio: defaultType === 'marketing' ? 'Perencana konten kreatif, pengelola iklan Meta Ads & Google Ads studio.' : 'Pengelola arus kas studio, payroll honorarium crew, dan pencatatan laba bersih.',
         rating: 4.9,
         pin: '1234',
-        avatar: defaultType === 'finance' ? PRESET_AVATARS[3].url : PRESET_AVATARS[1].url
+        avatar: defaultType === 'finance' ? PRESET_AVATARS[3].url : defaultType === 'marketing' ? PRESET_AVATARS[4].url : PRESET_AVATARS[1].url
       });
     }
   }, [member, isOpen, defaultType]);
@@ -73,12 +83,16 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
     if (member) {
       if (memberType === 'finance') {
         updateFinanceMember(member.id, formData);
+      } else if (memberType === 'marketing') {
+        updateMarketingMember(member.id, formData);
       } else {
         updateFgProfile(member.id, formData);
       }
     } else {
       if (memberType === 'finance') {
         addFinanceMember(formData);
+      } else if (memberType === 'marketing') {
+        addMarketingMember(formData);
       } else {
         addPhotographer(formData);
       }
@@ -110,28 +124,39 @@ export default function TeamMemberModal({ isOpen, onClose, member = null, defaul
 
         {/* Member Type Switcher */}
         {!member && (
-          <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl">
+          <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-100 rounded-2xl">
             <button
               type="button"
               onClick={() => setMemberType('photographer')}
-              className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 min-w-[140px] py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
                 memberType === 'photographer'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Camera size={15} /> Tim Fotografer / Crew
+              <Camera size={14} /> Fotografer
             </button>
             <button
               type="button"
               onClick={() => setMemberType('finance')}
-              className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 min-w-[140px] py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
                 memberType === 'finance'
                   ? 'bg-emerald-600 text-white shadow-md'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <DollarSign size={15} /> Tim Keuangan Studio
+              <DollarSign size={14} /> Keuangan
+            </button>
+            <button
+              type="button"
+              onClick={() => setMemberType('marketing')}
+              className={`flex-1 min-w-[140px] py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all ${
+                memberType === 'marketing'
+                  ? 'bg-purple-600 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Award size={14} /> Digital Marketing
             </button>
           </div>
         )}
