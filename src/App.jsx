@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import { DataProvider } from './context/DataContext';
 import StudioToolsView from './views/StudioToolsView';
+import PhotographerPortalView from './views/PhotographerPortalView';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -22,7 +23,11 @@ function AppContent() {
       {/* Main Studio View Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-          <StudioToolsView activeTab={activeTab} setActiveTab={setActiveTab} />
+          {activeTab === 'photographer_portal' ? (
+            <PhotographerPortalView />
+          ) : (
+            <StudioToolsView activeTab={activeTab} setActiveTab={setActiveTab} />
+          )}
         </main>
 
         {/* Studio Footer */}

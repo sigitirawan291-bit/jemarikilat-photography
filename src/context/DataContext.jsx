@@ -307,7 +307,8 @@ const STORAGE_KEYS = {
   PROJECTS: 'jemari_studio_projects_v1',
   SOCIAL_POSTS: 'jemari_social_posts_v1',
   MARKETING_CAMPAIGNS: 'jemari_marketing_campaigns_v1',
-  HASHTAG_GROUPS: 'jemari_hashtag_groups_v1'
+  HASHTAG_GROUPS: 'jemari_hashtag_groups_v1',
+  CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1'
 };
 
 const INITIAL_PACKAGES_MAP = {
@@ -347,6 +348,7 @@ export function DataProvider({ children }) {
   const [socialPosts, setSocialPosts] = useState(() => loadInitial(STORAGE_KEYS.SOCIAL_POSTS, INITIAL_SOCIAL_POSTS));
   const [marketingCampaigns, setMarketingCampaigns] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_CAMPAIGNS, INITIAL_MARKETING_CAMPAIGNS));
   const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
+  const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -405,6 +407,14 @@ export function DataProvider({ children }) {
   useEffect(() => {
     safeSaveLocalStorage(STORAGE_KEYS.HASHTAG_GROUPS, hashtagGroups);
   }, [hashtagGroups]);
+
+  useEffect(() => {
+    if (currentPhotographer) {
+      safeSaveLocalStorage(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, currentPhotographer);
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_PHOTOGRAPHER);
+    }
+  }, [currentPhotographer]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -801,6 +811,51 @@ export function DataProvider({ children }) {
     setHashtagGroups((prev) => prev.filter((h) => h.id !== id));
   };
 
+  // --- PHOTOGRAPHER AUTH & PORTAL HELPERS ---
+  const loginPhotographer = (usernameOrId, pin) => {
+    const fg = photographers.find(
+      (p) =>
+        (p.id === usernameOrId ||
+          p.username?.toLowerCase() === usernameOrId.toLowerCase() ||
+          p.email?.toLowerCase() === usernameOrId.toLowerCase() ||
+          p.name?.toLowerCase() === usernameOrId.toLowerCase()) &&
+        p.pin === pin
+    );
+    if (fg) {
+      setCurrentPhotographer(fg);
+      return { success: true, photographer: fg };
+    }
+    return { success: false, message: 'Username/Akun atau PIN Fotografer salah!' };
+  };
+
+  const logoutPhotographer = () => {
+    setCurrentPhotographer(null);
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_PHOTOGRAPHER);
+  };
+
+  const togglePhotographerDateAvailability = (photographerId, dateStr) => {
+    setPhotographers((prev) =>
+      prev.map((p) => {
+        if (p.id === photographerId) {
+          const avail = p.availability || [];
+          const exists = avail.includes(dateStr);
+          const updated = exists ? avail.filter((d) => d !== dateStr) : [...avail, dateStr];
+          return { ...p, availability: updated };
+        }
+        return p;
+      })
+    );
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer((prev) => {
+        if (!prev) return null;
+        const avail = prev.availability || [];
+        const exists = avail.includes(dateStr);
+        const updated = exists ? avail.filter((d) => d !== dateStr) : [...avail, dateStr];
+        return { ...prev, availability: updated };
+      });
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -869,7 +924,11 @@ export function DataProvider({ children }) {
         hashtagGroups,
         addHashtagGroup,
         updateHashtagGroup,
-        deleteHashtagGroup
+        deleteHashtagGroup,
+        currentPhotographer,
+        loginPhotographer,
+        logoutPhotographer,
+        togglePhotographerDateAvailability
       }}
     >
       {children}

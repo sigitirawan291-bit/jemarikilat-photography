@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Layers, Folder, Users, Share2, Hash, Sparkles, 
-  Menu, X, ShieldCheck, ChevronRight 
+  Menu, X, ShieldCheck, ChevronRight, Camera, Lock 
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
@@ -9,7 +9,8 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
   const { 
     projects = [], 
     photographers = [], 
-    socialPosts = []
+    socialPosts = [],
+    currentPhotographer
   } = useData();
 
   const navItems = [
@@ -19,6 +20,13 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
       icon: Layers,
       count: null,
       badgeColor: ''
+    },
+    {
+      id: 'photographer_portal',
+      label: 'Portal Fotografer',
+      icon: Camera,
+      count: currentPhotographer ? '🟢 Active' : '🔒 Auth Required',
+      badgeColor: currentPhotographer ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
     },
     {
       id: 'projects',
