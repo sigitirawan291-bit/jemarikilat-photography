@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { 
   Megaphone, Calendar, Sparkles, TrendingUp, Hash, Tag, Plus, Trash2, Edit3, 
   ExternalLink, LogOut, CheckCircle2, Lock, Share2, Eye, ThumbsUp, MessageSquare, 
-  Copy, Layers, ArrowUpRight, BarChart2, DollarSign, Target, Award, ShieldCheck
+  Copy, Layers, ArrowUpRight, BarChart2, DollarSign, Target, Award, ShieldCheck,
+  Grid, List, ChevronLeft, ChevronRight, Upload, Image as ImageIcon
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import MarketingLoginModal from '../components/studio/MarketingLoginModal';
 import EditProfileModal from '../components/studio/EditProfileModal';
+
+const DESIGN_PRESETS = [
+  { label: 'Wedding Obsidian', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200' },
+  { label: 'Graduation Studio', url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200' },
+  { label: 'Prewedding Minimalist', url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1200' }
+];
 
 export default function MarketingPortalView() {
   const { 
@@ -28,6 +35,46 @@ export default function MarketingPortalView() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('planner'); // planner, campaigns, hashtags, analytics
+  const [plannerViewMode, setPlannerViewMode] = useState('grid'); // grid or list
+
+  // Calendar month state
+  const [currentMonth, setCurrentMonth] = useState(7); // August (0-indexed 7)
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  const monthNames = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay(); // 0 = Sun
+  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  const getPostsForDay = (day) => {
+    const monthStr = String(currentMonth + 1).padStart(2, '0');
+    const dayStr = String(day).padStart(2, '0');
+    const targetDateStr = `${currentYear}-${monthStr}-${dayStr}`;
+
+    return socialPosts.filter((p) => p.scheduledDate === targetDateStr);
+  };
+
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
 
   // Modal states for creating new items
   const [isAddPostModalOpen, setIsAddPostModalOpen] = useState(false);
@@ -43,7 +90,7 @@ export default function MarketingPortalView() {
     scheduledTime: '19:00',
     caption: '',
     hashtags: '#JemariKilat #FotograferMedan',
-    mediaUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200'
+    mediaUrl: DESIGN_PRESETS[0].url
   });
 
   const [newCampaign, setNewCampaign] = useState({
@@ -269,71 +316,230 @@ export default function MarketingPortalView() {
               <p className="text-xs text-slate-500">Jadwal tayang konten Instagram, TikTok, dan YouTube Shorts studio</p>
             </div>
 
-            <button
-              onClick={() => setIsAddPostModalOpen(true)}
-              className="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md"
-            >
-              <Plus size={16} /> + Buat Jadwal Konten Baru
-            </button>
+            <div className="flex flex-wrap items-center gap-3">
+              {/* View Switcher: Grid vs List */}
+              <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-2xl border border-slate-200">
+                <button
+                  onClick={() => setPlannerViewMode('grid')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                    plannerViewMode === 'grid'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <Grid size={14} /> Kalender Grid
+                </button>
+
+                <button
+                  onClick={() => setPlannerViewMode('list')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                    plannerViewMode === 'list'
+                      ? 'bg-purple-600 text-white shadow-md'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <List size={14} /> Card List ({socialPosts.length})
+                </button>
+              </div>
+
+              <button
+                onClick={() => setIsAddPostModalOpen(true)}
+                className="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md"
+              >
+                <Plus size={16} /> + Buat Jadwal Konten Baru
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {socialPosts.map((post) => (
-              <div key={post.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 bg-purple-100 text-purple-800 border border-purple-200 text-[10px] font-mono font-bold rounded-md">
-                      {post.platform} • {post.postType}
-                    </span>
-
-                    <select
-                      value={post.status}
-                      onChange={(e) => updatePostStatus(post.id, e.target.value)}
-                      className="text-xs font-mono font-bold rounded-xl px-2.5 py-1 border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none"
-                    >
-                      <option value="Idea">💡 Idea</option>
-                      <option value="Drafting">✏️ Drafting</option>
-                      <option value="Assets Ready">🖼️ Assets Ready</option>
-                      <option value="Scheduled">📅 Scheduled</option>
-                      <option value="Published">✅ Published</option>
-                    </select>
-                  </div>
-
-                  <h3 className="font-bold text-base text-slate-900 font-serif leading-snug">{post.title}</h3>
-
-                  <div className="flex items-center gap-4 text-xs font-mono text-slate-500">
-                    <span>📅 {post.scheduledDate} ({post.scheduledTime})</span>
-                    <span>👤 {post.assignedCreator}</span>
-                  </div>
-
-                  <p className="text-xs text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-100 whitespace-pre-line leading-relaxed">
-                    {post.caption}
-                  </p>
-
-                  <div className="text-[11px] font-mono text-purple-700 font-semibold truncate">
-                    {post.hashtags}
-                  </div>
+          {/* VIEW 1: MONTHLY CONTENT CALENDAR GRID */}
+          {plannerViewMode === 'grid' && (
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-6">
+              {/* Calendar Month Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-purple-600" />
+                  <h3 className="text-lg font-bold font-serif text-slate-900">
+                    Kalender Konten {monthNames[currentMonth]} {currentYear}
+                  </h3>
                 </div>
 
-                {/* Engagement Metrics footer */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <div className="flex items-center gap-3 font-mono">
-                    <span className="flex items-center gap-1"><Eye size={13} className="text-blue-500" /> {post.metrics?.views || 0}</span>
-                    <span className="flex items-center gap-1"><ThumbsUp size={13} className="text-rose-500" /> {post.metrics?.likes || 0}</span>
-                    <span className="flex items-center gap-1"><MessageSquare size={13} className="text-emerald-500" /> {post.metrics?.comments || 0}</span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePrevMonth}
+                    className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-colors"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+
+                  <span className="text-sm font-bold font-serif min-w-[140px] text-center text-slate-900">
+                    {monthNames[currentMonth]} {currentYear}
+                  </span>
 
                   <button
-                    onClick={() => deleteSocialPost(post.id)}
-                    className="p-1 text-rose-400 hover:text-rose-600 transition-colors"
-                    title="Hapus Konten"
+                    onClick={handleNextMonth}
+                    className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-colors"
                   >
-                    <Trash2 size={15} />
+                    <ChevronRight size={18} />
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Days of Week Header */}
+              <div className="grid grid-cols-7 gap-2 text-center text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+                <span>Min</span>
+                <span>Sen</span>
+                <span>Sel</span>
+                <span>Rab</span>
+                <span>Kam</span>
+                <span>Jum</span>
+                <span>Sab</span>
+              </div>
+
+              {/* Calendar Grid Days */}
+              <div className="grid grid-cols-7 gap-2">
+                {Array.from({ length: firstDayOfWeek }).map((_, i) => (
+                  <div key={`empty-${i}`} className="h-28 sm:h-32 rounded-2xl bg-slate-50/50 border border-transparent" />
+                ))}
+
+                {daysArray.map((day) => {
+                  const dayPosts = getPostsForDay(day);
+                  const hasPosts = dayPosts.length > 0;
+                  const monthStr = String(currentMonth + 1).padStart(2, '0');
+                  const dayStr = String(day).padStart(2, '0');
+                  const fullDateStr = `${currentYear}-${monthStr}-${dayStr}`;
+
+                  return (
+                    <div
+                      key={day}
+                      onClick={() => {
+                        setNewPost((prev) => ({ ...prev, scheduledDate: fullDateStr }));
+                        setIsAddPostModalOpen(true);
+                      }}
+                      className={`
+                        h-28 sm:h-32 p-2 rounded-2xl border transition-all flex flex-col justify-between cursor-pointer relative overflow-hidden group
+                        ${hasPosts
+                          ? 'bg-purple-50/90 border-purple-300 shadow-md shadow-purple-500/10 hover:border-purple-500 ring-2 ring-purple-400/30'
+                          : 'bg-white border-slate-200/80 hover:bg-slate-50 hover:border-slate-300'
+                        }
+                      `}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-mono font-bold ${hasPosts ? 'text-purple-800' : 'text-slate-700'}`}>
+                          {day}
+                        </span>
+                        {hasPosts && (
+                          <span className="px-1.5 py-0.5 bg-purple-600 text-white text-[9px] font-mono font-bold rounded-md animate-pulse">
+                            {dayPosts.length} Post
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Content inside day cell */}
+                      <div className="space-y-1 my-auto">
+                        {hasPosts ? (
+                          dayPosts.map((post) => (
+                            <div
+                              key={post.id}
+                              className="bg-purple-600 text-white p-1 rounded-lg text-[9px] font-bold leading-tight truncate shadow-sm flex items-center gap-1"
+                              title={`${post.title} (${post.platform})`}
+                            >
+                              {post.mediaUrl && (
+                                <img src={post.mediaUrl} alt="" className="w-3.5 h-3.5 rounded object-cover shrink-0" />
+                              )}
+                              <span className="truncate">{post.title}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <span className="text-[9px] text-slate-300 font-mono block opacity-0 group-hover:opacity-100 transition-opacity">
+                            + Tambah Konten
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="text-[9px] font-mono text-purple-600 font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                        Klik to schedule
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* VIEW 2: CARD LIST VIEW WITH DESIGN ARTWORK */}
+          {plannerViewMode === 'list' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {socialPosts.map((post) => (
+                <div key={post.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 bg-purple-100 text-purple-800 border border-purple-200 text-[10px] font-mono font-bold rounded-md">
+                        {post.platform} • {post.postType}
+                      </span>
+
+                      <select
+                        value={post.status}
+                        onChange={(e) => updatePostStatus(post.id, e.target.value)}
+                        className="text-xs font-mono font-bold rounded-xl px-2.5 py-1 border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none"
+                      >
+                        <option value="Idea">💡 Idea</option>
+                        <option value="Drafting">✏️ Drafting</option>
+                        <option value="Assets Ready">🖼️ Assets Ready</option>
+                        <option value="Scheduled">📅 Scheduled</option>
+                        <option value="Published">✅ Published</option>
+                      </select>
+                    </div>
+
+                    {/* Display Uploaded Design Thumbnail */}
+                    {post.mediaUrl && (
+                      <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-48 group">
+                        <img
+                          src={post.mediaUrl}
+                          alt={post.title}
+                          className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300 opacity-90"
+                        />
+                        <div className="absolute top-2 right-2 px-2 py-1 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-bold rounded-lg border border-white/20">
+                          🎨 Desain Artwork
+                        </div>
+                      </div>
+                    )}
+
+                    <h3 className="font-bold text-base text-slate-900 font-serif leading-snug">{post.title}</h3>
+
+                    <div className="flex items-center gap-4 text-xs font-mono text-slate-500">
+                      <span>📅 {post.scheduledDate} ({post.scheduledTime})</span>
+                      <span>👤 {post.assignedCreator}</span>
+                    </div>
+
+                    <p className="text-xs text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-100 whitespace-pre-line leading-relaxed">
+                      {post.caption}
+                    </p>
+
+                    <div className="text-[11px] font-mono text-purple-700 font-semibold truncate">
+                      {post.hashtags}
+                    </div>
+                  </div>
+
+                  {/* Engagement Metrics footer */}
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <div className="flex items-center gap-3 font-mono">
+                      <span className="flex items-center gap-1"><Eye size={13} className="text-blue-500" /> {post.metrics?.views || 0}</span>
+                      <span className="flex items-center gap-1"><ThumbsUp size={13} className="text-rose-500" /> {post.metrics?.likes || 0}</span>
+                      <span className="flex items-center gap-1"><MessageSquare size={13} className="text-emerald-500" /> {post.metrics?.comments || 0}</span>
+                    </div>
+
+                    <button
+                      onClick={() => deleteSocialPost(post.id)}
+                      className="p-1 text-rose-400 hover:text-rose-600 transition-colors"
+                      title="Hapus Konten"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -508,54 +714,168 @@ export default function MarketingPortalView() {
         type="marketing"
       />
 
-      {/* CREATE POST MODAL */}
+      {/* CREATE POST MODAL WITH DESIGN ASSET UPLOAD */}
       {isAddPostModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4 shadow-2xl">
-            <h3 className="text-lg font-bold font-serif text-slate-900">+ Tambah Konten Baru</h3>
-            <form onSubmit={handleAddPostSubmit} className="space-y-3">
-              <input
-                type="text"
-                required
-                placeholder="Judul Konten (e.g. Highlight Wedding Ananda)"
-                value={newPost.title}
-                onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                className="w-full px-3 py-2 border rounded-xl text-xs"
-              />
-              <div className="grid grid-cols-2 gap-2">
-                <select
-                  value={newPost.platform}
-                  onChange={(e) => setNewPost({ ...newPost, platform: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-xl text-xs font-bold"
-                >
-                  <option value="Instagram">Instagram</option>
-                  <option value="TikTok">TikTok</option>
-                  <option value="YouTube Shorts">YouTube Shorts</option>
-                </select>
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-lg font-bold font-serif text-slate-900 flex items-center gap-2">
+                <ImageIcon size={20} className="text-purple-600" /> + Jadwal Konten & Upload Desain
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsAddPostModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 p-1"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddPostSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Judul Konten / Campaign *</label>
                 <input
-                  type="date"
-                  value={newPost.scheduledDate}
-                  onChange={(e) => setNewPost({ ...newPost, scheduledDate: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-xl text-xs font-mono"
+                  type="text"
+                  required
+                  placeholder="Judul Konten (e.g. Highlight Wedding Ananda & Rizky)"
+                  value={newPost.title}
+                  onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:border-purple-600"
                 />
               </div>
-              <textarea
-                rows={3}
-                placeholder="Caption postingan..."
-                value={newPost.caption}
-                onChange={(e) => setNewPost({ ...newPost, caption: e.target.value })}
-                className="w-full px-3 py-2 border rounded-xl text-xs"
-              />
-              <input
-                type="text"
-                placeholder="#Hashtag List..."
-                value={newPost.hashtags}
-                onChange={(e) => setNewPost({ ...newPost, hashtags: e.target.value })}
-                className="w-full px-3 py-2 border rounded-xl text-xs font-mono"
-              />
-              <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setIsAddPostModalOpen(false)} className="px-4 py-2 text-xs font-bold text-slate-500">Batal</button>
-                <button type="submit" className="px-5 py-2 bg-purple-600 text-white rounded-xl text-xs font-bold">Simpan Jadwal</button>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Platform Sosial Media</label>
+                  <select
+                    value={newPost.platform}
+                    onChange={(e) => setNewPost({ ...newPost, platform: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:border-purple-600"
+                  >
+                    <option value="Instagram">Instagram</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="YouTube Shorts">YouTube Shorts</option>
+                    <option value="Facebook">Facebook</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Tanggal Tayang *</label>
+                  <input
+                    type="date"
+                    required
+                    value={newPost.scheduledDate}
+                    onChange={(e) => setNewPost({ ...newPost, scheduledDate: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold focus:outline-none focus:border-purple-600"
+                  />
+                </div>
+              </div>
+
+              {/* UPLOAD DESAIN & ASSET MEDIA SECTION */}
+              <div className="space-y-2 p-4 bg-purple-50/50 border border-purple-100 rounded-2xl">
+                <label className="block text-xs font-bold font-mono text-purple-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <Upload size={14} className="text-purple-600" /> Upload Desain Artwork / Asset Konten
+                </label>
+
+                {/* Option 1: File Upload */}
+                <div>
+                  <span className="text-[11px] text-slate-500 font-semibold block mb-1">Opsi A: Upload dari Perangkat (PC/Mobile)</span>
+                  <input
+                    type="file"
+                    accept="image/*,video/*"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setNewPost({ ...newPost, mediaUrl: reader.result });
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                    className="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
+                  />
+                </div>
+
+                {/* Option 2: Image URL Direct Link */}
+                <div className="pt-2 border-t border-purple-100">
+                  <span className="text-[11px] text-slate-500 font-semibold block mb-1">Opsi B: Atau Masukkan Link Direct Image / Canva / Drive</span>
+                  <input
+                    type="url"
+                    placeholder="https://images.unsplash.com/..."
+                    value={newPost.mediaUrl}
+                    onChange={(e) => setNewPost({ ...newPost, mediaUrl: e.target.value })}
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-purple-600"
+                  />
+                </div>
+
+                {/* Option 3: Presets */}
+                <div className="pt-2 border-t border-purple-100">
+                  <span className="text-[11px] text-slate-500 font-semibold block mb-1.5">Opsi C: Gunakan Preset Banner Studio:</span>
+                  <div className="flex flex-wrap gap-2">
+                    {DESIGN_PRESETS.map((preset) => (
+                      <button
+                        key={preset.label}
+                        type="button"
+                        onClick={() => setNewPost({ ...newPost, mediaUrl: preset.url })}
+                        className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-all ${
+                          newPost.mediaUrl === preset.url
+                            ? 'bg-purple-600 text-white border-purple-600 font-bold'
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-purple-50'
+                        }`}
+                      >
+                        🖼️ {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Live Preview Box */}
+                {newPost.mediaUrl && (
+                  <div className="mt-3 relative rounded-xl overflow-hidden border border-purple-200 max-h-36 bg-slate-900">
+                    <img src={newPost.mediaUrl} alt="Preview Desain" className="w-full h-32 object-cover" />
+                    <span className="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[9px] font-mono px-2 py-0.5 rounded-md">
+                      ✓ Desain Siap Diunggah
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Caption Postingan</label>
+                <textarea
+                  rows={3}
+                  placeholder="Tuliskan teks caption promosi/penawaran..."
+                  value={newPost.caption}
+                  onChange={(e) => setNewPost({ ...newPost, caption: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:border-purple-600"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Hashtags</label>
+                <input
+                  type="text"
+                  placeholder="#JemariKilat #FotograferMedan..."
+                  value={newPost.hashtags}
+                  onChange={(e) => setNewPost({ ...newPost, hashtags: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:bg-white focus:outline-none focus:border-purple-600"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsAddPostModalOpen(false)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md active:scale-95"
+                >
+                  Simpan Jadwal Konten
+                </button>
               </div>
             </form>
           </div>
