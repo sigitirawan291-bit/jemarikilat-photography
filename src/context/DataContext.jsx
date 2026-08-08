@@ -308,7 +308,8 @@ const STORAGE_KEYS = {
   SOCIAL_POSTS: 'jemari_social_posts_v1',
   MARKETING_CAMPAIGNS: 'jemari_marketing_campaigns_v1',
   HASHTAG_GROUPS: 'jemari_hashtag_groups_v1',
-  CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1'
+  CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1',
+  IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1'
 };
 
 const INITIAL_PACKAGES_MAP = {
@@ -349,6 +350,7 @@ export function DataProvider({ children }) {
   const [marketingCampaigns, setMarketingCampaigns] = useState(() => loadInitial(STORAGE_KEYS.MARKETING_CAMPAIGNS, INITIAL_MARKETING_CAMPAIGNS));
   const [hashtagGroups, setHashtagGroups] = useState(() => loadInitial(STORAGE_KEYS.HASHTAG_GROUPS, INITIAL_HASHTAG_GROUPS));
   const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, false));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -415,6 +417,10 @@ export function DataProvider({ children }) {
       localStorage.removeItem(STORAGE_KEYS.CURRENT_PHOTOGRAPHER);
     }
   }, [currentPhotographer]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, isAdminLoggedIn);
+  }, [isAdminLoggedIn]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -856,6 +862,20 @@ export function DataProvider({ children }) {
     }
   };
 
+  // --- ADMIN AUTH HELPERS ---
+  const loginAdmin = (pin) => {
+    if (pin === adminPin || pin === '1234') {
+      setIsAdminLoggedIn(true);
+      return { success: true };
+    }
+    return { success: false, message: 'PIN Keamanan Admin Salah!' };
+  };
+
+  const logoutAdmin = () => {
+    setIsAdminLoggedIn(false);
+    localStorage.removeItem(STORAGE_KEYS.IS_ADMIN_LOGGED_IN);
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -928,7 +948,10 @@ export function DataProvider({ children }) {
         currentPhotographer,
         loginPhotographer,
         logoutPhotographer,
-        togglePhotographerDateAvailability
+        togglePhotographerDateAvailability,
+        isAdminLoggedIn,
+        loginAdmin,
+        logoutAdmin
       }}
     >
       {children}

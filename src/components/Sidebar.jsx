@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Layers, Folder, Users, Share2, Hash, Sparkles, 
-  Menu, X, ShieldCheck, ChevronRight, Camera, Lock 
+  Menu, X, ShieldCheck, ChevronRight, Camera, Lock, Shield 
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
@@ -10,51 +10,31 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
     projects = [], 
     photographers = [], 
     socialPosts = [],
-    currentPhotographer
+    currentPhotographer,
+    isAdminLoggedIn
   } = useData();
 
   const navItems = [
     {
       id: 'overview',
-      label: 'Overview Dashboard',
+      label: 'Dashboard Utama',
       icon: Layers,
-      count: null,
-      badgeColor: ''
+      count: 'Laporan Bulanan',
+      badgeColor: 'bg-blue-100 text-blue-700'
+    },
+    {
+      id: 'admin_portal',
+      label: 'Panel Admin Studio',
+      icon: ShieldCheck,
+      count: isAdminLoggedIn ? '🟢 Active' : '🔒 Admin Auth',
+      badgeColor: isAdminLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
     },
     {
       id: 'photographer_portal',
       label: 'Portal Fotografer',
       icon: Camera,
-      count: currentPhotographer ? '🟢 Active' : '🔒 Auth Required',
+      count: currentPhotographer ? '🟢 Active' : '🔒 Crew Auth',
       badgeColor: currentPhotographer ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-    },
-    {
-      id: 'projects',
-      label: 'Project Photography',
-      icon: Folder,
-      count: projects.length,
-      badgeColor: 'bg-blue-100 text-blue-700'
-    },
-    {
-      id: 'team',
-      label: 'Tim Crew & Honorarium',
-      icon: Users,
-      count: photographers.length,
-      badgeColor: 'bg-indigo-100 text-indigo-700'
-    },
-    {
-      id: 'sosmed',
-      label: 'Marketing & Sosmed',
-      icon: Share2,
-      count: socialPosts.length,
-      badgeColor: 'bg-purple-100 text-purple-700'
-    },
-    {
-      id: 'campaigns',
-      label: 'Promo & Campaign',
-      icon: Hash,
-      count: null,
-      badgeColor: ''
     }
   ];
 
