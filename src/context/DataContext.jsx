@@ -52,7 +52,15 @@ const INITIAL_PHOTOGRAPHERS = [
     rating: 4.9,
     completedProjects: 42,
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
-    availability: ['2026-08-02', '2026-08-05', '2026-08-08', '2026-08-10', '2026-08-15', '2026-08-20']
+    availability: ['2026-08-02', '2026-08-05', '2026-08-08', '2026-08-10', '2026-08-15', '2026-08-20'],
+    availabilityMap: {
+      '2026-08-15': { status: 'available', remark: 'Available - Sesi Shooting Pagi & Siang' },
+      '2026-08-20': { status: 'unavailable', remark: 'Off Duty - Liburan Keluar Kota' }
+    },
+    bankAccounts: [
+      { id: 'b-1', bankName: 'Bank BCA', accountNumber: '8000123991', accountHolder: 'Sigit Irawan', isPrimary: true },
+      { id: 'b-2', bankName: 'GoPay / E-Wallet', accountNumber: '081360318361', accountHolder: 'Sigit Irawan', isPrimary: false }
+    ]
   },
   {
     id: 'fg-2',
@@ -66,7 +74,11 @@ const INITIAL_PHOTOGRAPHERS = [
     rating: 4.8,
     completedProjects: 29,
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600',
-    availability: ['2026-08-01', '2026-08-03', '2026-08-07', '2026-08-12', '2026-08-18']
+    availability: ['2026-08-01', '2026-08-03', '2026-08-07', '2026-08-12', '2026-08-18'],
+    availabilityMap: {},
+    bankAccounts: [
+      { id: 'b-3', bankName: 'Bank Mandiri', accountNumber: '1100089210293', accountHolder: 'Rian Pratama', isPrimary: true }
+    ]
   }
 ];
 
@@ -956,6 +968,108 @@ export function DataProvider({ children }) {
     }
   };
 
+  const setPhotographerDateAvailability = (photographerId, dateStr, status, remark) => {
+    setPhotographers(prev => prev.map(p => {
+      if (p.id === photographerId) {
+        const map = { ...(p.availabilityMap || {}) };
+        map[dateStr] = { status, remark: remark || '' };
+        
+        const availList = p.availability || [];
+        const updatedList = status === 'available' 
+          ? (availList.includes(dateStr) ? availList : [...availList, dateStr])
+          : availList.filter(d => d !== dateStr);
+
+        return { ...p, availability: updatedList, availabilityMap: map };
+      }
+      return p;
+    }));
+
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer(prev => {
+        if (!prev) return null;
+        const map = { ...(prev.availabilityMap || {}) };
+        map[dateStr] = { status, remark: remark || '' };
+        const availList = prev.availability || [];
+        const updatedList = status === 'available' 
+          ? (availList.includes(dateStr) ? availList : [...availList, dateStr])
+          : availList.filter(d => d !== dateStr);
+        return { ...prev, availability: updatedList, availabilityMap: map };
+      });
+    }
+  };
+
+  const addPhotographerBankAccount = (photographerId, bankData) => {
+    setPhotographers(prev => prev.map(p => {
+      if (p.id === photographerId) {
+        const currentList = p.bankAccounts || [];
+        const newAcc = {
+          id: 'bank-' + Date.now(),
+          bankName: bankData.bankName,
+          accountNumber: bankData.accountNumber,
+          accountHolder: bankData.accountHolder,
+          isPrimary: currentList.length === 0 || bankData.isPrimary
+        };
+        const updatedList = bankData.isPrimary 
+          ? currentList.map(b => ({ ...b, isPrimary: false })).concat(newAcc)
+          : [...currentList, newAcc];
+        return { ...p, bankAccounts: updatedList };
+      }
+      return p;
+    }));
+
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer(prev => {
+        if (!prev) return null;
+        const currentList = prev.bankAccounts || [];
+        const newAcc = {
+          id: 'bank-' + Date.now(),
+          bankName: bankData.bankName,
+          accountNumber: bankData.accountNumber,
+          accountHolder: bankData.accountHolder,
+          isPrimary: currentList.length === 0 || bankData.isPrimary
+        };
+        const updatedList = bankData.isPrimary 
+          ? currentList.map(b => ({ ...b, isPrimary: false })).concat(newAcc)
+          : [...currentList, newAcc];
+        return { ...prev, bankAccounts: updatedList };
+      });
+    }
+  };
+
+  const deletePhotographerBankAccount = (photographerId, bankId) => {
+    setPhotographers(prev => prev.map(p => {
+      if (p.id === photographerId) {
+        const updatedList = (p.bankAccounts || []).filter(b => b.id !== bankId);
+        return { ...p, bankAccounts: updatedList };
+      }
+      return p;
+    }));
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer(prev => {
+        if (!prev) return null;
+        const updatedList = (prev.bankAccounts || []).filter(b => b.id !== bankId);
+        return { ...prev, bankAccounts: updatedList };
+      });
+    }
+  };
+
+  const setPrimaryPhotographerBankAccount = (photographerId, bankId) => {
+    setPhotographers(prev => prev.map(p => {
+      if (p.id === photographerId) {
+        const updatedList = (p.bankAccounts || []).map(b => ({ ...b, isPrimary: b.id === bankId }));
+        return { ...p, bankAccounts: updatedList };
+      }
+      return p;
+    }));
+    if (currentPhotographer && currentPhotographer.id === photographerId) {
+      setCurrentPhotographer(prev => {
+        if (!prev) return null;
+        const updatedList = (prev.bankAccounts || []).map(b => ({ ...b, isPrimary: b.id === bankId }));
+        return { ...prev, bankAccounts: updatedList };
+      });
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -1041,7 +1155,11 @@ export function DataProvider({ children }) {
         deleteFinanceMember,
         currentFinanceMember,
         setCurrentFinanceMember,
-        updatePhotographerProfile
+        updatePhotographerProfile,
+        setPhotographerDateAvailability,
+        addPhotographerBankAccount,
+        deletePhotographerBankAccount,
+        setPrimaryPhotographerBankAccount
       }}
     >
       {children}

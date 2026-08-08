@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { 
   Calendar, Camera, Clock, MapPin, DollarSign, CheckCircle2, AlertCircle, 
   User, ShieldCheck, LogOut, Lock, ChevronLeft, ChevronRight, ExternalLink, 
-  FileText, Sparkles, Star, Award, ToggleLeft, ToggleRight, Info, Edit3
+  FileText, Sparkles, Star, Award, ToggleLeft, ToggleRight, Info, Edit3, CreditCard, Plus, Building
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import PhotographerLoginModal from '../components/studio/PhotographerLoginModal';
 import EditProfileModal from '../components/studio/EditProfileModal';
+import DateDetailModal from '../components/studio/DateDetailModal';
+import BankAccountsModal from '../components/studio/BankAccountsModal';
 
 export default function PhotographerPortalView() {
   const { 
@@ -18,6 +20,9 @@ export default function PhotographerPortalView() {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isBankModalOpen, setIsBankModalOpen] = useState(false);
+  const [isDateDetailModalOpen, setIsDateDetailModalOpen] = useState(false);
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState(null);
   const [activePortalTab, setActivePortalTab] = useState('calendar'); // calendar, projects, payouts
   
   // Calendar month state (default to August 2026 based on project sample dates)
@@ -308,14 +313,26 @@ export default function PhotographerPortalView() {
                 const dayStr = String(day).padStart(2, '0');
                 const fullDateStr = `${currentYear}-${monthStr}-${dayStr}`;
 
+                const availMap = currentPhotographer.availabilityMap || {};
+                const dateInfo = availMap[fullDateStr];
+                const isExplicitAvailable = dateInfo?.status === 'available' || (currentPhotographer.availability && currentPhotographer.availability.includes(fullDateStr));
+                const isExplicitUnavailable = dateInfo?.status === 'unavailable';
+
                 return (
                   <div
                     key={day}
-                    onClick={() => setSelectedDateFilter(fullDateStr)}
+                    onClick={() => {
+                      setSelectedCalendarDate(fullDateStr);
+                      setIsDateDetailModalOpen(true);
+                    }}
                     className={`
-                      h-24 sm:h-28 p-2 rounded-2xl border transition-all flex flex-col justify-between cursor-pointer relative overflow-hidden group
+                      h-28 sm:h-32 p-2 rounded-2xl border transition-all flex flex-col justify-between cursor-pointer relative overflow-hidden group
                       ${hasShoots 
-                        ? 'bg-blue-50/80 border-blue-300 shadow-md shadow-blue-500/10 hover:border-blue-500 ring-2 ring-blue-400/20' 
+                        ? 'bg-blue-50/90 border-blue-300 shadow-md shadow-blue-500/10 hover:border-blue-500 ring-2 ring-blue-400/30' 
+                        : isExplicitUnavailable
+                        ? 'bg-rose-50/70 border-rose-200 hover:border-rose-300'
+                        : isExplicitAvailable
+                        ? 'bg-emerald-50/50 border-emerald-200 hover:border-emerald-300'
                         : 'bg-white border-slate-200/80 hover:bg-slate-50 hover:border-slate-300'
                       }
                     `}
@@ -324,27 +341,42 @@ export default function PhotographerPortalView() {
                       <span className={`text-xs font-mono font-bold ${hasShoots ? 'text-blue-700' : 'text-slate-700'}`}>
                         {day}
                       </span>
-                      {hasShoots && (
-                        <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                      )}
+                      {hasShoots ? (
+                        <span className="px-1.5 py-0.5 bg-blue-600 text-white text-[9px] font-mono font-bold rounded-md animate-pulse">
+                          {dayShoots.length} Job
+                        </span>
+                      ) : isExplicitUnavailable ? (
+                        <span className="w-2 h-2 rounded-full bg-rose-500" title="Not Available / Off" />
+                      ) : isExplicitAvailable ? (
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" title="Available" />
+                      ) : null}
                     </div>
 
-                    <div className="space-y-1">
-                      {hasShoots ? (
+                    {/* Content inside day cell */}
+                    <div className="space-y-1 my-auto">
+                      {hasShoots && (
                         dayShoots.map((shoot) => (
                           <div
                             key={shoot.id}
-                            className="bg-blue-600 text-white p-1.5 rounded-xl text-[10px] font-bold leading-tight truncate shadow-sm"
+                            className="bg-blue-600 text-white p-1 rounded-lg text-[9px] font-bold leading-tight truncate shadow-sm"
                             title={`${shoot.clientName} - ${shoot.eventType}`}
                           >
-                            📸 {shoot.clientName?.split(' ')[0]}
+                            🏆 {shoot.clientName?.split(' ')[0]}
                           </div>
                         ))
-                      ) : (
-                        <span className="text-[10px] text-slate-300 font-mono block opacity-0 group-hover:opacity-100 transition-opacity">
-                          Kosong
-                        </span>
                       )}
+
+                      {dateInfo?.remark && (
+                        <div className={`text-[9px] font-semibold p-1 rounded-md line-clamp-2 leading-tight ${
+                          isExplicitUnavailable ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'
+                        }`}>
+                          💬 {dateInfo.remark}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="text-[9px] font-mono text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-between">
+                      <span>Click to detail</span>
                     </div>
                   </div>
                 );
@@ -547,6 +579,48 @@ export default function PhotographerPortalView() {
             </div>
           </div>
 
+          {/* Multi-Bank Accounts & E-Wallet Section */}
+          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold font-serif text-slate-900 flex items-center gap-2">
+                  <CreditCard size={18} className="text-emerald-600" /> Daftar Rekening Bank & E-Wallet Saya ({currentPhotographer.bankAccounts?.length || 0})
+                </h3>
+                <p className="text-xs text-slate-500">Rekening pilihan untuk pencairan fee honorarium dari studio (Dapat menambah lebih dari 1 rekening)</p>
+              </div>
+
+              <button
+                onClick={() => setIsBankModalOpen(true)}
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md"
+              >
+                <Plus size={15} /> + Kelola Rekening Bank
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {(currentPhotographer.bankAccounts || []).map((acc) => (
+                <div key={acc.id} className={`p-4 rounded-2xl border transition-all ${
+                  acc.isPrimary ? 'bg-emerald-50/80 border-emerald-300 shadow-sm' : 'bg-slate-50 border-slate-200'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-slate-900 font-serif">{acc.bankName}</span>
+                    {acc.isPrimary && (
+                      <span className="px-2 py-0.5 bg-emerald-600 text-white text-[9px] font-mono font-bold rounded-md">
+                        ⭐️ Utama
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-base font-mono font-bold text-slate-900 mt-1">
+                    {acc.accountNumber}
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5">
+                    a.n {acc.accountHolder}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Detailed Payout Ledger Table */}
           <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
             <h3 className="text-base font-bold font-serif text-slate-900 flex items-center gap-2">
@@ -602,11 +676,27 @@ export default function PhotographerPortalView() {
         </div>
       )}
 
+      {/* Modals */}
       <EditProfileModal
         isOpen={isEditProfileModalOpen}
         onClose={() => setIsEditProfileModalOpen(false)}
         member={currentPhotographer}
         type="photographer"
+      />
+
+      <BankAccountsModal
+        isOpen={isBankModalOpen}
+        onClose={() => setIsBankModalOpen(false)}
+        photographer={currentPhotographer}
+      />
+
+      <DateDetailModal
+        isOpen={isDateDetailModalOpen}
+        onClose={() => setIsDateDetailModalOpen(false)}
+        dateStr={selectedCalendarDate}
+        photographerId={currentPhotographer.id}
+        projects={selectedCalendarDate ? getShootsForDay(Number(selectedCalendarDate.split('-')[2])) : []}
+        availabilityInfo={selectedCalendarDate ? currentPhotographer.availabilityMap?.[selectedCalendarDate] : null}
       />
     </div>
   );
