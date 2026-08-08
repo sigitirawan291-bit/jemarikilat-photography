@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { 
   Calendar, Camera, Clock, MapPin, DollarSign, CheckCircle2, AlertCircle, 
   User, ShieldCheck, LogOut, Lock, ChevronLeft, ChevronRight, ExternalLink, 
-  FileText, Sparkles, Star, Award, ToggleLeft, ToggleRight, Info
+  FileText, Sparkles, Star, Award, ToggleLeft, ToggleRight, Info, Edit3
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import PhotographerLoginModal from '../components/studio/PhotographerLoginModal';
+import EditProfileModal from '../components/studio/EditProfileModal';
 
 export default function PhotographerPortalView() {
   const { 
@@ -16,6 +17,7 @@ export default function PhotographerPortalView() {
   } = useData();
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [activePortalTab, setActivePortalTab] = useState('calendar'); // calendar, projects, payouts
   
   // Calendar month state (default to August 2026 based on project sample dates)
@@ -178,6 +180,13 @@ export default function PhotographerPortalView() {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsEditProfileModalOpen(true)}
+              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-md"
+            >
+              <Edit3 size={14} /> Edit Data Diri & Foto
+            </button>
+
             <button
               onClick={logoutPhotographer}
               className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition-all border border-white/10"
@@ -592,6 +601,13 @@ export default function PhotographerPortalView() {
           </div>
         </div>
       )}
+
+      <EditProfileModal
+        isOpen={isEditProfileModalOpen}
+        onClose={() => setIsEditProfileModalOpen(false)}
+        member={currentPhotographer}
+        type="photographer"
+      />
     </div>
   );
 }

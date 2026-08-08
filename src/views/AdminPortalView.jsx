@@ -21,6 +21,7 @@ export default function AdminPortalView() {
     photographers = [], 
     deletePhotographer, 
     toggleFgAvailability,
+    financeTeam = [],
     socialPosts = [], 
     updatePostStatus, 
     deleteSocialPost,
@@ -34,6 +35,8 @@ export default function AdminPortalView() {
 
   const [isAdminLoginModalOpen, setIsAdminLoginModalOpen] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState('projects'); // projects, team, sosmed, campaigns
+  const [teamSubTab, setTeamSubTab] = useState('photographers'); // photographers or finance
+  const [defaultTeamType, setDefaultTeamType] = useState('photographer');
 
   // Modals state
   const [selectedProject, setSelectedProject] = useState(null);
@@ -343,47 +346,143 @@ export default function AdminPortalView() {
         </div>
       )}
 
-      {/* --- TAB 2: MENENTUKAN FOTOGRAFER & HONORARIUM --- */}
+      {/* --- TAB 2: MENENTUKAN FOTOGRAFER & TIM KEUANGAN --- */}
       {activeAdminTab === 'team' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-xl font-bold font-serif text-slate-900 flex items-center gap-2">
-                <Users size={20} className="text-blue-600" /> Penugasan Fotografer & Honorarium Crew
+                <Users size={20} className="text-blue-600" /> Penugasan Tim Studio & Pembuatan Akun
               </h2>
-              <p className="text-xs text-slate-500">Tentukan tim fotografer per project dan kelola status pembayaran fee crew</p>
+              <p className="text-xs text-slate-500">Tentukan tim fotografer per project, buat akun baru, dan kelola tim keuangan studio</p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setSelectedMember(null);
+                  setDefaultTeamType('photographer');
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:from-blue-700 hover:to-indigo-700"
+              >
+                <Plus size={15} /> + Akun Fotografer
+              </button>
+
+              <button
+                onClick={() => {
+                  setSelectedMember(null);
+                  setDefaultTeamType('finance');
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:from-emerald-700 hover:to-teal-700"
+              >
+                <Plus size={15} /> + Akun Keuangan
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {photographers.map((fg) => (
-              <div key={fg.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img src={fg.avatar} alt={fg.name} className="w-12 h-12 rounded-2xl object-cover border border-slate-200" />
-                    <div>
-                      <h4 className="font-bold text-base text-slate-900 font-serif">{fg.name}</h4>
-                      <span className="text-xs text-slate-500 font-medium block">{fg.specialty}</span>
+          {/* Sub-tabs switch */}
+          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+            <button
+              onClick={() => setTeamSubTab('photographers')}
+              className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+                teamSubTab === 'photographers'
+                  ? 'bg-blue-100 text-blue-800 border border-blue-200'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              <Users size={14} /> Tim Fotografer & Crew ({photographers.length})
+            </button>
+            <button
+              onClick={() => setTeamSubTab('finance')}
+              className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+                teamSubTab === 'finance'
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              <DollarSign size={14} /> Tim Keuangan Studio ({financeTeam.length})
+            </button>
+          </div>
+
+          {teamSubTab === 'photographers' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {photographers.map((fg) => (
+                <div key={fg.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <img src={fg.avatar} alt={fg.name} className="w-12 h-12 rounded-2xl object-cover border border-slate-200" />
+                      <div>
+                        <h4 className="font-bold text-base text-slate-900 font-serif">{fg.name}</h4>
+                        <span className="text-xs text-slate-500 font-medium block">{fg.specialty}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedMember(fg);
+                          setDefaultTeamType('photographer');
+                          setIsMemberModalOpen(true);
+                        }}
+                        className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+                        title="Edit Profil"
+                      >
+                        <Edit3 size={15} />
+                      </button>
+                      <button
+                        onClick={() => toggleFgAvailability(fg.id)}
+                        className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
+                          fg.availability?.length > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                        }`}
+                      >
+                        {fg.availability?.length > 0 ? '🟢 Active' : '🔴 Off'}
+                      </button>
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => toggleFgAvailability(fg.id)}
-                    className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
-                      fg.availability?.length > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                    }`}
-                  >
-                    {fg.availability?.length > 0 ? '🟢 Active' : '🔴 Off'}
-                  </button>
+                  <div className="text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-2xl">
+                    <div className="font-semibold text-slate-800">Gear Spec: {fg.gear}</div>
+                    <div className="text-slate-500">Contact: {fg.phone} | {fg.email} | PIN: <span className="font-mono font-bold">{fg.pin || '1234'}</span></div>
+                  </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {financeTeam.map((fin) => (
+                <div key={fin.id} className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-3d-card space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <img src={fin.avatar} alt={fin.name} className="w-12 h-12 rounded-2xl object-cover border border-slate-200" />
+                      <div>
+                        <h4 className="font-bold text-base text-slate-900 font-serif">{fin.name}</h4>
+                        <span className="text-xs text-emerald-700 font-bold block">{fin.role}</span>
+                      </div>
+                    </div>
 
-                <div className="text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-2xl">
-                  <div className="font-semibold text-slate-800">Gear Spec: {fg.gear}</div>
-                  <div className="text-slate-500">Contact: {fg.phone} | {fg.email}</div>
+                    <button
+                      onClick={() => {
+                        setSelectedMember(fin);
+                        setDefaultTeamType('finance');
+                        setIsMemberModalOpen(true);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+                      title="Edit Profil"
+                    >
+                      <Edit3 size={15} />
+                    </button>
+                  </div>
+
+                  <div className="text-xs text-slate-600 space-y-1 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100">
+                    <div className="font-semibold text-emerald-950">Bio: {fin.bio}</div>
+                    <div className="text-slate-500">Contact: {fin.phone} | {fin.email} | PIN: <span className="font-mono font-bold">{fin.pin || '1234'}</span></div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -524,6 +623,7 @@ export default function AdminPortalView() {
         isOpen={isMemberModalOpen}
         onClose={() => setIsMemberModalOpen(false)}
         member={selectedMember}
+        defaultType={defaultTeamType}
       />
     </div>
   );

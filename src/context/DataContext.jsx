@@ -310,8 +310,23 @@ const STORAGE_KEYS = {
   HASHTAG_GROUPS: 'jemari_hashtag_groups_v1',
   CURRENT_PHOTOGRAPHER: 'jemari_current_photographer_v1',
   IS_ADMIN_LOGGED_IN: 'jemari_is_admin_logged_in_v1',
-  IS_FINANCE_LOGGED_IN: 'jemari_is_finance_logged_in_v1'
+  IS_FINANCE_LOGGED_IN: 'jemari_is_finance_logged_in_v1',
+  FINANCE_TEAM: 'jemari_finance_team_v1',
+  CURRENT_FINANCE_MEMBER: 'jemari_current_finance_member_v1'
 };
+
+const INITIAL_FINANCE_TEAM = [
+  {
+    id: 'fin-1',
+    name: 'Siti Rahma',
+    role: 'Head of Finance & Accounting',
+    phone: '081234567890',
+    email: 'siti.finance@jemarikilat.com',
+    pin: '1234',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600',
+    bio: 'Pengelola arus kas studio, payroll honorarium crew, dan pencatatan laba bersih.'
+  }
+];
 
 const INITIAL_PACKAGES_MAP = {
   wedding: INITIAL_WEDDING_PACKAGES,
@@ -353,6 +368,8 @@ export function DataProvider({ children }) {
   const [currentPhotographer, setCurrentPhotographer] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_PHOTOGRAPHER, null));
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_ADMIN_LOGGED_IN, false));
   const [isFinanceLoggedIn, setIsFinanceLoggedIn] = useState(() => loadInitial(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, false));
+  const [financeTeam, setFinanceTeam] = useState(() => loadInitial(STORAGE_KEYS.FINANCE_TEAM, INITIAL_FINANCE_TEAM));
+  const [currentFinanceMember, setCurrentFinanceMember] = useState(() => loadInitial(STORAGE_KEYS.CURRENT_FINANCE_MEMBER, INITIAL_FINANCE_TEAM[0]));
 
   // Helper to safely save to localStorage without throwing QuotaExceededError
   const safeSaveLocalStorage = (key, data) => {
@@ -427,6 +444,16 @@ export function DataProvider({ children }) {
   useEffect(() => {
     safeSaveLocalStorage(STORAGE_KEYS.IS_FINANCE_LOGGED_IN, isFinanceLoggedIn);
   }, [isFinanceLoggedIn]);
+
+  useEffect(() => {
+    safeSaveLocalStorage(STORAGE_KEYS.FINANCE_TEAM, financeTeam);
+  }, [financeTeam]);
+
+  useEffect(() => {
+    if (currentFinanceMember) {
+      safeSaveLocalStorage(STORAGE_KEYS.CURRENT_FINANCE_MEMBER, currentFinanceMember);
+    }
+  }, [currentFinanceMember]);
 
   // Helper getters for backward compatibility
   const weddingPackages = (packagesMap && packagesMap.wedding) || [];
@@ -896,6 +923,39 @@ export function DataProvider({ children }) {
     localStorage.removeItem(STORAGE_KEYS.IS_FINANCE_LOGGED_IN);
   };
 
+  // --- FINANCE TEAM METHODS ---
+  const addFinanceMember = (data) => {
+    const newMember = {
+      id: 'fin-' + Date.now(),
+      name: data.name,
+      role: data.role || 'Finance Staff',
+      phone: data.phone || '',
+      email: data.email || '',
+      pin: data.pin || '1234',
+      avatar: data.avatar || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600',
+      bio: data.bio || ''
+    };
+    setFinanceTeam(prev => [newMember, ...prev]);
+  };
+
+  const updateFinanceMember = (id, data) => {
+    setFinanceTeam(prev => prev.map(m => m.id === id ? { ...m, ...data } : m));
+    if (currentFinanceMember && currentFinanceMember.id === id) {
+      setCurrentFinanceMember(prev => ({ ...prev, ...data }));
+    }
+  };
+
+  const deleteFinanceMember = (id) => {
+    setFinanceTeam(prev => prev.filter(m => m.id !== id));
+  };
+
+  const updatePhotographerProfile = (id, data) => {
+    setPhotographers(prev => prev.map(p => p.id === id ? { ...p, ...data } : p));
+    if (currentPhotographer && currentPhotographer.id === id) {
+      setCurrentPhotographer(prev => ({ ...prev, ...data }));
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -974,7 +1034,14 @@ export function DataProvider({ children }) {
         logoutAdmin,
         isFinanceLoggedIn,
         loginFinance,
-        logoutFinance
+        logoutFinance,
+        financeTeam,
+        addFinanceMember,
+        updateFinanceMember,
+        deleteFinanceMember,
+        currentFinanceMember,
+        setCurrentFinanceMember,
+        updatePhotographerProfile
       }}
     >
       {children}

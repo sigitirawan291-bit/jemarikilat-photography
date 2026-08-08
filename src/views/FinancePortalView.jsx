@@ -2,20 +2,23 @@ import React, { useState } from 'react';
 import { 
   DollarSign, Lock, LogOut, TrendingUp, Calendar, Filter, Search, 
   CheckCircle2, Clock, AlertCircle, ArrowUpRight, ArrowDownRight, 
-  PieChart, ShieldCheck, FileText, Download, Wallet, CreditCard
+  PieChart, ShieldCheck, FileText, Download, Wallet, CreditCard, Edit3
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import FinanceLoginModal from '../components/studio/FinanceLoginModal';
+import EditProfileModal from '../components/studio/EditProfileModal';
 
 export default function FinancePortalView() {
   const { 
     isFinanceLoggedIn, 
     logoutFinance, 
     projects = [], 
-    updateProject 
+    updateProject,
+    currentFinanceMember
   } = useData();
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [selectedMonthFilter, setSelectedMonthFilter] = useState('2026-08');
   const [selectedPaymentStatusFilter, setSelectedPaymentStatusFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
@@ -115,24 +118,43 @@ export default function FinancePortalView() {
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono font-bold rounded-full uppercase">
-                🟢 Finance Access Authenticated
-              </span>
-              <span className="text-xs text-slate-400 font-mono">Confidential Financial Vault</span>
+          <div className="flex items-center gap-5">
+            {currentFinanceMember && (
+              <img
+                src={currentFinanceMember.avatar}
+                alt={currentFinanceMember.name}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-emerald-500/40 shadow-xl shrink-0"
+              />
+            )}
+
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono font-bold rounded-full uppercase">
+                  🟢 Finance Officer Logged In
+                </span>
+                <span className="text-xs text-slate-400 font-mono">{currentFinanceMember?.name || 'Siti Rahma'}</span>
+              </div>
+
+              <h1 className="text-2xl sm:text-4xl font-extrabold font-serif tracking-tight">
+                Laporan Keuangan & <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Kas Studio</span>
+              </h1>
+
+              <p className="text-xs sm:text-sm text-slate-300">
+                {currentFinanceMember?.role || 'Head of Finance & Accounting'} — Rekap omzet bulanan, piutang client, beban honor crew, dan laba bersih studio.
+              </p>
             </div>
-
-            <h1 className="text-2xl sm:text-4xl font-extrabold font-serif tracking-tight">
-              Laporan Keuangan & <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Kas Studio</span>
-            </h1>
-
-            <p className="text-xs sm:text-sm text-slate-300">
-              Rekap omzet bulanan, piutang client, beban honorarium crew, dan kalkulasi laba bersih studio photography.
-            </p>
           </div>
 
           <div className="flex items-center gap-3">
+            {currentFinanceMember && (
+              <button
+                onClick={() => setIsEditProfileModalOpen(true)}
+                className="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-md"
+              >
+                <Edit3 size={14} /> Edit Data Diri & Foto
+              </button>
+            )}
+
             <button
               onClick={logoutFinance}
               className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition-all border border-white/10"
@@ -309,6 +331,13 @@ export default function FinancePortalView() {
           </table>
         </div>
       </div>
+
+      <EditProfileModal
+        isOpen={isEditProfileModalOpen}
+        onClose={() => setIsEditProfileModalOpen(false)}
+        member={currentFinanceMember}
+        type="finance"
+      />
     </div>
   );
 }
