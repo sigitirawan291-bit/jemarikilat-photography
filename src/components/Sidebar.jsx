@@ -22,35 +22,35 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileMenuOpen, set
       id: 'overview',
       label: 'Dashboard Utama',
       icon: Layers,
-      count: 'Activity & Status',
+      count: 'Ringkasan Laporan',
       badgeColor: 'bg-blue-100 text-blue-700'
     },
     {
       id: 'admin_portal',
       label: 'Panel Admin Studio',
       icon: ShieldCheck,
-      count: isAdminLoggedIn ? '🟢 Active' : '🔒 Admin Auth',
+      count: isAdminLoggedIn ? '🟢 Akses Terbuka' : '🔒 Autentikasi Admin',
       badgeColor: isAdminLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
     },
     {
       id: 'finance_portal',
       label: 'Keuangan Studio',
       icon: DollarSign,
-      count: isFinanceLoggedIn ? '🟢 Active' : '🔒 Vault Auth',
+      count: isFinanceLoggedIn ? '🟢 Akses Terbuka' : '🔒 Autentikasi Keuangan',
       badgeColor: isFinanceLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-teal-100 text-teal-800'
     },
     {
       id: 'marketing_portal',
       label: 'Digital Marketing',
       icon: Megaphone,
-      count: isMarketingLoggedIn ? '🟢 Active' : '🔒 Mkt Auth',
+      count: isMarketingLoggedIn ? '🟢 Akses Terbuka' : '🔒 Autentikasi Marketing',
       badgeColor: isMarketingLoggedIn ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'
     },
     {
       id: 'photographer_portal',
       label: 'Portal Fotografer',
       icon: Camera,
-      count: currentPhotographer ? '🟢 Active' : '🔒 Crew Auth',
+      count: currentPhotographer ? '🟢 Akses Terbuka' : '🔒 Autentikasi Fotografer',
       badgeColor: currentPhotographer ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
     }
   ];
