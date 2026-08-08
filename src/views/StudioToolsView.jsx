@@ -11,7 +11,7 @@ import ProjectModal from '../components/studio/ProjectModal';
 import ContentPlannerModal from '../components/studio/ContentPlannerModal';
 import TeamMemberModal from '../components/studio/TeamMemberModal';
 
-export default function StudioToolsView() {
+export default function StudioToolsView({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }) {
   const { 
     projects = [], 
     updateProjectStatus, 
@@ -31,7 +31,9 @@ export default function StudioToolsView() {
     deleteHashtagGroup
   } = useData();
 
-  const [activeTab, setActiveTab] = useState('overview'); // overview, projects, team, sosmed, campaigns
+  const [internalActiveTab, setInternalActiveTab] = useState('overview'); // overview, projects, team, sosmed, campaigns
+  const activeTab = propActiveTab || internalActiveTab;
+  const setActiveTab = propSetActiveTab || setInternalActiveTab;
   const [projectFilterStatus, setProjectFilterStatus] = useState('ALL');
   const [projectSearch, setProjectSearch] = useState('');
   
@@ -210,63 +212,7 @@ export default function StudioToolsView() {
         </div>
       </div>
 
-      {/* Main Tab Bar - Floating 3D Pill Navigation */}
-      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-2xl shadow-3d-sm overflow-x-auto">
-        <button
-          onClick={() => setActiveTab('overview')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'overview'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-          }`}
-        >
-          <Layers size={15} /> Overview Dashboard
-        </button>
 
-        <button
-          onClick={() => setActiveTab('projects')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'projects'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-          }`}
-        >
-          <Folder size={15} /> Project Photography ({projects.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('team')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'team'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-          }`}
-        >
-          <Users size={15} /> Tim Crew & Honorarium ({photographers.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('sosmed')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'sosmed'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-          }`}
-        >
-          <Share2 size={15} /> Marketing & Sosmed ({socialPosts.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('campaigns')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'campaigns'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-          }`}
-        >
-          <Hash size={15} /> Marketing Campaigns
-        </button>
-      </div>
 
       {/* TAB 1: OVERVIEW DASHBOARD */}
       {activeTab === 'overview' && (

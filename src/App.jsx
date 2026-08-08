@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import { DataProvider } from './context/DataContext';
 import StudioToolsView from './views/StudioToolsView';
 
 function AppContent() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between selection:bg-blue-600 selection:text-white font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col md:flex-row selection:bg-blue-600 selection:text-white font-sans">
       
-      {/* Top Glassmorphism Navigation Header */}
-      <Navbar />
+      {/* Left Sidebar Navigation */}
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
-      {/* Core Studio Management Tools Main View */}
-      <main className="flex-1">
-        <StudioToolsView />
-      </main>
+      {/* Main Studio View Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+          <StudioToolsView activeTab={activeTab} setActiveTab={setActiveTab} />
+        </main>
 
-      {/* White 3D Studio Footer */}
-      <Footer />
+        {/* Studio Footer */}
+        <Footer />
+      </div>
 
     </div>
   );
@@ -30,3 +40,4 @@ export default function App() {
     </DataProvider>
   );
 }
+
